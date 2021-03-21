@@ -1,0 +1,29 @@
+ion-header {
+    ion-buttons {
+      justify-content: flex-end;
+      height: 106px;
+      margin: 0 20px;
+  
+      span {
+        margin-right: 15px;
+        color: #838383;
+        font-size: 18px;
+        font-weight: 700;
+        width: calc(100% - 70px);
+        text-align: right;
+      }
+  
+      ion-avatar {
+        position: relative;
+        width: 73px;
+        height: 70px;
+        box-shadow: 0 4px 4px rgba(84, 84, 84, 0.25);
+        ion-spinner {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+        }
+      }
+    }
+  }
+  
