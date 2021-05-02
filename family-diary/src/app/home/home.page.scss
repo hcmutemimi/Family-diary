@@ -1,5 +1,5 @@
 ion-header {
-  background-color: var(--grayE5);
+  // background-color: var(--grayE5);
 
   ion-buttons {
     justify-content: flex-end;
@@ -44,6 +44,82 @@ ion-header {
       margin: 0 5px;
       height: 40px;
       width: 40px;
+    }
+  }
+}
+
+ion-content {
+  .sayhi {
+    height: 90px;
+    font-size: 23px;
+    letter-spacing: 1.1px;
+  }
+
+  ion-slides {
+    --bullet-background: #ccc;
+    background-color: #EFEFEF;
+    --bullet-background-active: var(--main-color);
+
+    ion-slide {
+      margin: 8px 0px 26px 00px;
+      height: 104px;
+
+      ion-item-group {
+        color: #434141;
+        font-size: 16px;
+
+        .to-do-content {
+          display: flex;
+          border-bottom-left-radius: 8px;
+          border-bottom-right-radius: 8px;
+          padding-bottom: 8px;
+
+          img {
+            width: 40px;
+            height: 40px;
+            margin-left: 6px;
+          }
+
+          .to-do-item {
+            background: #fff;
+            border-bottom-right-radius: 8px;
+
+            span {
+              line-height: 23px;
+            }
+
+          }
+        }
+
+        .to-do-title {
+          border-top-left-radius: 8px;
+          border-top-right-radius: 8px;
+          display: block;
+          text-align: center;
+          img {
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            left: 30px;
+          }
+
+          ion-icon {
+            right: 19px;
+            position: absolute;
+          }
+        }
+
+        div {
+          width: 93%;
+          padding: 8px 0 0;
+          margin-left: 16px;
+          background: #fff;
+          display: flex;
+
+        }
+
+        width: 100%;
+      }
     }
   }
 }

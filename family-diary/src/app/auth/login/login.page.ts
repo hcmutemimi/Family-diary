@@ -119,9 +119,9 @@ export class LoginPage implements OnInit {
     if (!this.canSubmitLogin()) {
       this.markFormGroupTouched(this.formLogin);
     } else {
-      this.authService.login(this.formLogin.value).subscribe(() => {
+      this.authService.signin(this.formLogin.value).subscribe(() => {
         this.setLocalStore()
-        this.router.navigate(['main/chabad']);
+        this.router.navigate(['home']);
       });
     }
   }

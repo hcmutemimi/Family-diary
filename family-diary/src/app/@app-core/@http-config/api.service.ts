@@ -6,7 +6,7 @@ export const API_URL = new InjectionToken<string>('apiUrl');
 export const APICONFIG =  {
   BASEPOINT: environment.apiUrl,
   AUTH: {
-    LOGIN: '/auth/login',
+    SIGNIN: '/auth/signin',
     SIGNUP: `/auth/signup`,
     ACTIVE_ACCOUNT: `/auth/active/`,
     TYPE_OF_USER: `/auth/users/profile`,

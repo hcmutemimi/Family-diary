@@ -62,33 +62,47 @@
       </ion-avatar>
     </li>
   </ul>
-  <ion-title>
-    Sleep <br />
-    well!
-  </ion-title>
 </ion-header>
 <ion-content>
+  <ion-item-group class="sayhi ion-padding">
+    <ion-label>
+      Sleep <br />
+      well!
+    </ion-label>
+  </ion-item-group>
+
   <ion-slides pager="true" [options]="slideOpts">
     <ion-slide>
       <ion-item-group>
-        <img src="assets/img/stick.svg" alt="" />
-        Việc bạn cần làm tiếp theo
-
-      </ion-item-group>
-      <ion-item-group>
-        <img src="" alt="">
-        <ion-buttons>
-          <ion-title>
-            Đi lễ 
-          </ion-title>
-          <ion-label>
-
-          </ion-label>
-        </ion-buttons>
+        <div class="to-do-title">
+          <img src="assets/img/stick.svg" alt="" />
+          Việc bạn cần làm tiếp theo
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+        </div>
+        <div class="to-do-content">
+          <img src="assets/img/oclock.png" alt="" class="o-clock" />
+          <ion-item-group class="to-do-item">
+            <span>Talk to Mi about Picniic</span><br>
+            <span> Overdue: 18:00, T7, 20 Th3</span>
+          </ion-item-group>
+        </div>
       </ion-item-group>
     </ion-slide>
     <ion-slide>
-      <h1>Slide 2</h1>
+      <ion-item-group>
+        <div class="to-do-title">
+          <img src="assets/img/stick.svg" alt="" />
+          Việc bạn cần làm tiếp theo
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+        </div>
+        <div class="to-do-content">
+          <img src="assets/img/oclock.png" alt="" class="o-clock" />
+          <ion-item-group class="to-do-item">
+            <span>Talk to Mi about Picniic</span><br>
+            <span> Overdue: 18:00, T7, 20 Th3</span>
+          </ion-item-group>
+        </div>
+      </ion-item-group>
     </ion-slide>
     <ion-slide>
       <h1>Slide 3</h1>
