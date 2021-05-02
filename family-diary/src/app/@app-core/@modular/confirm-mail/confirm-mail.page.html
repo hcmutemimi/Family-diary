@@ -1,0 +1,14 @@
+<ion-content> 
+  <ion-item-group>
+    <ion-label class="title">Xác thực đăng ký</ion-label>
+    <ion-label class="confirm">Nhập mã xác nhận được gửi qua email</ion-label>
+    <ion-label class="email">{{data.email}}</ion-label>
+    <ion-input type="text" placeholder="6 code" [(ngModel)]="code" ></ion-input>
+    <ion-label class="wrong" [ngClass]= "{'hidden': wrong}">
+      Mã sai! Vui lòng kiểm tra lại
+    </ion-label>
+    <ion-button class="btn btn-confirm"(click)="confirm()"> ĐỒNG Ý</ion-button>
+  </ion-item-group>
+ 
+  
+</ion-content>

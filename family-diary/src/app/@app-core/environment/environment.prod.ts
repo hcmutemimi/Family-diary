@@ -1,5 +1,5 @@
 
 export const environment = {
-  production: true,
-  apiUrl:'https://kito-api.herokuapp.com/',
+  production: false,
+  apiUrl:'http://localhost:8081',
 };

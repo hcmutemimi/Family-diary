@@ -1,14 +1,98 @@
 <ion-header class="ion-no-border">
   <ion-buttons class="user-container">
-    <span *ngIf="name">Hi {{ name }}!</span>
+    <span *ngIf="name">Hi! {{ name }}</span>
     <ion-avatar class="main-box-shadow active-effect" (click)="goToUserInfo()">
-      <img src="{{avatarReplace}}" alt="">
-    <ion-spinner *ngIf="!avatarReplace" class="absolute-center" name="lines"></ion-spinner>
+      <img src="{{avatarReplace}}" alt="" />
+      <ion-spinner
+        *ngIf="!avatarReplace"
+        class="absolute-center"
+        name="lines"
+      ></ion-spinner>
     </ion-avatar>
   </ion-buttons>
+  <ul class="family-member">
+    <li>
+      <ion-avatar class="family-member--img">
+        <img src="assets/img/avatar.png" alt="" />
+      </ion-avatar>
+    </li>
+    <li>
+      <ion-avatar class="family-member--img">
+        <img src="assets/img/avatar.png" alt="" />
+      </ion-avatar>
+    </li>
+    <li>
+      <ion-avatar class="family-member--img">
+        <img src="assets/img/avatar.png" alt="" />
+      </ion-avatar>
+    </li>
+    <li>
+      <ion-avatar class="family-member--img">
+        <img src="assets/img/avatar.png" alt="" />
+      </ion-avatar>
+    </li>
+    <li>
+      <ion-avatar class="family-member--img">
+        <img src="assets/img/avatar.png" alt="" />
+      </ion-avatar>
+    </li>
+    <li>
+      <ion-avatar class="family-member--img">
+        <img src="assets/img/avatar.png" alt="" />
+      </ion-avatar>
+    </li>
+    <li>
+      <ion-avatar class="family-member--img">
+        <img src="assets/img/avatar.png" alt="" />
+      </ion-avatar>
+    </li>
+    <li>
+      <ion-avatar class="family-member--img">
+        <img src="assets/img/avatar.png" alt="" />
+      </ion-avatar>
+    </li>
+    <li>
+      <ion-avatar class="family-member--img">
+        <img src="assets/img/avatar.png" alt="" />
+      </ion-avatar>
+    </li>
+    <li>
+      <ion-avatar class="family-member--img">
+        <img src="assets/img/avatar.png" alt="" />
+      </ion-avatar>
+    </li>
+  </ul>
+  <ion-title>
+    Sleep <br />
+    well!
+  </ion-title>
 </ion-header>
-
-
 <ion-content>
+  <ion-slides pager="true" [options]="slideOpts">
+    <ion-slide>
+      <ion-item-group>
+        <img src="assets/img/stick.svg" alt="" />
+        Việc bạn cần làm tiếp theo
 
+      </ion-item-group>
+      <ion-item-group>
+        <img src="" alt="">
+        <ion-buttons>
+          <ion-title>
+            Đi lễ 
+          </ion-title>
+          <ion-label>
+
+          </ion-label>
+        </ion-buttons>
+      </ion-item-group>
+    </ion-slide>
+    <ion-slide>
+      <h1>Slide 2</h1>
+    </ion-slide>
+    <ion-slide>
+      <h1>Slide 3</h1>
+    </ion-slide>
+  </ion-slides>
+  <div class="content">hoaimiqng</div>
 </ion-content>

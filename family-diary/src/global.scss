@@ -24,7 +24,28 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
-
+:root {
+    --grayE5:  #E5E5E5;
+    --back43: #434141;
+    --main-color: #00B0B2;
+  }
 .display-none {
     display: none;
+}
+.confirm-modal {
+  --height: 250px;
+  .modal-wrapper {
+    position: absolute;
+    bottom: 0;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
   }
+}
+.btn {
+  display: inline-block;
+    color: #fff;
+    --background: var(--main-color);
+    --border-radius: 16px;
+    width: 137px;
+    height: 40px;
+}

@@ -3,14 +3,14 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
-  // {
-  //   path: '',
-  //   loadChildren: () => import('./auth/login/login.module').then( m => m.LoginPageModule)
-  // },
-  { path: '', redirectTo: '', pathMatch: 'full' },
+  {
+    path: 'login',
+    loadChildren: () => import('./auth/login/login.module').then( m => m.LoginPageModule)
+  },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
     path: 'forgot-password',
     loadChildren: () => import('./auth/forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
@@ -22,6 +22,10 @@ const routes: Routes = [
   {
     path: 'new-password',
     loadChildren: () => import('./auth/new-password/new-password.module').then( m => m.NewPasswordPageModule)
+  },
+  {
+    path: 'confirm-mail',
+    loadChildren: () => import('./@app-core/@modular/confirm-mail/confirm-mail.module').then( m => m.ConfirmMailPageModule)
   },
 
   // { path: '**', redirectTo: 'main/chabad' },

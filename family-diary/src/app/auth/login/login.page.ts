@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
 import { PATTERN } from '../../@app-core/@http-config/pattern.service';
-import { LoadingService } from '../../@app-core/utils/loading.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ToastService } from '../../@app-core/utils/toast.service';
-
+import { LoadingService, ModalService, ToastService } from '../../@app-core/utils';
+import { AuthService } from '../../@app-core/@http-config/auth'
+import { ConfirmMailPage } from 'src/app/@app-core/@modular/confirm-mail/confirm-mail.page';
 
 @Component({
   selector: 'app-login',
@@ -23,8 +22,8 @@ export class LoginPage implements OnInit {
   matchPassword = false;
   formLogin: FormGroup;
   formSignUp: FormGroup;
-
-  validationLoginMessages = {
+  public myDate = new Date().toISOString();
+  validationLogin = {
     email: [
       { type: 'required', message: 'Vui lòng nhập email của bạn.' },
     ],
@@ -33,8 +32,12 @@ export class LoginPage implements OnInit {
     ],
   }
 
-  validationSignUpMessages = {
-    full_name: [
+  validationSignUp = {
+    fName: [
+      { type: 'required', message: 'Họ không được để trống' },
+      { type: 'pattern', message: "Họ không chứa ký tự đặc biệt" },
+    ],
+    lName: [
       { type: 'required', message: 'Tên không được để trống' },
       { type: 'pattern', message: "Tên không chứa ký tự đặc biệt" },
     ],
@@ -42,31 +45,33 @@ export class LoginPage implements OnInit {
       { type: 'required', message: 'Email không được trống' },
       { type: 'pattern', message: 'Email không hợp lệ' },
     ],
-    phone_number: [
-      { type: 'required', message: 'Số điện toại không được dderr trống' },
+    phoneNumber: [
+      { type: 'required', message: 'Số điện toại không được trống' },
       { type: 'pattern', message: 'Số điện thoại không hợp lệ' },
     ],
     password: [
       { type: 'required', message: 'Mật khẩu không được để trống' },
       { type: 'minLength', message: 'Mật khẩu ít nhất 6 ký tự' },
     ],
+    birthday: [
+      { type: 'required', message: 'Ngày sinh không được để trống' },
+    ],
   }
 
   countries: any;
   constructor(
     private router: Router,
-    // private authService: AuthService,
-    public toastController: ToastController,
+    private authService: AuthService,
     private formBuilder: FormBuilder,
     private toastService: ToastService,
     // private accountService: AccountService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private modalService: ModalService
   ) { }
   ngOnInit() {
-    
     this.initForm();
   }
-   
+
   initForm() {
     this.formLogin = this.formBuilder.group({
       email: new FormControl('', Validators.required),
@@ -74,20 +79,26 @@ export class LoginPage implements OnInit {
     })
 
     this.formSignUp = this.formBuilder.group({
-      full_name: new FormControl('', Validators.compose([
+      fName: new FormControl('', Validators.compose([
+        Validators.required,
+      ])),
+      lName: new FormControl('', Validators.compose([
         Validators.required,
       ])),
       email: new FormControl('', Validators.compose([
         Validators.required,
         Validators.pattern(PATTERN.EMAIL)
       ])),
-      phone_number: new FormControl('', Validators.compose([
+      phoneNumber: new FormControl('', Validators.compose([
         Validators.required,
         Validators.pattern(PATTERN.PHONE_NUMBER_VIETNAM)
       ])),
       password: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(6)
+      ])),
+      birthday: new FormControl('', Validators.compose([
+        Validators.required,
       ])),
       confirmed_password: new FormControl('')
     })
@@ -108,10 +119,10 @@ export class LoginPage implements OnInit {
     if (!this.canSubmitLogin()) {
       this.markFormGroupTouched(this.formLogin);
     } else {
-      // this.authService.login(this.formLogin.value).subscribe(() => {
-      //   this.setLocalStore()
-      //   this.router.navigate(['main/chabad']);
-      // });
+      this.authService.login(this.formLogin.value).subscribe(() => {
+        this.setLocalStore()
+        this.router.navigate(['main/chabad']);
+      });
     }
   }
   setLocalStore() {
@@ -130,12 +141,11 @@ export class LoginPage implements OnInit {
     if (!this.canSubmitSignUp()) {
       this.markFormGroupTouched(this.formSignUp);
     } else if (!this.checkMatchConfirmedPassword()) {
-      this.toastService.present('Confirmed password not match');
+      this.toastService.present('Mật khẩu không trùng khớp');
     } else {
-      let data = this.formSignUp.value;
-      data.phone_number = data.phone_number.length == 10 ? data.phone_number.substring(1, 10) : data.phone_number;
-      data.phone_number = `+${this.formSignUp.value.country_code}${data.phone_number}`;
-      // this.authService.signup(this.formSignUp.value).subscribe();
+      this.authService.signup(this.formSignUp.value).subscribe((data: any) => {
+          this.modalService.presentModal(ConfirmMailPage, this.formSignUp.value.email)
+      })
     }
   }
 

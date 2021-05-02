@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePage implements OnInit {
   avatar = localStorage.getItem('avatar');
+  name = 'Trần Hoài Mi'
   avatarReplace = 'https://i.imgur.com/edwXSJa.png';
   constructor() { }
 
