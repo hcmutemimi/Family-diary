@@ -108,7 +108,7 @@ export class VerificationPage implements OnInit {
       // this.authService.checkcodePassword({code: this.inputstring}).subscribe((data:any)=> {
       //   this.wrongCode = false;
       //   this.loadingService.dismiss();
-      //   localStorage.setItem('Authorization', data.token);
+      //   localStorage.setItem('authorization', data.token);
       //   this.router.navigateByUrl("/auth-manager/new-password");
       //   this.toastService.present('Code confirmed, present your new password!', 'top', 2000);
       // },

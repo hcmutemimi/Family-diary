@@ -27,4 +27,7 @@ export const APICONFIG =  {
     UPDATE_PREMIUM: (id) => `/app/users/request_upgrade`,
     CONTACT_ADMIN: `/app/interact_email/submit`
   },
+  FAMILY: {
+    GET: `/family`
+  }
 }

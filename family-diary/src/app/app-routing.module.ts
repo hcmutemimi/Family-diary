@@ -10,7 +10,7 @@ const routes: Routes = [
     path: 'login',
     loadChildren: () => import('./auth/login/login.module').then( m => m.LoginPageModule)
   },
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+
   {
     path: 'forgot-password',
     loadChildren: () => import('./auth/forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
@@ -24,11 +24,25 @@ const routes: Routes = [
     loadChildren: () => import('./auth/new-password/new-password.module').then( m => m.NewPasswordPageModule)
   },
   {
+    path: 'account-setting',
+    loadChildren: () => import('./account-setting/account-setting.module').then( m => m.AccountSettingPageModule)
+  },
+  {
+    path: 'calendar',
+    loadChildren: () => import('./calendar/calendar.module').then( m => m.CalendarPageModule)
+  },
+  {
+    path: 'add-event',
+    loadChildren: () => import('./add-event/add-event.module').then( m => m.AddEventPageModule)
+  },
+  {
     path: 'confirm-mail',
     loadChildren: () => import('./@app-core/@modular/confirm-mail/confirm-mail.module').then( m => m.ConfirmMailPageModule)
   },
-
-  // { path: '**', redirectTo: 'main/chabad' },
+  { path: '**', redirectTo: 'home'  },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+ 
+  
 ];
 @NgModule({
   imports: [

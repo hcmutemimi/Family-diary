@@ -76,14 +76,14 @@
       <ion-item-group>
         <div class="to-do-title">
           <img src="assets/img/stick.svg" alt="" />
-          Việc bạn cần làm tiếp theo
+          <span class="text-next"> YOUR NEXT TO-DO</span>
           <ion-icon name="chevron-forward-outline"></ion-icon>
         </div>
         <div class="to-do-content">
           <img src="assets/img/oclock.png" alt="" class="o-clock" />
           <ion-item-group class="to-do-item">
-            <span>Talk to Mi about Picniic</span><br>
-            <span> Overdue: 18:00, T7, 20 Th3</span>
+            <span>Talk to Mi about Picniic</span><br />
+            <span class="overdue"> Overdue: 18:00, T7, 20 Th3</span>
           </ion-item-group>
         </div>
       </ion-item-group>
@@ -98,7 +98,7 @@
         <div class="to-do-content">
           <img src="assets/img/oclock.png" alt="" class="o-clock" />
           <ion-item-group class="to-do-item">
-            <span>Talk to Mi about Picniic</span><br>
+            <span>Talk to Mi about Picniic</span><br />
             <span> Overdue: 18:00, T7, 20 Th3</span>
           </ion-item-group>
         </div>
@@ -108,5 +108,18 @@
       <h1>Slide 3</h1>
     </ion-slide>
   </ion-slides>
-  <div class="content">hoaimiqng</div>
+  <div class="content">
+    <ion-buttons class="menu">
+      <div class="item-container" *ngFor="let item of menu">
+        <div class="item active-effect" (click)="goToDetail(item)">
+          <ion-buttons
+            class="img-container"[style.background-color]="item.bg"
+          >
+            <img class="img" [src]="item.thumbImage" alt="" />
+          </ion-buttons>
+          <span class="name">{{ item.name }}</span>
+        </div>
+      </div>
+    </ion-buttons>
+  </div>
 </ion-content>

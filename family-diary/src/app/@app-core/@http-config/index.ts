@@ -1,4 +1,5 @@
 export *from './api.service'
 export *from './auth'
 export *from './account'
+export *from './family'
 export *from './../storage.service'

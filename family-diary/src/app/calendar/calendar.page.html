@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>calendar</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+ 
+  <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+    <ion-fab-button color="dark" class="btn-click">
+      <ion-icon md="caret-up" ios="chevron-up-circle-outline"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <div class="group">
+        <span>Add Shopping Trip</span>
+        <ion-fab-button color="light"  class="btn-fab btn-shopping">
+          <img src="assets/img/cart.svg" alt="add to-do">
+        </ion-fab-button>
+      </div>
+     
+      <div class="group">
+        <span>Add To-Do</span>
+        <ion-fab-button color="light"  class="btn-fab btn-to-do">
+          <img src="assets/img/to-do.svg" alt="add to-do">
+        </ion-fab-button>
+      </div>
+     
+      <div class="group" (click)="gotoEvent()">
+        <span>Add Event</span>
+        <ion-fab-button color="light" class="btn-fab btn-event">
+          <img src="assets/img/event.svg" alt="add event">
+        </ion-fab-button>
+      </div>
+     
+    </ion-fab-list>
+  </ion-fab>
+</ion-content>

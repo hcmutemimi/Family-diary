@@ -22,17 +22,13 @@ export class IntercepterService implements HttpInterceptor {
       url: this.prepareUrl(req.url)
 
     });
-    if (localStorage.getItem('Authorization') !== null) {
+    if (localStorage.getItem('authorization') !== null) {
       request = req.clone({
         url: this.prepareUrl(req.url),
-        // withCredentials: false,
-        headers: req.headers.set('Authorization', localStorage.getItem('Authorization') || '').set('Accept', 'multipart/form-data'),
+        headers: req.headers.set('authorization', 'Bearer ' + localStorage.getItem('authorization')
+         || '').set('Accept', 'multipart/form-data'),
       });
     }
-    else {
-
-    }
-
     return next.handle(request)
       .pipe(
         catchError((err) => {

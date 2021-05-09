@@ -49,6 +49,7 @@ ion-header {
 }
 
 ion-content {
+
   .sayhi {
     height: 90px;
     font-size: 23px;
@@ -83,7 +84,9 @@ ion-content {
           .to-do-item {
             background: #fff;
             border-bottom-right-radius: 8px;
-
+            .overdue {
+              color: #FD7160;
+            }
             span {
               line-height: 23px;
             }
@@ -96,6 +99,9 @@ ion-content {
           border-top-right-radius: 8px;
           display: block;
           text-align: center;
+          .text-next {
+            margin-left: 50px;
+          }
           img {
             width: 20px;
             height: 20px;
@@ -122,4 +128,85 @@ ion-content {
       }
     }
   }
+  .menu {
+    background: #fff;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    border-radius: 30px;
+    margin-top: 20px;
+    .item-container {
+      text-align: center;
+    
+      .item {
+        width: 100px;
+        margin: 8px;
+        text-align: center;
+        // background: linear-gradient(180deg, #f3f3f3 0%, rgba(243, 243, 243, 0));
+        // border-radius: 30px;
+        // border: 2px solid #f8f8f8;
+        @media screen and (max-height: 823px) {
+          width: 115px;
+        }
+  
+        @media screen and (max-height: 812px) {
+          width: 109px;
+        }
+        @media screen and (max-height: 667px) {
+          width: 109px;
+        }
+        @media screen and (max-height: 667px) {
+          width: 102px;
+        }
+        @media screen and (max-height: 569px) {
+          width: 90px;
+        }
+        .bg-calendar {
+          background-color: #fff1f0;
+        }
+        .img-container {
+          width: 8vh;
+          height: 8vh;
+          border-radius: 50%;
+          // box-shadow: 0px 2px 2px rgb(0 0 0 / 25%);
+          justify-content: center;
+          margin: 7px auto 5px;
+  
+          .img {
+            width: 4vh;
+          }
+        }
+  
+        .name {
+          color: #424242;
+          font-size: 15px;
+          font-weight: 500;
+          display: flex;
+          height: 30px;
+          line-height: 17px;
+          margin: 0 9px 4px;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+  
+      &--full-width {
+        width: 100%;
+        .item {
+          margin: 8px auto 2px;
+          width: 122px;
+          height: 115px;
+          border-top-left-radius: 60px !important;
+          border-top-right-radius: 60px !important;
+          border-bottom-left-radius: 17px !important;
+          border-bottom-right-radius: 17px !important;
+          background: linear-gradient(#ffffff 40.63%, #f3f3f3 100%) !important;
+          .name {
+            margin: 10px 5px;
+          }
+        }
+      }
+    }
+  }
+  
 }

@@ -112,7 +112,7 @@ export class AuthService {
     return this.http.post(`${APICONFIG.AUTH.SIGNIN}`, req).pipe(
       map((result: any) => {
         this.storage.clear()
-        localStorage.setItem('Authorization', result.token)
+        localStorage.setItem('authorization', result.token)
         this.storage.setInfoAccount()
         return result
       }),
@@ -152,7 +152,7 @@ export class AuthService {
   }
  
   checkLogin() {
-    const token = localStorage.getItem('Authorization')
+    const token = localStorage.getItem('authorization')
     if (!token) {
       return false
     } else {
@@ -160,7 +160,7 @@ export class AuthService {
     }
   }
   private setLocalStore(data) {
-    localStorage.setItem('Authorization', data.token)
+    localStorage.setItem('authorization', data.token)
     localStorage.setItem('fullname', data.fullname)
     localStorage.setItem('exp', data.exp)
   }
