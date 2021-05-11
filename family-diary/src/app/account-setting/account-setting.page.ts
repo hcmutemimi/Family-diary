@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController, PopoverController } from '@ionic/angular';
 // import { AccountService } from '../@app-core/http';
 // import { PopupComponent } from '../@modular/popup/popup.component';
-// import { PopuplogoutComponent } from '../@modular/popuplogout/popuplogout.component';
+import { PopuplogoutComponent } from '../@app-core/@modular/popuplogout/popuplogout.component';
 
 @Component({
   selector: 'app-account-setting',
@@ -10,10 +10,10 @@ import { ModalController, PopoverController } from '@ionic/angular';
   styleUrls: ['./account-setting.page.scss'],
 })
 export class AccountSettingPage implements OnInit {
-  // isOpeningModal = false;
-  name = localStorage.getItem('fullname') || '';
+  isOpeningModal = false;
+  name = localStorage.getItem('name') || '';
   constructor(
-    // public modalController: ModalController,
+    public modalController: ModalController,
     // private popoverController: PopoverController,
     // private accountService: AccountService
   ) { }
@@ -33,17 +33,17 @@ export class AccountSettingPage implements OnInit {
   //   })
   // }
 
-  // async openModalLogOut() {
-  //   this.isOpeningModal = true;
-  //   const modal = await this.modalController.create({
-  //     component: PopuplogoutComponent,
-  //     swipeToClose: true,
-  //     cssClass: 'modal__logout'
-  //   });
-  //   await modal.present();
+  async openModalLogOut() {
+    this.isOpeningModal = true;
+    const modal = await this.modalController.create({
+      component: PopuplogoutComponent,
+      swipeToClose: true,
+      cssClass: 'modal__logout'
+    });
+    await modal.present();
 
-  //   modal.onWillDismiss().then(() => this.isOpeningModal = false);
-  // }
+    modal.onWillDismiss().then(() => this.isOpeningModal = false);
+  }
 
   // async presentPopover(ev: any) {
   //   const popover = await this.popoverController.create({

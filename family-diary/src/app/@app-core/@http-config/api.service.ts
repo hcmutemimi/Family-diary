@@ -18,7 +18,7 @@ export const APICONFIG =  {
     CHANGE_PASS: `/app/app_users/change_password`,
   },
   ACCOUNT: {
-    PROFILE_USER: `/app/app_users/profile`,
+    PROFILE_USER: `/user`,
     UPDATE_PROFILE: `/app/app_users/update_profile`,
     UPDATE_PASS: `/app/users/update_password`,
     GETDETAIL: (id) => `/app/users/${id}`,
@@ -29,5 +29,8 @@ export const APICONFIG =  {
   },
   FAMILY: {
     GET: `/family`
+  },
+  FAMILY_MEMEBER: {
+    GET: `/family-member`
   }
 }

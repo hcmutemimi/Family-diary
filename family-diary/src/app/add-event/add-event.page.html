@@ -1,25 +1,33 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>ADD EVENT</ion-title>
-  </ion-toolbar>
-</ion-header>
+
 
 <ion-content>
-  <ion-item>
-    <ion-text position="floating">Start Date: </ion-text>
-    <ion-datetime mode="ios" displayFormat="DDD, DD MMM, YYYY" min="2021-04-01" [(ngModel)]="myDate" ></ion-datetime>
-  </ion-item>
-  <ion-item>
-    <ion-text>Time: </ion-text>
-    <ion-datetime display-format="hh:mm A" picker-format="hh:mm A" value="" [(ngModel)]="myStartTime"></ion-datetime>
-  </ion-item>
-  <ion-item>
-    <ion-text position="floating">End Date: </ion-text>
-    <ion-datetime mode="ios" displayFormat="DD/MM/YYYY" min="2021-04-01" [(ngModel)]="myDate" ></ion-datetime>
-  </ion-item>
-  <ion-item>
-    <ion-text>End time: </ion-text>
-    <ion-datetime display-format="hh:mm A" picker-format="hh:mm A" value=""></ion-datetime>
-  </ion-item>
+  <ion-back-button icon="chevron-back-outline" text="" class="back-btn"></ion-back-button>
+  <div class="header">
+    <ion-label>ADD EVENT</ion-label>
+  </div>
+  <ion-item-group>
+    <form [formGroup]="formAddEvent">
+
+    <ion-item>
+      <ion-text position="floating">Start Date: </ion-text>
+      <ion-datetime mode="ios" displayFormat="DDD, DD MMM, YYYY" min="2021-04-01" [(ngModel)]="myDate" ></ion-datetime>
+    </ion-item>
+      <ion-item>
+      <ion-text>Time: </ion-text>
+      <ion-datetime display-format="hh:mm A" picker-format="hh:mm A" value="" [(ngModel)]="myStartTime"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-text position="floating">End Date: </ion-text>
+      <ion-datetime mode="ios" displayFormat="DD/MM/YYYY" min="2021-04-01" [(ngModel)]="myDate" ></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-text>End time: </ion-text>
+      <ion-datetime display-format="hh:mm A" picker-format="hh:mm A" value=""></ion-datetime>
+    </ion-item>
   <div (click)="goto()">gogo</div>
+
+  </form>
+
+  </ion-item-group>
+ 
 </ion-content>

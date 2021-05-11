@@ -28,17 +28,62 @@ ion-header {
     }
   }
 
+  .list-member {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    min-width: 239px;
+    margin-top: 10px;
+    box-shadow: 2px 4px 7px rgb(0 0 0 / 25%);
+    border-radius: 10px;
+
+    ion-item {
+      text-align: center;
+
+      ion-icon {
+        color: #42B245;
+      }
+    }
+  }
+
   .user-container {
     height: 52px;
     padding-top: 8px;
+
+    ion-icon {
+      color: #42B245;
+      font-size: 24px;
+    }
+  }
+
+  .family {
+    display: flex;
+    justify-content: center;
+    font-size: 18px;
+    align-items: center;
+
+    ion-icon {
+      margin-left: 4px;
+    }
   }
 
   .family-member {
     display: flex;
     overflow-x: auto;
     max-width: 100%;
+    justify-content: center;
     list-style: none;
     padding: 0;
+    margin-bottom: 0px;
+
+    li {
+      text-align: center;
+
+      ion-text {
+        line-height: 28px;
+      }
+    }
 
     .family-member--img {
       margin: 0 5px;
@@ -84,9 +129,11 @@ ion-content {
           .to-do-item {
             background: #fff;
             border-bottom-right-radius: 8px;
+
             .overdue {
               color: #FD7160;
             }
+
             span {
               line-height: 23px;
             }
@@ -97,18 +144,25 @@ ion-content {
         .to-do-title {
           border-top-left-radius: 8px;
           border-top-right-radius: 8px;
+          position: relative;
           display: block;
           text-align: center;
           .text-next {
-            margin-left: 50px;
+            margin-left: 34px;
           }
+
           img {
             width: 20px;
             height: 20px;
             position: absolute;
-            left: 30px;
+            left: 18px;
           }
-
+          i {
+            position: absolute;
+            left: 18px;
+            font-size: 20px;
+            color:#42B245;
+          }
           ion-icon {
             right: 19px;
             position: absolute;
@@ -128,85 +182,102 @@ ion-content {
       }
     }
   }
-  .menu {
-    background: #fff;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    align-items: flex-start;
-    border-radius: 30px;
-    margin-top: 20px;
-    .item-container {
-      text-align: center;
-    
-      .item {
-        width: 100px;
-        margin: 8px;
+
+  .content {
+    margin: 0;
+    padding: 0;
+
+    .menu {
+      background: #fff;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+      align-items: flex-start;
+      border-radius: 30px;
+      margin-top: 20px;
+
+      .item-container {
         text-align: center;
-        // background: linear-gradient(180deg, #f3f3f3 0%, rgba(243, 243, 243, 0));
-        // border-radius: 30px;
-        // border: 2px solid #f8f8f8;
-        @media screen and (max-height: 823px) {
-          width: 115px;
-        }
-  
-        @media screen and (max-height: 812px) {
-          width: 109px;
-        }
-        @media screen and (max-height: 667px) {
-          width: 109px;
-        }
-        @media screen and (max-height: 667px) {
-          width: 102px;
-        }
-        @media screen and (max-height: 569px) {
-          width: 90px;
-        }
-        .bg-calendar {
-          background-color: #fff1f0;
-        }
-        .img-container {
-          width: 8vh;
-          height: 8vh;
-          border-radius: 50%;
-          // box-shadow: 0px 2px 2px rgb(0 0 0 / 25%);
-          justify-content: center;
-          margin: 7px auto 5px;
-  
-          .img {
-            width: 4vh;
+        list-style: none;
+
+        .item {
+          width: 100px;
+          margin: 8px;
+          text-align: center;
+
+          // background: linear-gradient(180deg, #f3f3f3 0%, rgba(243, 243, 243, 0));
+          // border-radius: 30px;
+          // border: 2px solid #f8f8f8;
+          @media screen and (max-height: 823px) {
+            width: 115px;
+          }
+
+          @media screen and (max-height: 812px) {
+            width: 109px;
+          }
+
+          @media screen and (max-height: 667px) {
+            width: 109px;
+          }
+
+          @media screen and (max-height: 667px) {
+            width: 102px;
+          }
+
+          @media screen and (max-height: 569px) {
+            width: 90px;
+          }
+
+          .bg-calendar {
+            background-color: #fff1f0;
+          }
+
+          .img-container {
+            width: 7.5vh;
+            height: 7vh;
+            border-radius: 50%;
+            // box-shadow: 0px 2px 2px rgb(0 0 0 / 25%);
+            justify-content: center;
+            margin: 7px auto 5px;
+
+            .img {
+              width: 3.5vh;
+            }
+          }
+
+          .name {
+            color: #424242;
+            font-size: 13px;
+            font-weight: 500;
+            display: flex;
+            height: 30px;
+            line-height: 17px;
+            margin: 0 9px 8px;
+            justify-content: center;
+            align-items: center;
           }
         }
-  
-        .name {
-          color: #424242;
-          font-size: 15px;
-          font-weight: 500;
-          display: flex;
-          height: 30px;
-          line-height: 17px;
-          margin: 0 9px 4px;
-          justify-content: center;
-          align-items: center;
-        }
-      }
-  
-      &--full-width {
-        width: 100%;
-        .item {
-          margin: 8px auto 2px;
-          width: 122px;
-          height: 115px;
-          border-top-left-radius: 60px !important;
-          border-top-right-radius: 60px !important;
-          border-bottom-left-radius: 17px !important;
-          border-bottom-right-radius: 17px !important;
-          background: linear-gradient(#ffffff 40.63%, #f3f3f3 100%) !important;
-          .name {
-            margin: 10px 5px;
+
+        &--full-width {
+          width: 100%;
+
+          .item {
+            margin: 8px auto 2px;
+            width: 122px;
+            height: 115px;
+            border-top-left-radius: 60px !important;
+            border-top-right-radius: 60px !important;
+            border-bottom-left-radius: 17px !important;
+            border-bottom-right-radius: 17px !important;
+            background: linear-gradient(#ffffff 40.63%, #f3f3f3 100%) !important;
+
+            .name {
+              margin: 10px 5px;
+            }
           }
         }
       }
     }
   }
-  
+
+
 }

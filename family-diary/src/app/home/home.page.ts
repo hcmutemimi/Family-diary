@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
+import { AccountService, FamilyMemberService, FamilyService } from '../@app-core/@http-config';
+import { LoadingService } from '../@app-core/utils';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +12,13 @@ export class HomePage implements OnInit {
   avatar = localStorage.getItem('avatar');
   name = 'Trần Hoài Mi'
   avatarReplace = 'https://i.imgur.com/edwXSJa.png';
- 
+  listFamilyMember = []
+  listFamily = []
+  hasButton = false
+  nameFamily
+  nameUser
+  selection
+  nameIcon
   menu = [
     {
       name: 'ACTIVITY',
@@ -22,54 +30,98 @@ export class HomePage implements OnInit {
       name: 'CALENDAR',
       thumbImage: 'assets/img/menu/calendar.svg',
       desUrl: 'calendar',
-      bg:'#fff1f0'
+      bg: '#fff1f0'
     },
     {
       name: 'TO-DO',
-      thumbImage: 'assets/img/menu/lophocgiaoly.svg',
-      desUrl:  'assets/img/menu/todo.svg',
+      thumbImage: 'assets/img/menu/todo.svg',
+      desUrl: 'assets/img/menu/todo.svg',
+      bg: '#EAFAFA'
+    },
+
+    {
+      name: 'SHOPPING',
+      thumbImage: 'assets/img/menu/shopping.svg',
+      desUrl: 'pray',
+      bg: '#EAFAFA'
     },
     {
-      name: 'Đóng góp',
-      thumbImage: 'assets/img/menu/donggop.svg',
+      name: 'EVENT',
+      thumbImage: 'assets/img/menu/event.svg',
+      desUrl: 'main/calendar',
+      bg: '#f6f3fa'
+    },
+    {
+      name: 'MEAL PLANNER',
+      thumbImage: 'assets/img/menu/meal.svg',
+      desUrl: 'main/hymn-music',
+      bg: '#dbf1ed'
+    },
+    {
+      name: 'MAP',
+      thumbImage: 'assets/img/menu/locator.svg',
       desUrl: 'donate',
     },
     {
-      name: 'Xin lễ',
-      thumbImage: 'assets/img/menu/xinle.svg',
-      desUrl: 'pray',
-    },
-    {
-      name: 'Lịch Công giáo',
-      thumbImage: 'assets/img/menu/lichconggiao.svg',
-      desUrl: 'main/calendar',
-    },
-    {
-      name: 'Cửa hàng',
-      thumbImage: 'assets/img/menu/cuahang.svg',
+      name: 'GALLERY',
+      thumbImage: 'assets/img/menu/photo.svg',
       desUrl: 'main/store',
+      bg: '#edfaf1'
     },
     {
-      name: 'Nhạc Thánh Ca',
-      thumbImage: 'assets/img/menu/thanhca.svg',
-      desUrl: 'main/hymn-music',
-    },
-    {
-      name: 'Video bài giảng',
-      thumbImage: 'assets/img/menu/baigiang.svg',
+      name: 'ABOUT US',
+      thumbImage: 'assets/img/menu/about-us.svg',
       desUrl: 'main/hymn-video',
     },
   ]
   constructor(
-    private router: Router
+    private router: Router,
+    private familyMemberService: FamilyMemberService,
+    public familyService: FamilyService,
+    private loadingService: LoadingService,
+    private accountService: AccountService
   ) { }
-
   ngOnInit() {
+    // this.loadingService.present()
+    this.getData()
+    this.getInfoUser()
   }
-  goToUserInfo() {
+  goToSetting() {
     this.router.navigateByUrl('/account-setting')
   }
 
+  async getData() {
+    const result = await this.familyService.getListFamily().toPromise()
+    this.listFamily = result.message
+    this.nameFamily = this.listFamily[0].name
+    this.selection = result.message[0]._id
+    this.nameIcon = this.listFamily[0].name
+    this.getMember()
+  }
+  getInfoUser() {
+    this.accountService.getAccount().subscribe((data: any)=> {
+      this.nameUser = data.user.lName
+      localStorage.setItem('name', this.nameUser)
+    })
+  }
+  toggleHasSetting(hasButton) {
+    this.hasButton = !hasButton;
+  }
+  getMember() {
+    let queryParams = {
+      familyId: this.selection
+    }
+    this.familyMemberService.getListFamily(queryParams).subscribe(data => {
+      this.listFamilyMember = data.message
+      // this.loadingService.dismiss()
+    })
+  }
+  savefamilyId(i, hasButton) {
+    this.hasButton = !hasButton;
+    this.selection = i._id
+    this.nameFamily = i.name
+    this.getMember()
+  }
   goToDetail(item) {
     if (item.desUrl == 'donate') {
       const data = {
@@ -104,4 +156,6 @@ export class HomePage implements OnInit {
     }
     else this.router.navigateByUrl(item.desUrl);
   }
+
+
 }

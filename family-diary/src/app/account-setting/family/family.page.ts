@@ -8,17 +8,25 @@ import { FamilyService } from 'src/app/@app-core/@http-config/family/family.serv
 })
 export class FamilyPage implements OnInit {
   listFamily
+  selection
   constructor(
     public familyService: FamilyService
   ) { }
 
   ngOnInit() {
-    this.getData()
+    // this.getData()
   }
-  getData() {
-    this.familyService.getListFamily().subscribe((data=>{
-      this.listFamily = data.message
-      console.log(this.listFamily)
-    }))
-  }
+  // getData() {
+  //   this.familyService.getListFamily().subscribe((data=>{
+  //     this.listFamily = data.message
+  //     this.selection = this.listFamily[0]._id
+  //   }))
+  // }
+  // savefamilyId() {
+  //     localStorage.setItem('familyId', this.selection)
+
+  // }
+  // click() {
+  //   console.log(this.selection)
+  // }
 }

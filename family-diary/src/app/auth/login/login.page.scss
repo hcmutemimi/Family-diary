@@ -43,7 +43,7 @@ ion-content {
   }
   
   .submit-btn {
-    color: #00b0b2;
+    color: var(--main-color);
     --background: #dcf7f8;
     --border-radius: 18px;
     width: 45px;
@@ -56,7 +56,7 @@ ion-content {
     left: 0;
     right: 0;
     height: 85vh;
-    background: #00b0b2;
+    background: var(--main-color);
     border-top-left-radius: 40px;
     border-top-right-radius: 40px;
   }

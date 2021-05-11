@@ -27,7 +27,7 @@
 :root {
     --grayE5:  #E5E5E5;
     --back43: #434141;
-    --main-color: #00B0B2;
+    --main-color: #72dad6;
     --fd7160-color: #fd7160;
   }
 .display-none {
@@ -42,6 +42,34 @@
     border-top-right-radius: 30px;
   }
 }
+.modal__logout {
+  --height: 200px;
+  .modal-wrapper {
+      position: absolute;
+      bottom: 0;
+      border-top-left-radius: 30px;
+      border-top-right-radius: 30px;
+  }
+}
+.header {
+  height: 79px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--main-color);
+  font-size: 18px;
+  font-weight: 600;
+
+  @media screen and (max-width: 320px) {
+    font-size: 14px;
+  }
+
+  ion-icon {
+    position: absolute;
+    right: 26px;
+    font-size: 25px;
+  }
+}
 .btn {
   display: inline-block;
     color: #fff;
@@ -54,4 +82,28 @@
   bottom: 7px;
   left: 0;
   width: 100%;
+}
+.back-btn {
+  display: inline-block;
+  color: var(--main-color);
+  background: #fff;
+  border-radius: 18px;
+  width: 45px;
+  height: 45px;
+  position: fixed;
+  top: 17px;
+  left: 17px;
+  z-index: 10;
+}
+.home {
+  display: inline-block;
+    color: #E7E7E7, 100%;
+    background: #fff;
+    border-radius: 18px;
+    width: 24px;
+    height: 22px;
+    position: fixed;
+    top: 22px;
+    left: 17px;
+    z-index: 10;
 }
