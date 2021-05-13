@@ -20,7 +20,7 @@
         *ngIf="nameFamily == i.name"
       ></ion-icon>
     </ion-item>
-    <ion-item lines="none">
+    <ion-item lines="none" (click) ="gotoNewFamily()">
       <ion-label> Create new family</ion-label>
       <ion-icon  name="add-circle-outline"></ion-icon>
     </ion-item>

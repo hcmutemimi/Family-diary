@@ -1,5 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+// import { FullCalendarModule } from '@fullcalendar/angular'; // the main connector. must go first
+// import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
@@ -11,7 +13,10 @@ import { CoreModule } from './@app-core/core.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
+// import { NgCalendarModule  } from 'ionic2-calendar';
+// FullCalendarModule.registerPlugins([ // register FullCalendar plugins
+//   dayGridPlugin,
+// ]);
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -20,7 +25,9 @@ import { AppComponent } from './app.component';
     IonicModule.forRoot(), 
     AppRoutingModule,
     HttpClientModule,
-    CoreModule.forRoot()
+    // NgCalendarModule,
+    CoreModule.forRoot(),
+    // FullCalendarModule 
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   AuthService,

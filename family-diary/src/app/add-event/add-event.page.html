@@ -1,31 +1,70 @@
 
 
-<ion-content>
-  <ion-back-button icon="chevron-back-outline" text="" class="back-btn"></ion-back-button>
-  <div class="header">
-    <ion-label>ADD EVENT</ion-label>
-  </div>
+<app-header-add [headerCustom]="headerCustom"></app-header-add>
+<ion-content class="">
   <ion-item-group>
     <form [formGroup]="formAddEvent">
+        <input class="text-input" type="text"formControlName="name" placeholder="Enter title">
+        <input class="text-input" type="text"formControlName="location" placeholder="Enter location">
+        <ion-item>
+          <ion-label>TYPE</ion-label>
+          <ion-select value="birthday">
+            <ion-select-option value="birthday">Birthday</ion-select-option>
+            <ion-select-option value="anniversaries">Anniversaries</ion-select-option>
+            <ion-select-option value="orther">Orther</ion-select-option>
+          </ion-select>
+        </ion-item>
+    <div class="ion-padding">
+      <div class="join">
+        <ion-label>For</ion-label>
+        <ion-label class="name-join">Mi</ion-label>
+      </div>
+      <ul class="family-member">
+        <li *ngFor="let i of listFamilyMember">
+          <ion-avatar class="family-member--img">
+            <img src="assets/img/avatar.png" alt="{{i.lName}}" />
+          </ion-avatar>
+          <ion-text> {{i.lName}}</ion-text>
+        </li>
+      </ul>
+    </div>
+    <!-- <ion-item>
+      <ion-text position="floating">ALL-DAY </ion-text>
+      <ion-toggle color="primary"></ion-toggle>
+    </ion-item> -->
+    <ion-item>
+      <ion-label>STARTS: </ion-label>
+      <ion-datetime  formControlName="dateStart" mode="ios" displayFormat="DD/MM/YYYY, HH:mm" min="2021-04-01" [(ngModel)]="myDate" ></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>ENDS: </ion-label>
+      <ion-datetime formControlName="dateEnd" mode="ios" displayFormat="DD/MM/YYYY, HH:mm" min="2021-04-01" [(ngModel)]="myDate" ></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>VISIBLE FOR</ion-label>
+      <ion-select value="">
+        <ion-select-option value="">Only me</ion-select-option>
+        <ion-select-option value="">Member(s) joined</ion-select-option>
+        <ion-select-option value="orther">Everyone in this family</ion-select-option>
+      </ion-select>
+    </ion-item>
+   
+    <ion-item>
+      <ion-label>ALERT</ion-label>
+      <ion-select value="">
+        <ion-select-option value="">At time of event</ion-select-option>
+        <ion-select-option value="">1 day before</ion-select-option>
+        <ion-select-option value="orther">2 days before</ion-select-option>
+        <ion-select-option value="orther">3 days before</ion-select-option>
+        <ion-select-option value="orther">4 days before</ion-select-option>
+        <ion-select-option value="orther">5 days before</ion-select-option>
+        <ion-select-option value="orther">1 week before</ion-select-option>
 
-    <ion-item>
-      <ion-text position="floating">Start Date: </ion-text>
-      <ion-datetime mode="ios" displayFormat="DDD, DD MMM, YYYY" min="2021-04-01" [(ngModel)]="myDate" ></ion-datetime>
-    </ion-item>
-      <ion-item>
-      <ion-text>Time: </ion-text>
-      <ion-datetime display-format="hh:mm A" picker-format="hh:mm A" value="" [(ngModel)]="myStartTime"></ion-datetime>
-    </ion-item>
-    <ion-item>
-      <ion-text position="floating">End Date: </ion-text>
-      <ion-datetime mode="ios" displayFormat="DD/MM/YYYY" min="2021-04-01" [(ngModel)]="myDate" ></ion-datetime>
-    </ion-item>
-    <ion-item>
-      <ion-text>End time: </ion-text>
-      <ion-datetime display-format="hh:mm A" picker-format="hh:mm A" value=""></ion-datetime>
-    </ion-item>
-  <div (click)="goto()">gogo</div>
 
+      </ion-select>
+    </ion-item>
+    <input class="text-input" type="text"formControlName="note" placeholder="Enter note">
+    
   </form>
 
   </ion-item-group>

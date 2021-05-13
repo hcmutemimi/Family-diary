@@ -17,6 +17,11 @@ export const APICONFIG =  {
     UPDATE_AVATAR: `/app/app_users/update_avatar`,
     CHANGE_PASS: `/app/app_users/change_password`,
   },
+  CALENDARS: {
+    GET_BY_MONTH: `/app/calendars/month`,
+    GET_BY_WEEK: `/app/calendars/week`,
+    GET_BY_DAY: `/app/calendars/day`,
+  },
   ACCOUNT: {
     PROFILE_USER: `/user`,
     UPDATE_PROFILE: `/app/app_users/update_profile`,

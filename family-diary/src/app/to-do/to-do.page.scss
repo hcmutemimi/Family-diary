@@ -1,0 +1,257 @@
+.header {
+  background-color: var(--main-color);
+}
+
+.back-btn {
+  display: inline-block;
+  color: #fff;
+  // color: #fff;
+  // background: #fff;
+  border-radius: 18px;
+  width: 45px;
+  height: 45px;
+  position: fixed;
+  top: 17px;
+  left: 17px;
+  z-index: 10;
+}
+
+.home {
+  display: inline-block;
+  color: #E7E7E7, 100%;
+  border-radius: 18px;
+  width: 24px;
+  height: 22px;
+  position: fixed;
+  top: 22px;
+  right: 16px;
+  z-index: 10;
+}
+
+ion-header {
+  height: 80px;
+  background-color: #29cdcf;
+
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
+  ion-segment {
+    position: absolute;
+    width: 63%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    margin: auto;
+    --background: transparent;
+    background: #fff;
+
+    ion-segment-button {
+      font-size: 15px;
+      --color-checked: #fff;
+      --color: #828282;
+      --border-radius: 4px;
+
+      &::part(indicator-background) {
+        background: #1e8e92;
+      }
+    }
+
+    .intro {
+      // box-shadow: inset 3px 4px 4px #f4f5f8;
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
+      border-right: none;
+    }
+
+    .biography {
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px;
+      border-left: none;
+      // box-shadow: inset 3px 4px 4px #f4f5f8;
+    }
+  }
+}
+
+ion-content {
+  --background: #29cdcf;
+
+  .family-member {
+    display: flex;
+    overflow-x: auto;
+    max-width: 100%;
+    justify-content: center;
+    list-style: none;
+    padding: 10px;
+    margin: 0;
+    background-color: #29cdcf;
+
+    li {
+      text-align: center;
+
+      ion-text {
+        line-height: 28px;
+      }
+    }
+
+    .family-member--img {
+      margin: 0 5px;
+      height: 40px;
+      width: 40px;
+    }
+  }
+
+  ion-list {
+    margin: 6px;
+    padding: 0;
+    border-radius: 7px;
+    background-color: #29cdcf;
+
+    .item {
+      background-color: #FFFFFF;
+      height: 70px;
+      font-size: 14px;
+      color: #828282;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      align-items: center;
+      justify-content: space-between;
+      display: flex;
+
+      ion-checkbox {
+        min-width: 18px;
+        margin-left: 10px;
+        --background-checked: #29cdcf;
+      }
+
+      ion-buttons {
+        display: block;
+        flex: 1;
+            p {
+                padding-left: 10px;
+                span {
+                    font-size: 16px;
+                    margin-right: 10px;
+                }
+               .due {
+                    color: #ff6359;
+                  }
+            }
+        ion-label {
+          padding-left: 10px;
+          margin-top: 4px;
+        }
+
+        ion-title {
+          padding-left: 10px;
+         
+        }
+      }
+
+      img {
+        width: 24px;
+        height: 24px;
+        margin-left: 10px;
+        margin-right: 16px;
+      }
+
+      .star {
+        font-size: 24px;
+      }
+
+      ion-icon {
+        margin-right: 10px;
+        font-size: 18px;
+
+      }
+    }
+  }
+
+
+}
+
+ion-footer {
+  min-height: 56px;
+
+  ion-toolbar {
+    --background: #135d5e;
+
+    ion-buttons {
+      margin-left: 16px;
+
+      .btn {
+        --color: #fff;
+        --border-radius: 10px;
+        width: auto;
+        text-transform: inherit;
+        --background: #135d5e;
+      }
+
+      .btn-active {
+        --background: #bacecf;
+        --color: #2d3a3b;
+      }
+    }
+  }
+
+  .plus {
+    position: absolute;
+    top: -26px;
+    right: 16px;
+    z-index: 10;
+  }
+}
+
+ion-fab {
+  right: 135px;
+
+  .btn-click {
+    position: absolute;
+    bottom: 16px;
+    right: -105.5px;
+    --ion-color-base: #72DAD6 !important;
+  }
+
+  .group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 32px;
+
+    span {
+      margin-right: 44px;
+      padding: 3px 8px;
+      background-color: #fff;
+      border-radius: 4px;
+    }
+  }
+
+  ion-fab-list {
+    min-width: 187px;
+    position: absolute;
+    right: -118px;
+
+    .btn-fab {
+      height: 45px;
+      border-radius: 50%;
+      width: 48px;
+      box-shadow: 0px 6px 6px rgb(0 0 0 / 25%);
+      position: absolute;
+      right: 16px;
+    }
+
+    .btn-event {
+
+      --ion-color-base: #00B0B2 !important;
+    }
+
+    .btn-to-do {
+      --ion-color-base: #00B0B2 !important;
+    }
+
+    ion-fab-button {
+      img {
+        width: 20px;
+      }
+    }
+
+  }
+}

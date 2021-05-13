@@ -1,37 +1,75 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>calendar</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header [headerCustom]="headerCustom"></app-header>
 
 <ion-content>
  
-  <ion-fab horizontal="end" vertical="bottom" slot="fixed">
-    <ion-fab-button color="dark" class="btn-click">
-      <ion-icon md="caret-up" ios="chevron-up-circle-outline"></ion-icon>
-    </ion-fab-button>
-    <ion-fab-list side="top">
-      <div class="group">
-        <span>Add Shopping Trip</span>
-        <ion-fab-button color="light"  class="btn-fab btn-shopping">
-          <img src="assets/img/cart.svg" alt="add to-do">
-        </ion-fab-button>
-      </div>
-     
-      <div class="group">
-        <span>Add To-Do</span>
-        <ion-fab-button color="light"  class="btn-fab btn-to-do">
-          <img src="assets/img/to-do.svg" alt="add to-do">
-        </ion-fab-button>
-      </div>
-     
-      <div class="group" (click)="gotoEvent()">
-        <span>Add Event</span>
-        <ion-fab-button color="light" class="btn-fab btn-event">
-          <img src="assets/img/event.svg" alt="add event">
-        </ion-fab-button>
-      </div>
-     
-    </ion-fab-list>
-  </ion-fab>
-</ion-content>
+  <ion-buttons class="header">
+    <ion-icon (click)="prevMonth()" name="chevron-back-outline" [ngClass]="{'icon-disabled': checkStartMonth()}">
+    </ion-icon>
+    <span class="date">Tháng {{ currentDate.getMonth() + 1 }} . {{ currentDate.getFullYear() }}</span>
+    <ion-icon (click)="nextMonth()" name="chevron-forward-outline" [ngClass]="{'icon-disabled': checkEndMonth()}">
+    </ion-icon>
+  </ion-buttons>
+
+  <ion-slides #slides (ionSlideWillChange)="setHasFilter(false)" (ionSlideDrag)="setHasFilter(false)"
+    (ionSlideDidChange)="changeCurrentDate()">
+    <ion-slide *ngFor="let month of months">
+      <ion-buttons class="days">
+        <div class="day">Th2</div>
+        <div class="day">Th3</div>
+        <div class="day">Th4</div>
+        <div class="day">Th5</div>
+        <div class="day">Th6</div>
+        <div class="day">Th7</div>
+        <div class="day">CN</div>
+      </ion-buttons>
+
+      <ion-buttons class="dates">
+        <div *ngFor="let date of month" class="date-container" (click)="openDetailModal(date)">
+          <ion-buttons class="date" [ngClass]="{'date-opacity': !checkRightMonthAndYear(date.date, month[12].date) }">
+            <div class="date-top">
+              <span class="circle" [style.background]="date.shirt_color?.color_code"
+                [ngClass]="{'border': date.shirt_color?.color_code === '#FFFFFF', 'opacity-none': !checkRightMonthAndYear(date.date, month[12].date) }"></span>
+              <span class="calendar-date">{{ date.date.getDate() }}</span>
+            </div>
+            <div class="date-bottom">
+              <span class="lunar-date">{{ date.lunar_date.getDate() }}</span>
+            </div>
+          </ion-buttons>
+        </div>
+      </ion-buttons>
+
+    
+    </ion-slide>
+  </ion-slides>
+ 
+<!-- </ion-content>
+<div *ngIf="show" class="back-drop">
+  
+</div> -->
+<ion-fab horizontal="end" vertical="bottom" slot="fixed">
+  <ion-fab-button color="dark" class="btn-click"(click)="toggleClick()">
+    <ion-icon md="caret-up" ios="chevron-up-circle-outline"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-list side="top">
+    <div class="group">
+      <span class="shopping">Add Shopping</span>
+      <ion-fab-button color="light" class="btn-fab btn-shopping">
+        <img src="assets/img/cart.svg" alt="add to-do" />
+      </ion-fab-button>
+    </div>
+
+    <div class="group">
+      <span>Add To-Do</span>
+      <ion-fab-button color="light" class="btn-fab btn-to-do">
+        <img src="assets/img/to-do.svg" alt="add to-do" />
+      </ion-fab-button>
+    </div>
+
+    <div class="group" (click)="gotoEvent()">
+      <span>Add Event</span>
+      <ion-fab-button color="light" class="btn-fab btn-event">
+        <img src="assets/img/event.svg" alt="add event" />
+      </ion-fab-button>
+    </div>
+  </ion-fab-list>
+</ion-fab>

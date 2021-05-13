@@ -27,11 +27,24 @@
 :root {
     --grayE5:  #E5E5E5;
     --back43: #434141;
-    --main-color: #72dad6;
+    --main-color: #00B0B2;
     --fd7160-color: #fd7160;
   }
+html, body {
+  font-size: 16px;
+}
 .display-none {
     display: none;
+}
+.alert-wrapper.sc-ion-alert-md {
+  min-width: 270px;
+}
+.modalPassword {
+  --height: 350px;
+  --width: 92%;
+  .modal-wrapper {
+    border-radius: 20px;
+  }
 }
 .confirm-modal {
   --height: 250px;
@@ -51,25 +64,20 @@
       border-top-right-radius: 30px;
   }
 }
-.header {
-  height: 79px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--main-color);
-  font-size: 18px;
-  font-weight: 600;
-
-  @media screen and (max-width: 320px) {
-    font-size: 14px;
-  }
-
-  ion-icon {
-    position: absolute;
-    right: 26px;
-    font-size: 25px;
-  }
+.back-drop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #525151;
+  right: 0;
+  bottom: 0;
+  z-index: 99;
+  opacity: 0.4;
 }
+.alert-remove-user {
+  font-size: 16px;
+}
+
 .btn {
   display: inline-block;
     color: #fff;
@@ -85,8 +93,9 @@
 }
 .back-btn {
   display: inline-block;
-  color: var(--main-color);
-  background: #fff;
+  color: #fff;
+  // color: #fff;
+  // background: #fff;
   border-radius: 18px;
   width: 45px;
   height: 45px;
@@ -95,15 +104,26 @@
   left: 17px;
   z-index: 10;
 }
+.header-ios ion-toolbar:last-of-type {
+  --border-width: 0 0 0px;
+}
 .home {
   display: inline-block;
     color: #E7E7E7, 100%;
-    background: #fff;
     border-radius: 18px;
     width: 24px;
     height: 22px;
     position: fixed;
     top: 22px;
-    left: 17px;
+    right: 16px;
     z-index: 10;
+}
+*::-webkit-input-placeholder {
+  color: #afaeae;
+}
+*:-moz-placeholder {
+  color: #afaeae;
+}
+*:-ms-input-placeholder { /* IE10+ */
+  color: #afaeae;
 }

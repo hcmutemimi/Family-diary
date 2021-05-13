@@ -1,6 +1,6 @@
 import { ErrorHandler, ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AccountService, API_URL, AuthService, FamilyMemberService, FamilyService, StorageService } from './@http-config';
+import { AccountService, API_URL, AuthService, CalendarService, FamilyMemberService, FamilyService, StorageService } from './@http-config';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { GlobalErrorHandlerService } from './global-error-handler.service'
@@ -27,7 +27,8 @@ export class CoreModule {
         StorageService,
         AccountService,
         FamilyService,
-        FamilyMemberService
+        FamilyMemberService,
+        CalendarService
       ]
     }
   }

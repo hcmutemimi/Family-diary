@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FamilyMemberService } from '../@app-core/@http-config';
 
 @Component({
   selector: 'app-add-event',
@@ -8,7 +9,10 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class AddEventPage implements OnInit {
   public myDate = new Date().toISOString();
-  myStartTime = '1990-02-19T07:43Z'
+  listFamilyMember = []
+  headerCustom = {
+    background: '#A88FCD', title: 'ADD NEW EVENT'
+  }
   formAddEvent: FormGroup;
   validMessage = {
     name: [
@@ -31,10 +35,24 @@ export class AddEventPage implements OnInit {
   }
   constructor(
     private formBuilder: FormBuilder,
+    private familyMemberService: FamilyMemberService
 
   ) { }
 
   ngOnInit() {
+    this.initForm()
+    this.getMembers()
+
+  }
+  
+  getMembers() {
+    let queryParams = {
+      familyId: localStorage.getItem('familyId')
+    }
+    this.familyMemberService.getListFamily(queryParams).subscribe(data => {
+      this.listFamilyMember = data.message
+      // this.loadingService.dismiss()
+    })
   }
   initForm() {
     this.formAddEvent = this.formBuilder.group({
@@ -45,10 +63,11 @@ export class AddEventPage implements OnInit {
       dateEnd: new FormControl(''),
       timeStart: new FormControl(''),
       timeEnd: new FormControl(''),
-      userId: new FormControl(''),
-      typeEventId: new FormControl('', Validators.required),
-      familyId: new FormControl(''),
-      colorCode: new FormControl('', Validators.required),
+      location: new FormControl(''),
+      // typeEventId: new FormControl('', Validators.required),
+      // familyId: new FormControl(''),
+      colorCode: new FormControl(''),
+      importance: new FormControl(''),
       visible: new FormControl(''),
       note: new FormControl(''),
       join: new FormControl('')

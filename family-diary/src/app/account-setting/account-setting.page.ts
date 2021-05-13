@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, PopoverController } from '@ionic/angular';
+import { AccountService } from '../@app-core/@http-config';
 // import { AccountService } from '../@app-core/http';
 // import { PopupComponent } from '../@modular/popup/popup.component';
 import { PopuplogoutComponent } from '../@app-core/@modular/popuplogout/popuplogout.component';
@@ -11,38 +12,36 @@ import { PopuplogoutComponent } from '../@app-core/@modular/popuplogout/popuplog
 })
 export class AccountSettingPage implements OnInit {
   isOpeningModal = false;
-  name = localStorage.getItem('name') || '';
+  name = localStorage.getItem('name') || ''
+  headerCustom = {
+    background: '#fff', title: 'MANAGE FAMILY'
+  }
+  avatar:any
   constructor(
     public modalController: ModalController,
     // private popoverController: PopoverController,
-    // private accountService: AccountService
+    private accountService: AccountService
   ) { }
 
   ngOnInit() {
     
   }
-  avatar:any;
-  // ionViewWillEnter() {
-  //   this.accountService.getAccounts().subscribe(result => {
-  //     if(result.app_user.avatar == null || result.app_user.avatar == '') {
-  //       this.avatar = "https://i.imgur.com/edwXSJa.png";
-  //     }
-  //     else {
-  //       this.avatar = result.app_user.avatar;
-  //     }
-  //   })
-  // }
+  ionViewWillEnter() {
+    this.accountService.getAccount().subscribe(data => {
+        this.avatar = data.user.avatar
+    })
+  }
 
   async openModalLogOut() {
-    this.isOpeningModal = true;
+    this.isOpeningModal = true
     const modal = await this.modalController.create({
       component: PopuplogoutComponent,
       swipeToClose: true,
       cssClass: 'modal__logout'
-    });
-    await modal.present();
+    })
+    await modal.present()
 
-    modal.onWillDismiss().then(() => this.isOpeningModal = false);
+    modal.onWillDismiss().then(() => this.isOpeningModal = false)
   }
 
   // async presentPopover(ev: any) {

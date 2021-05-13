@@ -1,16 +1,21 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>family</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header [headerCustom]="headerCustom"></app-header>
 
-<ion-content>
-  <ion-list>
-    <!-- <ion-radio-group [(ngModel)]="selection"(ionChange)="savefamilyId()">
-        <ion-item  *ngFor="let i of listFamily">
-        <ion-label> {{i.name}}</ion-label>
-          <ion-radio slot="start" [value]="i._id"></ion-radio>
-        </ion-item>
-    </ion-radio-group> -->
-  </ion-list>
+<ion-content class="ion-padding">
+  <ion-text class="">Your family be long to</ion-text>
+  <ion-buttons *ngFor="let item of listFamily" class="item active-effect" (click)="goToDetail(item)">
+		<ion-buttons class="left-box">
+			<div class="img-container">
+				<img class="img" src="assets/img/family.png">
+			</div>
+      <div class="name-family">
+        <span class="title">{{ item.name }}</span>
+        <span class="content">{{item.count}} members</span>
+      </div>
+		</ion-buttons>
+		<ion-buttons class="right-box">
+			<ion-buttons class="icon-container">
+				<ion-icon name="chevron-forward-outline"></ion-icon>
+			</ion-buttons>
+		</ion-buttons>
+	</ion-buttons>
 </ion-content>

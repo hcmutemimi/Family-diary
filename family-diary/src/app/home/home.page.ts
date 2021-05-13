@@ -19,6 +19,7 @@ export class HomePage implements OnInit {
   nameUser
   selection
   nameIcon
+  countFamily = []
   menu = [
     {
       name: 'ACTIVITY',
@@ -35,7 +36,7 @@ export class HomePage implements OnInit {
     {
       name: 'TO-DO',
       thumbImage: 'assets/img/menu/todo.svg',
-      desUrl: 'assets/img/menu/todo.svg',
+      desUrl: '/to-do',
       bg: '#EAFAFA'
     },
 
@@ -48,7 +49,7 @@ export class HomePage implements OnInit {
     {
       name: 'EVENT',
       thumbImage: 'assets/img/menu/event.svg',
-      desUrl: 'main/calendar',
+      desUrl: '/event',
       bg: '#f6f3fa'
     },
     {
@@ -92,21 +93,14 @@ export class HomePage implements OnInit {
 
   async getData() {
     const result = await this.familyService.getListFamily().toPromise()
-    this.listFamily = result.message
+    this.listFamily = result.message.family
     this.nameFamily = this.listFamily[0].name
-    this.selection = result.message[0]._id
+    this.selection = this.listFamily[0]._id
+    localStorage.setItem('familyId', this.selection)
     this.nameIcon = this.listFamily[0].name
     this.getMember()
   }
-  getInfoUser() {
-    this.accountService.getAccount().subscribe((data: any)=> {
-      this.nameUser = data.user.lName
-      localStorage.setItem('name', this.nameUser)
-    })
-  }
-  toggleHasSetting(hasButton) {
-    this.hasButton = !hasButton;
-  }
+
   getMember() {
     let queryParams = {
       familyId: this.selection
@@ -116,46 +110,37 @@ export class HomePage implements OnInit {
       // this.loadingService.dismiss()
     })
   }
+  getInfoUser() {
+    this.accountService.getAccount().subscribe((data: any)=> {
+      this.nameUser = data.user.lName
+      localStorage.setItem('name', this.nameUser)
+      localStorage.setItem('avatar',data.user.avatar)
+    })
+  }
+  toggleHasSetting(hasButton) {
+    this.hasButton = !hasButton;
+  }
   savefamilyId(i, hasButton) {
     this.hasButton = !hasButton;
     this.selection = i._id
+    localStorage.setItem('familyId', this.selection)
     this.nameFamily = i.name
     this.getMember()
   }
   goToDetail(item) {
-    if (item.desUrl == 'donate') {
-      const data = {
-        type: 'donate'
-      }
-      // this.authService.sendData(data)
-      this.router.navigateByUrl(item.desUrl);
-
-    }
-    else if (item.desUrl == 'pray') {
-      const data = {
-        type: 'pray'
-      }
-      // this.authService.sendData(data)
-      this.router.navigateByUrl(item.desUrl);
-
-    }
-    else if (item.desUrl == 'news') {
-      const data = {
-        id: localStorage.getItem('parish_id'),
-        type: {
-          detail: 'parish_news',
-          general: 'news'
-        }
-
-      }
-      this.router.navigate(['/news'], {
-        queryParams: {
-          data: JSON.stringify(data)
-        }
-      })
-    }
-    else this.router.navigateByUrl(item.desUrl);
+   
+   
+    //   this.router.navigate(['/news'], {
+    //     queryParams: {
+    //       data: JSON.stringify(data)
+    //     }
+    //   })
+    // }
+  this.router.navigateByUrl(item.desUrl);
   }
-
+  gotoNewFamily() {
+    this.router.navigateByUrl('/account-setting/family');
+    
+  }
 
 }

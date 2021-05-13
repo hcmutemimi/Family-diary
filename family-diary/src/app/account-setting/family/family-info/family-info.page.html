@@ -1,0 +1,30 @@
+<app-header [headerCustom]="headerCustom"></app-header>
+
+<ion-content class="ion-padding">
+  <div class="title title-info ion-no-padding">
+    <ion-label> Family infomation </ion-label>
+  </div>
+  <div class="title">
+    <i class="fas fa-exclamation-circle"></i>
+    <ion-label> Edit Profile </ion-label>
+  </div>
+  <div class="title">
+    <ion-label> Members </ion-label>
+  </div>
+  <ion-list class="">
+    <ion-item *ngFor="let item of listFamilyMember" class="ion-no-padding">
+      <img src="assets/img/user.svg" alt="" />
+      <ion-label> {{item.lName}} </ion-label>
+      <ion-button (click)="removeUser(item)"> REMOVE </ion-button>
+    </ion-item>
+  </ion-list>
+  <div class="btn-add">
+    <ion-button class="" (click)="openModalInvite()">
+      <i class="fas fa-plus-circle"></i>
+      Invite new member
+    </ion-button>
+  </div>
+  <div class="btn-add btn-delete">
+    <ion-button (click)="deleteFamily()" class=""> Delete this family </ion-button>
+  </div>
+</ion-content>

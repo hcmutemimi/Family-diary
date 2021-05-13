@@ -1,0 +1,42 @@
+<app-header-add [headerCustom]="headerCustom"></app-header-add>
+<ion-content>
+  <div class="title">
+    <input type="text" class="name" placeholder="Enter to-do title"/>
+  </div>
+  <div class="ion-padding">
+    <div class="join">
+      <ion-label>For</ion-label>
+      <ion-label>Mi</ion-label>
+    </div>
+    <ul class="family-member">
+      <li *ngFor="let i of listFamilyMember">
+        <ion-avatar class="family-member--img">
+          <img src="assets/img/avatar.png" alt="{{i.lName}}" />
+        </ion-avatar>
+        <ion-text> {{i.lName}}</ion-text>
+      </li>
+    </ul>
+  </div>
+  <ion-list lines ="none">
+    <ion-item lines ="none">
+      <img src="assets/img/star00b0b2.svg" alt="" />
+      <ion-label>MARK AS IMPORTANT</ion-label>
+      <ion-checkbox>
+
+      </ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <img src="assets/img/calendarb.svg" alt="" />
+      <ion-label>DUE DATE</ion-label>
+    </ion-item>
+    <ion-item>
+      <img src="assets/img/repeat.svg" alt="" />
+      <ion-label>REPEAT</ion-label>
+    </ion-item>
+    <ion-item>
+      <p>NOTES</p> 
+    </ion-item>
+    <input type="text" class="input-note note">
+
+  </ion-list>
+</ion-content>

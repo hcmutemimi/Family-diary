@@ -39,8 +39,23 @@ const routes: Routes = [
     path: 'confirm-mail',
     loadChildren: () => import('./@app-core/@modular/confirm-mail/confirm-mail.module').then( m => m.ConfirmMailPageModule)
   },
-  { path: '**', redirectTo: 'home'  },
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  {
+    path: 'modal-add-todo',
+    loadChildren: () => import('./modal-add-todo/modal-add-todo.module').then( m => m.ModalAddTodoPageModule)
+  },
+  {
+    path: 'to-do',
+    loadChildren: () => import('./to-do/to-do.module').then( m => m.ToDoPageModule)
+  },
+  {
+    path: 'event',
+    loadChildren: () => import('./event/event.module').then( m => m.EventPageModule)
+  },
+  { path: '**', redirectTo: 'event'  },
+  { path: '', redirectTo: 'event', pathMatch: 'full' },
+ 
+  
+ 
  
   
 ];

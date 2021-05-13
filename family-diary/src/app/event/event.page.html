@@ -1,0 +1,33 @@
+<app-header [headerCustom]="headerCustom"></app-header>
+
+<ion-content class="">
+  <ion-slides pager="true" [options]="slideOpts" class="ion-padding">
+    <ion-slide>
+      <h1 class="text-intro">Nothing <br />upcoming</h1>
+    </ion-slide>
+    <ion-slide>
+      <h1>Slide 1</h1>
+    </ion-slide>
+    <ion-slide>
+      <h1>Slide 2</h1>
+    </ion-slide>
+    <ion-slide>
+      <h1>Slide 3</h1>
+    </ion-slide>
+  </ion-slides>
+  <ion-segment value="birthday" swipeGesture="false" mode="ios">
+    <ion-button value="birthday" class="btn-custom" (click)="changeTabsBirthday()" [ngClass]="{'show': tagNew}">
+      <ion-label>Birthdays</ion-label>
+      <span class="footer_under" *ngIf="valueTag=='birthday'"></span>
+    </ion-button>
+    <ion-button value="anniversaries" class="btn-custom" (click)="changeTabsAnni()" [ngClass]="{'show': tagNew}">
+      <ion-label>Anniversaries</ion-label>
+      <span class="footer_under" *ngIf="valueTag=='anniversaries'"></span>
+    </ion-button>
+    <ion-button value="orther" class="btn-custom" (click)="changeTabsOrther()" [ngClass]="{'show': tagNew}">
+      <ion-label>Event orther</ion-label>
+      <span class="footer_under" *ngIf="valueTag=='orther'"></span>
+    </ion-button>
+  </ion-segment>
+  <img src="assets/img/plus.svg" alt="" class="plus"(click)="addEvent()">
+</ion-content>

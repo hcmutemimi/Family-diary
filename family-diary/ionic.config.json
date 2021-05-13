@@ -1,7 +1,8 @@
 {
   "name": "family-diary",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "cordova": {}
   },
   "type": "angular"
 }

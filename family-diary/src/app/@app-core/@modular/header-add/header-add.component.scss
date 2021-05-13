@@ -1,0 +1,19 @@
+ion-header {
+    // background-color: #00B0B2;
+    font-size: 18px;
+    font-weight: 550;
+  
+    ion-toolbar {
+      // --background: #00B0B2;
+      --color: #fff;
+  
+      i {
+        font-size: 22px;
+      }
+    }
+  
+    ion-title {
+      font-weight: 550;
+      text-align: center;
+    }
+  }
