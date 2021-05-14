@@ -37,9 +37,15 @@ ion-content {
 
     li {
       text-align: center;
+      position: relative;
 
       ion-text {
         line-height: 28px;
+      }
+      .img-check {
+        position: absolute;
+        top: 0;
+        right: 4px;
       }
     }
 
@@ -59,6 +65,10 @@ ion-content {
         ion-label {
             margin-left: 10px;
         }
+        i {
+          font-size: 22px;
+          color: #00B0B2;
+        }
       }
   }
   .input-note {
@@ -74,5 +84,19 @@ ion-content {
     &:focus {
       outline: none;
     }
+  }
+}
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  .btn-submit {
+    --background: #ff5d52;
+    // float: right;
+    margin: 16px;
+  
+    i {
+      margin-left: 6px;
+    }
+  
   }
 }

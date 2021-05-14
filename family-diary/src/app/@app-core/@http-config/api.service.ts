@@ -37,5 +37,9 @@ export const APICONFIG =  {
   },
   FAMILY_MEMEBER: {
     GET: `/family-member`
+  },
+  EVENT : {
+    CREATE: `/event`,
+    GET: `event`
   }
 }

@@ -113,7 +113,6 @@ export class VerificationPage implements OnInit {
       //   this.toastService.present('Code confirmed, present your new password!', 'top', 2000);
       // },
       // (data: any) =>{
-      //   console.log(data)
       //   this.toastService.present(data.errors, 'top');
       //   this.wrongCode = true;
       //   this.loadingService.dismiss();

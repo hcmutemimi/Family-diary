@@ -26,7 +26,7 @@ export class IntercepterService implements HttpInterceptor {
       request = req.clone({
         url: this.prepareUrl(req.url),
         headers: req.headers.set('authorization', 'Bearer ' + localStorage.getItem('authorization')
-         || '').set('Accept', 'multipart/form-data').set('Content-Type','text/html'),
+         || '').set('Accept', 'multipart/form-data').set('Content-Type','application/json'),
       });
     }
     return next.handle(request)

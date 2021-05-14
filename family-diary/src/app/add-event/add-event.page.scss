@@ -10,7 +10,17 @@ ion-content {
         --inner-padding-start: 0;
         --inner-padding-top: 0;
       }
+      ion-toggle {
+        // --ion-color-base: #a88fcd !important;
+        // --ion-color-base-rgb: var(--red);
+        // --background-checked: #c4b7d8;
+        // --handle-background-checked: #a88fcd ;
+      }
 
+      i {
+        font-size: 20px;
+        color:#A88FCD;
+      }
       ion-label {
         color: #424242;
       }
@@ -22,6 +32,7 @@ ion-content {
 
       ion-datetime {
         color: #A88FCD;
+        --padding-end: 0;
       }
     }
 
@@ -66,11 +77,18 @@ ion-content {
 
   li {
     text-align: center;
+    position: relative;
 
     ion-text {
       color: #424242;
 
       line-height: 28px;
+    }
+
+    .img-check {
+      position: absolute;
+      top: 0;
+      right: 4px;
     }
   }
 
@@ -79,4 +97,26 @@ ion-content {
     height: 40px;
     width: 40px;
   }
+}
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  .btn-submit {
+    --background: #ff5d52;
+    // float: right;
+    margin: 16px;
+  
+    i {
+      margin-left: 6px;
+    }
+  
+  }
+}
+
+
+
+.separate {
+  height: 36px;
+  width: 100%;
+  background-color: #efeef3;
 }

@@ -114,6 +114,7 @@ export class HomePage implements OnInit {
     this.accountService.getAccount().subscribe((data: any)=> {
       this.nameUser = data.user.lName
       localStorage.setItem('name', this.nameUser)
+      localStorage.setItem('userId', data.user._id)
       localStorage.setItem('avatar',data.user.avatar)
     })
   }
@@ -128,8 +129,6 @@ export class HomePage implements OnInit {
     this.getMember()
   }
   goToDetail(item) {
-   
-   
     //   this.router.navigate(['/news'], {
     //     queryParams: {
     //       data: JSON.stringify(data)

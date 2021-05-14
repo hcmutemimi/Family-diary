@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
+import { EventService } from '../@app-core/@http-config';
+import { AddEventPage } from '../add-event/add-event.page';
 
 @Component({
   selector: 'app-event',
@@ -12,26 +15,41 @@ export class EventPage implements OnInit {
   }
   valueTag = 'birthday'
   constructor(
-    private route: Router
+    private route: Router,
+    private modal: ModalController,
+    private eventService: EventService
+
   ) { }
 
   ngOnInit() {
+    this.getData()
+  }
+  async openAddEvent() {
+    const modal = await this.modal.create({
+      component: AddEventPage,
+      swipeToClose: true,
+      cssClass: 'modal__addToDo'
+    })
+    await modal.present()
   }
   changeTabsBirthday() {
     this.valueTag = 'birthday'
-    console.log(this.valueTag)
   }
   changeTabsAnni() {
     this.valueTag = 'anniversaries'
-
-    console.log(this.valueTag)
   }
   changeTabsOrther() {
     this.valueTag = 'orther'
-
-    console.log(this.valueTag)
   }
   addEvent() {
     this.route.navigateByUrl('add-event')
+  }
+  getData() {
+    let param = {
+      type: 'event'
+    }
+    this.eventService.getEvent(param).subscribe(data =>{
+      console.log(data)
+    })
   }
 }

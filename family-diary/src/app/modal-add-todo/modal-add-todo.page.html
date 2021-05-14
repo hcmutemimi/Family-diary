@@ -1,42 +1,68 @@
 <app-header-add [headerCustom]="headerCustom"></app-header-add>
 <ion-content>
+  <form [formGroup]="formAddToDo">
   <div class="title">
-    <input type="text" class="name" placeholder="Enter to-do title"/>
+    <input type="text" class="name"  formControlName="name" placeholder="Enter to-do title"/>
   </div>
   <div class="ion-padding">
     <div class="join">
       <ion-label>For</ion-label>
-      <ion-label>Mi</ion-label>
+      <ion-label>
+        <span class="name-join" *ngFor="let i of listName">{{i.name}}, </span>
+
+      </ion-label>
     </div>
     <ul class="family-member">
-      <li *ngFor="let i of listFamilyMember">
+      <li *ngFor="let item of listFamilyMember" (click)="toggleChooseUser(item)">
         <ion-avatar class="family-member--img">
-          <img src="assets/img/avatar.png" alt="{{i.lName}}" />
+          <img src="assets/img/avatar.png" alt="{{item.lName}}" />
         </ion-avatar>
-        <ion-text> {{i.lName}}</ion-text>
+        <ion-text> {{item.lName}}</ion-text>
+        <img
+        src="assets/img/checkwhitecricle.svg"
+        alt=""
+        class="img-check"
+        *ngIf="item.join"
+      />
       </li>
     </ul>
   </div>
   <ion-list lines ="none">
-    <ion-item lines ="none">
-      <img src="assets/img/star00b0b2.svg" alt="" />
+    <ion-item lines ="none" (click)="toggleImportance()">
+      <i class="{{name}}"></i>
+      <!-- <img src="assets/img/star00b0b2.svg" alt="" /> -->
       <ion-label>MARK AS IMPORTANT</ion-label>
-      <ion-checkbox>
-
-      </ion-checkbox>
+    
     </ion-item>
     <ion-item>
       <img src="assets/img/calendarb.svg" alt="" />
       <ion-label>DUE DATE</ion-label>
+      <ion-datetime
+      mode="ios"
+      displayFormat="DD/MM/YYYY, HH:mm"
+      formControlName="dateEnd"
+      [(ngModel)]="myDateEnd"
+    ></ion-datetime>
     </ion-item>
     <ion-item>
       <img src="assets/img/repeat.svg" alt="" />
       <ion-label>REPEAT</ion-label>
+      <ion-select value="never" (ionChange)="onSelectRepeat($event)">
+        <ion-select-option value="never">Never</ion-select-option>
+        <ion-select-option value="everyday">Every Day</ion-select-option>
+        <ion-select-option value="everyweek">Every Week</ion-select-option>
+      </ion-select>
     </ion-item>
     <ion-item>
       <p>NOTES</p> 
     </ion-item>
-    <input type="text" class="input-note note">
-
+    <input type="text" formControlName="note" class="input-note note">
   </ion-list>
+  <div class="footer">
+    <ion-button (click)="submitEvent()" class="btn-submit"
+    >Create<i class="fas fa-chevron-right"></i
+  ></ion-button>
+  </div>
+ 
+</form>
 </ion-content>

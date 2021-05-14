@@ -161,7 +161,6 @@ export class CalendarPage implements OnInit {
     this.router.navigateByUrl('/add-event')
   }
   onChange($event) {
-    console.log($event);
   }
   toggleClick() {
     this.show = !this.show

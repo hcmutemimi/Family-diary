@@ -87,9 +87,14 @@ ion-content {
 
     li {
       text-align: center;
-
+      position: relative;
       ion-text {
         line-height: 28px;
+      }
+      .img-check {
+        position: absolute;
+        top: 0;
+        right: 4px;
       }
     }
 

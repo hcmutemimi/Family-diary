@@ -22,11 +22,17 @@
 <ion-content>
  
   <ul class="family-member">
-    <li *ngFor="let i of listFamilyMember">
+    <li *ngFor="let item of listFamilyMember" (click)="toggleChooseUser(item)">
       <ion-avatar class="family-member--img">
-        <img src="assets/img/avatar.png" alt="{{i.lName}}" />
+        <img src="assets/img/avatar.png" alt="{{item.lName}}" />
       </ion-avatar>
-      <ion-text> {{i.lName}}</ion-text>
+      <ion-text> {{item.lName}}</ion-text>
+      <img
+      src="assets/img/checkwhitecricle.svg"
+      alt=""
+      class="img-check"
+      *ngIf="item.join"
+    />
     </li>
   </ul>
  <ion-list>

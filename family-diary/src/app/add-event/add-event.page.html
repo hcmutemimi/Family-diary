@@ -1,72 +1,117 @@
-
-
 <app-header-add [headerCustom]="headerCustom"></app-header-add>
 <ion-content class="">
   <ion-item-group>
     <form [formGroup]="formAddEvent">
-        <input class="text-input" type="text"formControlName="name" placeholder="Enter title">
-        <input class="text-input" type="text"formControlName="location" placeholder="Enter location">
-        <ion-item>
-          <ion-label>TYPE</ion-label>
-          <ion-select value="birthday">
-            <ion-select-option value="birthday">Birthday</ion-select-option>
-            <ion-select-option value="anniversaries">Anniversaries</ion-select-option>
-            <ion-select-option value="orther">Orther</ion-select-option>
-          </ion-select>
-        </ion-item>
-    <div class="ion-padding">
-      <div class="join">
-        <ion-label>For</ion-label>
-        <ion-label class="name-join">Mi</ion-label>
+      <input
+        class="text-input"
+        type="text"
+        formControlName="name"
+        placeholder="Enter title"
+      />
+      <input
+        class="text-input"
+        type="text"
+        formControlName="location"
+        placeholder="Enter location"
+      />
+      <ion-item>
+        <ion-label>TYPE</ion-label>
+        <ion-select value="birthday" (ionChange)="selectSubType($event)">
+          <ion-select-option value="birthday">Birthday</ion-select-option>
+          <ion-select-option value="anniversaries"
+            >Anniversaries</ion-select-option
+          >
+          <ion-select-option value="orther">Orther</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <div class="separate"></div>
+      <div class="ion-padding">
+        <div class="join">
+          <ion-label>For</ion-label>
+          <ion-label>
+            <span class="name-join" *ngFor="let i of listName">{{i.name}}, </span>
+
+          </ion-label>
+        </div>
+        <ul class="family-member">
+          <li
+            *ngFor="let item of listFamilyMember"
+            (click)="toggleChooseUser(item)"
+          >
+            <ion-avatar class="family-member--img">
+              <img src="assets/img/avatar.png" alt="{{item.lName}}" />
+            </ion-avatar>
+            <ion-text> {{item.lName}}</ion-text>
+            <img
+              src="assets/img/checkwhitecricle.svg"
+              alt=""
+              class="img-check"
+              *ngIf="item.join"
+            />
+          </li>
+        </ul>
       </div>
-      <ul class="family-member">
-        <li *ngFor="let i of listFamilyMember">
-          <ion-avatar class="family-member--img">
-            <img src="assets/img/avatar.png" alt="{{i.lName}}" />
-          </ion-avatar>
-          <ion-text> {{i.lName}}</ion-text>
-        </li>
-      </ul>
-    </div>
-    <!-- <ion-item>
-      <ion-text position="floating">ALL-DAY </ion-text>
-      <ion-toggle color="primary"></ion-toggle>
-    </ion-item> -->
-    <ion-item>
-      <ion-label>STARTS: </ion-label>
-      <ion-datetime  formControlName="dateStart" mode="ios" displayFormat="DD/MM/YYYY, HH:mm" min="2021-04-01" [(ngModel)]="myDate" ></ion-datetime>
+      <ion-item lines ="none">
+        <ion-label>MARK AS IMPORTANT</ion-label>
+        <i class="{{name}}"(click)="toggleImg()"></i>
+      </ion-item>
+      <ion-item>
+      <ion-label >ALL-DAY </ion-label>
+      <ion-toggle color="primary"(ionChange)="changeTime($event)"></ion-toggle>
     </ion-item>
-    <ion-item>
-      <ion-label>ENDS: </ion-label>
-      <ion-datetime formControlName="dateEnd" mode="ios" displayFormat="DD/MM/YYYY, HH:mm" min="2021-04-01" [(ngModel)]="myDate" ></ion-datetime>
-    </ion-item>
-    <ion-item>
-      <ion-label>VISIBLE FOR</ion-label>
-      <ion-select value="">
-        <ion-select-option value="">Only me</ion-select-option>
-        <ion-select-option value="">Member(s) joined</ion-select-option>
-        <ion-select-option value="orther">Everyone in this family</ion-select-option>
-      </ion-select>
-    </ion-item>
-   
-    <ion-item>
-      <ion-label>ALERT</ion-label>
-      <ion-select value="">
-        <ion-select-option value="">At time of event</ion-select-option>
-        <ion-select-option value="">1 day before</ion-select-option>
-        <ion-select-option value="orther">2 days before</ion-select-option>
-        <ion-select-option value="orther">3 days before</ion-select-option>
-        <ion-select-option value="orther">4 days before</ion-select-option>
-        <ion-select-option value="orther">5 days before</ion-select-option>
-        <ion-select-option value="orther">1 week before</ion-select-option>
-
-
-      </ion-select>
-    </ion-item>
-    <input class="text-input" type="text"formControlName="note" placeholder="Enter note">
-    
-  </form>
-
+      <ion-item>
+        <ion-label>STARTS: </ion-label>
+        <ion-datetime id="end"
+          mode="ios"
+          formControlName="dateStart"
+          displayFormat="DD/MM/YYYY, HH:mm"
+          [(ngModel)]="myDateStart"
+        ></ion-datetime>
+      </ion-item>
+      <ion-item >
+        <ion-label>ENDS: </ion-label>
+        <ion-datetime id="endDate"
+          disabled = "{{labelDateEnd}}"
+          formControlName="dateEnd"
+          mode="ios"
+          displayFormat="DD/MM/YYYY, HH:mm"
+          [(ngModel)]="myDateEnd"
+        ></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label>VISIBLE FOR</ion-label>
+        <ion-select value="joined" (ionChange)="onSelectVisible($event)">
+          <ion-select-option value="me">Only me</ion-select-option>
+          <ion-select-option value="joined">Member(s) joined</ion-select-option>
+          <ion-select-option value="orther"
+            >Everyone in this family</ion-select-option
+          >
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>ALERT</ion-label>
+        <ion-select value="1d" (ionChange)="onSelectElert($event)">
+          <ion-select-option value="now">At time of event</ion-select-option>
+          <ion-select-option value="1d">1 day before</ion-select-option>
+          <ion-select-option value="2d">2 days before</ion-select-option>
+          <ion-select-option value="3d">3 days before</ion-select-option>
+          <ion-select-option value="4d">4 days before</ion-select-option>
+          <ion-select-option value="5d">5 days before</ion-select-option>
+          <ion-select-option value="1w">1 week before</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <input
+        class="text-input"
+        type="text"
+        formControlName="note"
+        placeholder="Enter note"
+      />
+      <div class="footer">
+        <ion-button (click)="submitEvent()" class="btn-submit"
+        >Create<i class="fas fa-chevron-right"></i
+      ></ion-button>
+      </div>
+     
+    </form>
   </ion-item-group>
- 
 </ion-content>

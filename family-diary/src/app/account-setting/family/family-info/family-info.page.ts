@@ -38,7 +38,6 @@ export class FamilyInfoPage implements OnInit {
     }
     this.familyMemberService.getListFamily(queryParams).subscribe(data => {
       this.listFamilyMember = data.message
-      console.log(this.listFamilyMember)
       // this.loadingService.dismiss()
     })
   }
@@ -56,7 +55,6 @@ export class FamilyInfoPage implements OnInit {
         }, {
           text: 'Oke',
           handler: () => {
-            console.log(item);
           }
         }
       ],

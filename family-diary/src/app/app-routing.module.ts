@@ -51,8 +51,8 @@ const routes: Routes = [
     path: 'event',
     loadChildren: () => import('./event/event.module').then( m => m.EventPageModule)
   },
-  { path: '**', redirectTo: 'event'  },
-  { path: '', redirectTo: 'event', pathMatch: 'full' },
+  { path: '**', redirectTo: 'add-event'  },
+  { path: '', redirectTo: 'add-event', pathMatch: 'full' },
  
   
  
