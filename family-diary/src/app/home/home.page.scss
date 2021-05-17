@@ -33,14 +33,12 @@ ion-header {
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
-    min-width: 239px;
+    min-width: 226px;
     margin-top: 10px;
     box-shadow: 2px 4px 7px rgb(0 0 0 / 25%);
     border-radius: 10px;
 
     ion-item {
-      text-align: center;
-
       ion-icon {
         color: #42B245;
       }

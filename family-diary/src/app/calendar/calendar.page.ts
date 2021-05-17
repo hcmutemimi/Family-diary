@@ -70,7 +70,7 @@ export class CalendarPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getYear(this.currentDate.getFullYear(), true);
+    // this.getYear(this.currentDate.getFullYear(), true);
     // console.log(this.getYear(this.currentDate.getFullYear()))
   }
   checkRightMonthAndYear(date1: Date, date2: Date) {

@@ -1,7 +1,9 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
 import { AccountService, FamilyMemberService, FamilyService } from '../@app-core/@http-config';
 import { LoadingService } from '../@app-core/utils';
+import { NewFamilyPage } from '../new-family/new-family.page';
 
 @Component({
   selector: 'app-home',
@@ -80,7 +82,8 @@ export class HomePage implements OnInit {
     private familyMemberService: FamilyMemberService,
     public familyService: FamilyService,
     private loadingService: LoadingService,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private modal: ModalController
   ) { }
   ngOnInit() {
     // this.loadingService.present()
@@ -107,6 +110,7 @@ export class HomePage implements OnInit {
     }
     this.familyMemberService.getListFamily(queryParams).subscribe(data => {
       this.listFamilyMember = data.message
+      console.log(this.listFamilyMember)
       // this.loadingService.dismiss()
     })
   }
@@ -115,6 +119,7 @@ export class HomePage implements OnInit {
       this.nameUser = data.user.lName
       localStorage.setItem('name', this.nameUser)
       localStorage.setItem('userId', data.user._id)
+      localStorage.setItem('email', data.user.email)
       localStorage.setItem('avatar',data.user.avatar)
     })
   }
@@ -137,9 +142,14 @@ export class HomePage implements OnInit {
     // }
   this.router.navigateByUrl(item.desUrl);
   }
-  gotoNewFamily() {
-    this.router.navigateByUrl('/account-setting/family');
-    
+  async gotoNewFamily() {
+    this.hasButton = false
+    const modal = await this.modal.create({
+      component: NewFamilyPage,
+      swipeToClose: true,
+      cssClass: 'modal__addToDo'
+    })
+    await modal.present()
   }
 
 }

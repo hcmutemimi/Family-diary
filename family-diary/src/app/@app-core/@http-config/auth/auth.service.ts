@@ -108,6 +108,13 @@ export class AuthService {
   //     }
   //     ))
   // }
+  logout() {
+    localStorage.clear();
+    this.storage.clear();
+    this.storage.setInfoAccount();
+    //  this.router.navigateByUrl('/auth/login');
+    window.location.assign('/');
+  }
   public signin(req) {
     return this.http.post(`${APICONFIG.AUTH.SIGNIN}`, req).pipe(
       map((result: any) => {

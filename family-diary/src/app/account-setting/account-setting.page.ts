@@ -40,8 +40,6 @@ export class AccountSettingPage implements OnInit {
       cssClass: 'modal__logout'
     })
     await modal.present()
-
-    modal.onWillDismiss().then(() => this.isOpeningModal = false)
   }
 
   // async presentPopover(ev: any) {

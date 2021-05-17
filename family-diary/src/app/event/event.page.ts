@@ -49,7 +49,6 @@ export class EventPage implements OnInit {
       type: 'event'
     }
     this.eventService.getEvent(param).subscribe(data =>{
-      console.log(data)
     })
   }
 }

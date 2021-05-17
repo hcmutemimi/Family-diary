@@ -28,9 +28,9 @@
   <ul class="family-member">
     <li *ngFor="let i of listFamilyMember">
       <ion-avatar class="family-member--img">
-        <img src="assets/img/avatar.png" alt="{{i.lName}}" />
+        <img src="assets/img/avatar.png" alt="{{i?.lName}}" />
       </ion-avatar>
-      <ion-text> {{i.lName}}</ion-text>
+      <ion-text> {{i?.lName}}</ion-text>
     </li>
   </ul>
 </ion-header>

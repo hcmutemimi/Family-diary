@@ -145,7 +145,11 @@ export class LoginPage implements OnInit {
     } else {
       this.authService.signup(this.formSignUp.value).subscribe((data: any) => {
           this.modalService.presentModal(ConfirmMailPage, this.formSignUp.value.email)
-      })
+      },
+      (error)=>{
+        this.toastService.present(error.message)
+      }
+      )
     }
   }
 

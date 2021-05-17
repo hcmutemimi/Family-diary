@@ -1,68 +1,75 @@
-
-
-
 <ion-header>
-  <!-- <ion-buttons class="user-container"> -->
-    <ion-back-button class="back-btn" defaultHref="home"></ion-back-button>
-    <ion-segment value="intro" swipeGesture="false" mode="ios">
-      <ion-segment-button value="intro" class="intro"(click)="changeTabs()" >
-        <ion-label>To-do</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="biography" class="biography" (click)="changeTabs()">
-        <ion-label>List</ion-label>
-      </ion-segment-button>
-    </ion-segment>
-  <ion-icon name="home" class="home" style="color: #E7E7E7;" (click)="gotoMain()"></ion-icon>
+  <ion-back-button class="back-btn" defaultHref="home" text=""></ion-back-button>
+  <ion-segment value="intro" swipeGesture="false" mode="ios">
+    <ion-segment-button value="intro" class="intro" >
+      <ion-label>To-do</ion-label>
+    </ion-segment-button>
+    <ion-segment-button
+      value="biography"
+      class="biography"
+    >
+    
+      <!--   (click)="changeTabs()" -->
+      <ion-label>List</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <ion-icon
+    name="home"
+    class="home"
+    style="color: #e7e7e7"
+    (click)="gotoMain()"
+  ></ion-icon>
 
-  <!-- </ion-buttons> -->
- 
-  
 </ion-header>
-<!-- <app-header [headerCustom]="headerCustom"></app-header> -->
 <ion-content>
- 
   <ul class="family-member">
-    <li *ngFor="let item of listFamilyMember" (click)="toggleChooseUser(item)">
+    <!--  (click)="toggleChooseUser(item)" -->
+    <li *ngFor="let item of listFamilyMember">
       <ion-avatar class="family-member--img">
         <img src="assets/img/avatar.png" alt="{{item.lName}}" />
       </ion-avatar>
       <ion-text> {{item.lName}}</ion-text>
       <img
-      src="assets/img/checkwhitecricle.svg"
-      alt=""
-      class="img-check"
-      *ngIf="item.join"
-    />
+        src="assets/img/checkwhitecricle.svg"
+        alt=""
+        class="img-check"
+        *ngIf="item.join"
+      />
     </li>
   </ul>
- <ion-list>
- 
-  <div class="item" >
-    <ion-checkbox ></ion-checkbox>
-    <ion-buttons>
-      <p class="title">
-        <span>Go market |</span>
-        <span class="due">DUE 11:15, T6, 21 Th5</span>
-      </p>
-    <p>For: Mi, Danh</p>
-    </ion-buttons>
+  <ion-list>
+    <div class="item" *ngFor="let item of listToDo">
+      <ion-checkbox (ionChange)="changeStatus(item)" checked ="{{item.done}}"></ion-checkbox>
+      <ion-buttons>
+        <ion-label class="title">{{item.name}} </ion-label>
+        <ion-label class="due"> Due 11:15, T6, 21 Th5</ion-label>
+        For <span *ngFor="let i of item.join">, {{i.name}} </span>
+      </ion-buttons>
+      <i class="fas fa-star"*ngIf="item.importance"></i>
 
-    <img class="star" src ="assets/img/star.svg" alt="" >
-  </div>
- </ion-list>
+    </div>
+  </ion-list>
 </ion-content>
 <ion-footer>
   <ion-toolbar>
-   <ion-buttons>
-     <ion-button class="btn" (click)="clickBtnAll()"[ngClass]="{'btn-active':active}">All items</ion-button>
-     <ion-button class="btn" (click)="clickBtnRemain()"[ngClass]="{'btn-active':!active}">Remaining</ion-button>
-</ion-buttons>
+    <ion-buttons>
+      <ion-button
+        class="btn"
+        (click)="clickBtnAll()"
+        [ngClass]="{'btn-active':active}"
+        >All items</ion-button
+      >
+      <ion-button
+        class="btn"
+        (click)="clickBtnRemain()"
+        [ngClass]="{'btn-active':!active}"
+        >Remaining</ion-button
+      >
+    </ion-buttons>
   </ion-toolbar>
   <!-- <img src="assets/img/plus.svg" alt="" class="plus"> -->
 </ion-footer>
-<div *ngIf="show" class="back-drop">
-  
-</div>
+<div *ngIf="show" class="back-drop"></div>
 <ion-fab horizontal="end" vertical="bottom" slot="fixed">
   <ion-fab-button color="dark" class="btn-click" (click)="toggleClick()">
     <ion-icon md="caret-up" ios="chevron-up-circle-outline"></ion-icon>

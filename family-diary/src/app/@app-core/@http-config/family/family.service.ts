@@ -35,5 +35,13 @@ export class FamilyService {
       catchError((errorRes) => { 
         throw errorRes.error; }));
   }
+  public createFamily(request) {
+    return this.http.post(`${APICONFIG.FAMILY.CREATE}`, request).pipe(
+      map((result: any) => {
+        return result;
+      }),
+      catchError((errorRes) => { 
+        throw errorRes.error; }));
+  }
 
 }

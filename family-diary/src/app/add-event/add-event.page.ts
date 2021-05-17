@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { EventService, FamilyMemberService } from '../@app-core/@http-config';
+import { ToastService } from '../@app-core/utils';
 
 @Component({
   selector: 'app-add-event',
@@ -35,7 +37,10 @@ export class AddEventPage implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private familyMemberService: FamilyMemberService,
-    private eventService: EventService
+    private eventService: EventService,
+    private toarstService: ToastService,
+    private route: Router,
+    private modal: ModalController
 
   ) { }
 
@@ -53,7 +58,7 @@ export class AddEventPage implements OnInit {
       this.listFamilyMember.forEach((i) => {
         if (i._id == localStorage.getItem('userId')) {
           i.join = true
-          this.userJoin.push(i._id)
+          this.userJoin.push({id: i._id, name: i.lName})
         } else {
           i.join = false
         }
@@ -82,13 +87,8 @@ export class AddEventPage implements OnInit {
     if (user._id !== localStorage.getItem('userId')) {
       if (user.join) {
         this.userJoin.forEach((element, index) => {
-          if (element == user._id) {
+          if (element.id == user._id) {
             this.userJoin.splice(index, 1)
-            this.listName.forEach((item, i)=>{
-              if(item.name === user.lName) {
-                this.listName.splice(i,1)
-              }
-            })
           }
         })
         user.join = false
@@ -97,8 +97,7 @@ export class AddEventPage implements OnInit {
 
       else {
         if (!this.userJoin.includes(user._id)) {
-          this.userJoin.push(user._id)
-          this.listName.push({name: user.lName})
+          this.userJoin.push({id: user._id, name: user.lName})
         }
         user.join = true
       }
@@ -145,7 +144,9 @@ export class AddEventPage implements OnInit {
       join: this.userJoin
     }
     this.eventService.createEvent(param).subscribe(data =>{
-      console.log(data)
+      this.modal.dismiss()
+      this.toarstService.present('Create event successfully!')
+      this.route.navigateByUrl('/event')
     })
   }
 

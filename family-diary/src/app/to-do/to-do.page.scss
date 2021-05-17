@@ -81,16 +81,18 @@ ion-content {
     max-width: 100%;
     justify-content: center;
     list-style: none;
-    padding: 10px;
+    padding: 10px 10px 0;
     margin: 0;
     background-color: #29cdcf;
 
     li {
       text-align: center;
       position: relative;
+
       ion-text {
         line-height: 28px;
       }
+
       .img-check {
         position: absolute;
         top: 0;
@@ -113,11 +115,11 @@ ion-content {
 
     .item {
       background-color: #FFFFFF;
-      height: 70px;
+      height: 76px;
       font-size: 14px;
       color: #828282;
       border-radius: 5px;
-      margin-bottom: 10px;
+      margin-bottom: 7px;
       align-items: center;
       justify-content: space-between;
       display: flex;
@@ -131,36 +133,30 @@ ion-content {
       ion-buttons {
         display: block;
         flex: 1;
-            p {
-                padding-left: 10px;
-                span {
-                    font-size: 16px;
-                    margin-right: 10px;
-                }
-               .due {
-                    color: #ff6359;
-                  }
-            }
-        ion-label {
-          padding-left: 10px;
-          margin-top: 4px;
-        }
 
+        ion-label {
+          font-size: 16px;
+          margin-right: 10px;
+          padding-left: 16px;
+          line-height: 24px;
+        }
+        .title {
+          color: #424242;
+          font-size: 17px;
+        }
+        .due {
+          color: #ff6359;
+        }
         ion-title {
           padding-left: 10px;
-         
+
         }
       }
-
-      img {
-        width: 24px;
-        height: 24px;
+      i {
         margin-left: 10px;
         margin-right: 16px;
-      }
-
-      .star {
         font-size: 24px;
+        color: #00B0B2;
       }
 
       ion-icon {
@@ -185,12 +181,14 @@ ion-footer {
 
       .btn {
         --color: #fff;
-        --border-radius: 10px;
+        --border-radius: 6px;
         width: auto;
         text-transform: inherit;
         --background: #135d5e;
       }
-
+      .no-active {
+        border: 1px solid #fff
+      }
       .btn-active {
         --background: #bacecf;
         --color: #2d3a3b;

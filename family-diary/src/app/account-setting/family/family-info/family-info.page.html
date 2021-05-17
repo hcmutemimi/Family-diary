@@ -14,7 +14,7 @@
   <ion-list class="">
     <ion-item *ngFor="let item of listFamilyMember" class="ion-no-padding">
       <img src="assets/img/user.svg" alt="" />
-      <ion-label> {{item.lName}} </ion-label>
+      <ion-label> {{item?.lName}} </ion-label>
       <ion-button (click)="removeUser(item)"> REMOVE </ion-button>
     </ion-item>
   </ion-list>

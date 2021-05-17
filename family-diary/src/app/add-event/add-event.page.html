@@ -29,15 +29,15 @@
         <div class="join">
           <ion-label>For</ion-label>
           <ion-label>
-            <span class="name-join" *ngFor="let i of listName">{{i.name}}, </span>
+            <span class="name-join" *ngFor="let i of userJoin">{{i.name}}, </span>
 
           </ion-label>
         </div>
         <ul class="family-member">
           <li
             *ngFor="let item of listFamilyMember"
-            (click)="toggleChooseUser(item)"
           >
+          <!--   (click)="toggleChooseUser(item)" -->
             <ion-avatar class="family-member--img">
               <img src="assets/img/avatar.png" alt="{{item.lName}}" />
             </ion-avatar>

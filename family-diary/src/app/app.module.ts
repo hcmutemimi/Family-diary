@@ -13,6 +13,7 @@ import { CoreModule } from './@app-core/core.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AuthGuardService } from './@app-core/auth-guard.service';
 // import { NgCalendarModule  } from 'ionic2-calendar';
 // FullCalendarModule.registerPlugins([ // register FullCalendar plugins
 //   dayGridPlugin,
@@ -32,7 +33,8 @@ import { AppComponent } from './app.component';
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   AuthService,
   StorageService,
-  AccountService
+  AccountService,
+  AuthGuardService
   ],
   bootstrap: [AppComponent],
 })

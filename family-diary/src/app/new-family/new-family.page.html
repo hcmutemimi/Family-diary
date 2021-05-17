@@ -1,0 +1,11 @@
+<app-header-add [headerCustom]="headerCustom"></app-header-add>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="formAddNewFamily">
+    <ion-label>Enter your name family</ion-label>
+    <input type="text" placeholder="Name your family" formControlName ="name">
+    <ion-button (click)="submit()" class="ion-padding">CREATE
+    </ion-button>
+  </form>
+
+</ion-content>

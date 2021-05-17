@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuardService } from './@app-core/auth-guard.service';
 
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
+    canActivate: [AuthGuardService],
   },
   {
     path: 'login',
@@ -17,23 +19,28 @@ const routes: Routes = [
   },
   {
     path: 'verification',
-    loadChildren: () => import('./auth/verification/verification.module').then( m => m.VerificationPageModule)
+    loadChildren: () => import('./auth/verification/verification.module').then( m => m.VerificationPageModule),
+
   },
   {
     path: 'new-password',
-    loadChildren: () => import('./auth/new-password/new-password.module').then( m => m.NewPasswordPageModule)
+    loadChildren: () => import('./auth/new-password/new-password.module').then( m => m.NewPasswordPageModule),
+
   },
   {
     path: 'account-setting',
-    loadChildren: () => import('./account-setting/account-setting.module').then( m => m.AccountSettingPageModule)
+    loadChildren: () => import('./account-setting/account-setting.module').then( m => m.AccountSettingPageModule),
+    canActivate: [AuthGuardService],
   },
   {
     path: 'calendar',
-    loadChildren: () => import('./calendar/calendar.module').then( m => m.CalendarPageModule)
+    loadChildren: () => import('./calendar/calendar.module').then( m => m.CalendarPageModule),
+    canActivate: [AuthGuardService],
   },
   {
     path: 'add-event',
-    loadChildren: () => import('./add-event/add-event.module').then( m => m.AddEventPageModule)
+    loadChildren: () => import('./add-event/add-event.module').then( m => m.AddEventPageModule),
+    canActivate: [AuthGuardService],
   },
   {
     path: 'confirm-mail',
@@ -41,19 +48,26 @@ const routes: Routes = [
   },
   {
     path: 'modal-add-todo',
-    loadChildren: () => import('./modal-add-todo/modal-add-todo.module').then( m => m.ModalAddTodoPageModule)
+    loadChildren: () => import('./modal-add-todo/modal-add-todo.module').then( m => m.ModalAddTodoPageModule),
+    canActivate: [AuthGuardService],
   },
   {
     path: 'to-do',
-    loadChildren: () => import('./to-do/to-do.module').then( m => m.ToDoPageModule)
+    loadChildren: () => import('./to-do/to-do.module').then( m => m.ToDoPageModule),
+    canActivate: [AuthGuardService],
   },
   {
     path: 'event',
-    loadChildren: () => import('./event/event.module').then( m => m.EventPageModule)
+    loadChildren: () => import('./event/event.module').then( m => m.EventPageModule),
+    canActivate: [AuthGuardService],
   },
-  { path: '**', redirectTo: 'add-event'  },
-  { path: '', redirectTo: 'add-event', pathMatch: 'full' },
- 
+  {
+    path: 'new-family',
+    loadChildren: () => import('./new-family/new-family.module').then( m => m.NewFamilyPageModule)
+  },
+  { path: '**', redirectTo: 'home'  },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+
   
  
  

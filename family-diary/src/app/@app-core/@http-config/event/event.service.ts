@@ -35,6 +35,14 @@ export class EventService {
       catchError((errorRes) => { 
         throw errorRes.error; }));
   }
+  public updateStatusEvent(params, request) {
+    return this.http.post(`${APICONFIG.EVENT.UPDATE_STATUS}?${(requestQuery(params))}`, request).pipe(
+      map((result: any) => {
+        return result;
+      }),
+      catchError((errorRes) => { 
+        throw errorRes.error; }));
+  }
   public getEvent(params) {
     return this.http.get(`${APICONFIG.EVENT.CREATE}?${(requestQuery(params))}`,).pipe(
       map((result: any) => {

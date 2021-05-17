@@ -55,6 +55,5 @@ export class FamilyPage implements OnInit {
 
   // }
   // click() {
-  //   console.log(this.selection)
   // }
 }

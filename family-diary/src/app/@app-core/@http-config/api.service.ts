@@ -33,13 +33,15 @@ export const APICONFIG =  {
     CONTACT_ADMIN: `/app/interact_email/submit`
   },
   FAMILY: {
-    GET: `/family`
+    GET: `/family`,
+    CREATE: `/family`
   },
   FAMILY_MEMEBER: {
     GET: `/family-member`
   },
   EVENT : {
     CREATE: `/event`,
-    GET: `event`
+    GET: `/event`,
+    UPDATE_STATUS: `/event/update-status-event`
   }
 }
