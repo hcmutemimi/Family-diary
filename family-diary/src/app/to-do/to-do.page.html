@@ -23,8 +23,8 @@
 </ion-header>
 <ion-content>
   <ul class="family-member">
-    <!--  (click)="toggleChooseUser(item)" -->
-    <li *ngFor="let item of listFamilyMember">
+   
+    <li *ngFor="let item of listFamilyMember"  (click)="chooseUser(item)">
       <ion-avatar class="family-member--img">
         <img src="assets/img/avatar.png" alt="{{item.lName}}" />
       </ion-avatar>
@@ -37,8 +37,8 @@
       />
     </li>
   </ul>
-  <ion-list>
-    <div class="item" *ngFor="let item of listToDo">
+  <ion-list >
+    <div class="item" *ngFor="let item of listData"(click)="gotoDetail(item)" >
       <ion-checkbox (ionChange)="changeStatus(item)" checked ="{{item.done}}"></ion-checkbox>
       <ion-buttons>
         <ion-label class="title">{{item.name}} </ion-label>
@@ -49,6 +49,7 @@
 
     </div>
   </ion-list>
+  
 </ion-content>
 <ion-footer>
   <ion-toolbar>
@@ -67,7 +68,6 @@
       >
     </ion-buttons>
   </ion-toolbar>
-  <!-- <img src="assets/img/plus.svg" alt="" class="plus"> -->
 </ion-footer>
 <div *ngIf="show" class="back-drop"></div>
 <ion-fab horizontal="end" vertical="bottom" slot="fixed">

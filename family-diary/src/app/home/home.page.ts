@@ -97,10 +97,10 @@ export class HomePage implements OnInit {
   async getData() {
     const result = await this.familyService.getListFamily().toPromise()
     this.listFamily = result.message.family
-    this.nameFamily = this.listFamily[0].name
-    this.selection = this.listFamily[0]._id
+    this.nameFamily = this.listFamily[1].name
+    this.selection = this.listFamily[1]._id
     localStorage.setItem('familyId', this.selection)
-    this.nameIcon = this.listFamily[0].name
+    this.nameIcon = this.listFamily[1].name
     this.getMember()
   }
 
@@ -110,7 +110,6 @@ export class HomePage implements OnInit {
     }
     this.familyMemberService.getListFamily(queryParams).subscribe(data => {
       this.listFamilyMember = data.message
-      console.log(this.listFamilyMember)
       // this.loadingService.dismiss()
     })
   }

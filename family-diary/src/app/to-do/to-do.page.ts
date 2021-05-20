@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { EventService, FamilyMemberService } from '../@app-core/@http-config';
 import { ToastService } from '../@app-core/utils';
 import { ModalAddTodoPage } from '../modal-add-todo/modal-add-todo.page';
@@ -18,15 +18,22 @@ export class ToDoPage implements OnInit {
   listData = []
   listToDo = []
   listJoined = []
+  listFalse = []
   importance = false
   active = true
   show = false
+  param = {
+    userId: localStorage.getItem('userId'),
+    type: 'to-do',
+    familyId: localStorage.getItem('familyId')
+  }
   constructor(
     private familyMemberService: FamilyMemberService,
     private router: Router,
     private modal: ModalController,
     private eventService: EventService,
-    private toarstService: ToastService
+    private toarstService: ToastService,
+    private alertCtrl: AlertController
 
   ) { }
 
@@ -35,27 +42,27 @@ export class ToDoPage implements OnInit {
     this.getData()
   }
   getData() {
-    let param = {
-      type: 'to-do'
-    }
-    this.eventService.getEvent(param).subscribe(data => {
+    this.eventService.getEvent(this.param).subscribe(data => {
       this.listToDo = data.message
+      this.listData = this.listToDo
       console.log(this.listToDo)
     })
   }
+
   changeStatus(item) {
-    let param = {
-      id: item._id
-    }
     let request = {
       status: true
     }
     if (!item.done) {
       request.status = true
-      this.eventService.updateStatusEvent(param, request).subscribe()
+      this.eventService.updateStatusEvent(item._id, request).subscribe(data => {
+        this.getData()
+      })
     } else {
       request.status = false
-      this.eventService.updateStatusEvent(param, request).subscribe()
+      this.eventService.updateStatusEvent(item._id, request).subscribe(data => {
+        this.getData()
+      })
     }
   }
   getMembers() {
@@ -76,51 +83,73 @@ export class ToDoPage implements OnInit {
   gotoMain() {
     this.router.navigateByUrl('/home')
   }
-  // toggleChooseUser(user) {
-  //   if (user._id !== localStorage.getItem('userId')) {
-  //     if (user.join) {
-  //       this.userJoin.forEach((element, index) => {
-  //         if (element == user._id) {
-  //           this.userJoin.splice(index, 1)
-  //           this.listName.forEach((item, i)=>{
-  //             if(item.name === user.lName) {
-  //               this.listName.splice(i,1)
-  //             }
-  //           })
-  //         }
-  //       })
-  //       user.join = false
+  gotoDetail(item) {
+    let sendPrams = {
 
-  //     }
+    }
+  }
 
-  //     else {
-  //       if (!this.userJoin.includes(user._id)) {
-  //         this.userJoin.push(user._id)
-  //         this.listName.push({name: user.lName})
-  //       }
-  //       user.join = true
-  //     }
-  //   }
-  // }
-  // toggleImg() {
-  //   if (this.importance) {
-  //     this.name = 'far fa-star'
-  //     this.importance = false
-  //   }
-  //   else {
-  //     this.name = 'fas fa-star'
-  //     this.importance = true
+  async removeItem(item) {
+    let alert = await this.alertCtrl.create({
+      header: 'Remove To-Do ',
+      message: 'Do you want remove this item?',
+      mode: 'ios',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            return
+          }
+        }, {
+          text: 'Okay',
+          handler: () => {
+            this.eventService.deleteEvent(item._id).subscribe(data => {
+              console.log(data)
+            })
+          }
+        }
+      ]
+    });
+    await alert.present();
 
-  //   }
-  // }
+  }
+  chooseUser(user) {
+    if (user.join) {
+      user.join = false
+    } else {
+      user.join = true
+      this.param.userId = user._id
+
+      this.listFamilyMember.forEach(i => {
+        if (user._id != i._id) {
+          i.join = false
+        }
+      });
+
+      this.getData()
+    }
+  }
+  toggleImg() {
+    if (this.importance) {
+      this.name = 'far fa-star'
+      this.importance = false
+    }
+    else {
+      this.name = 'fas fa-star'
+      this.importance = true
+
+    }
+  }
   clickBtnAll() {
     this.active = true
     this.listData = this.listToDo
   }
   clickBtnRemain() {
     this.active = false
-    this.listData = this.listData.filter((i) => {
-      return i.done = false
+    this.listData = this.listToDo.filter((i) => {
+      return i.done == false
     })
 
   }

@@ -35,8 +35,8 @@ export class EventService {
       catchError((errorRes) => { 
         throw errorRes.error; }));
   }
-  public updateStatusEvent(params, request) {
-    return this.http.post(`${APICONFIG.EVENT.UPDATE_STATUS}?${(requestQuery(params))}`, request).pipe(
+  public updateStatusEvent(id, request) {
+    return this.http.post(`${APICONFIG.EVENT.UPDATE_STATUS(id)}`, request).pipe(
       map((result: any) => {
         return result;
       }),
@@ -44,12 +44,20 @@ export class EventService {
         throw errorRes.error; }));
   }
   public getEvent(params) {
-    return this.http.get(`${APICONFIG.EVENT.CREATE}?${(requestQuery(params))}`,).pipe(
+    return this.http.get(`${APICONFIG.EVENT.GET}?${(requestQuery(params))}`,).pipe(
       map((result: any) => {
         return result;
       }),
       catchError((errorRes) => { 
         throw errorRes.error; }));
   }
+  public deleteEvent(id: string) {
+    return this.http.delete<any>(`${APICONFIG.EVENT.DELETE(id)}`).pipe(
+      map((result) => {
+        return result;
+      }),
+      catchError((errorRes) => { throw errorRes.error; }));
+  }
+
 
 }

@@ -36,7 +36,6 @@ export class NewFamilyPage implements OnInit {
   submit() {
     let param = {
       name: this.formAddNewFamily.get('name').value,
-      email: localStorage.getItem('email'),
       relationship: ''
     }
     this.family.createFamily(param).subscribe((data)=>{

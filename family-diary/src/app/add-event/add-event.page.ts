@@ -149,6 +149,7 @@ export class AddEventPage implements OnInit {
       this.route.navigateByUrl('/event')
     })
   }
+  
 
 
 }
