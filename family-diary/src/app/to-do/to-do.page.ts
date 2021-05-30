@@ -1,3 +1,4 @@
+import { CompilerConfig } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, ModalController } from '@ionic/angular';
@@ -17,14 +18,16 @@ export class ToDoPage implements OnInit {
   userJoin = []
   listData = []
   listToDo = []
+  listListToDo = []
   listJoined = []
   listFalse = []
+  tabToDo = true
   importance = false
   active = true
   show = false
   param = {
     userId: localStorage.getItem('userId'),
-    type: 'to-do',
+    type: '',
     familyId: localStorage.getItem('familyId')
   }
   constructor(
@@ -39,16 +42,29 @@ export class ToDoPage implements OnInit {
 
   ngOnInit() {
     this.getMembers()
-    this.getData()
+    this.getDataToDo()
+    this.getDataListToDo()
+
   }
-  getData() {
+  getDataToDo() {
+    this.param.type ='to-do'
     this.eventService.getEvent(this.param).subscribe(data => {
       this.listToDo = data.message
       this.listData = this.listToDo
-      console.log(this.listToDo)
+      console.log(this.listData)
+    })
+  
+  }
+  getDataListToDo() {
+    this.param.type ='list-to-do'
+    this.eventService.getEvent(this.param).subscribe(data => {
+      this.listListToDo = data.message
+      // this.listData = this.listToDo
     })
   }
-
+  changeTabs(boolean) {
+    this.tabToDo = boolean
+  }
   changeStatus(item) {
     let request = {
       status: true
@@ -56,12 +72,12 @@ export class ToDoPage implements OnInit {
     if (!item.done) {
       request.status = true
       this.eventService.updateStatusEvent(item._id, request).subscribe(data => {
-        this.getData()
+        this.getDataToDo()
       })
     } else {
       request.status = false
       this.eventService.updateStatusEvent(item._id, request).subscribe(data => {
-        this.getData()
+        this.getDataToDo()
       })
     }
   }
@@ -87,6 +103,18 @@ export class ToDoPage implements OnInit {
     let sendPrams = {
 
     }
+  }
+  async addList() {
+    this.show = false
+    const modal = await this.modal.create({
+      component: ModalAddTodoPage,
+      swipeToClose: true,
+      cssClass: 'modal__addToDo',
+      componentProps: { title: 'NEW LIST'}
+    })
+    await modal.present()
+    this.show = false
+   
   }
 
   async removeItem(item) {
@@ -128,7 +156,7 @@ export class ToDoPage implements OnInit {
         }
       });
 
-      this.getData()
+      this.getDataToDo()
     }
   }
   toggleImg() {
@@ -156,14 +184,13 @@ export class ToDoPage implements OnInit {
   toggleClick() {
     this.show = !this.show
   }
-  addList() {
-    this.show = false
-  }
+  
   async addToDo() {
     const modal = await this.modal.create({
       component: ModalAddTodoPage,
       swipeToClose: true,
-      cssClass: 'modal__addToDo'
+      cssClass: 'modal__addToDo',
+      componentProps: { title: 'NEW TO-DO'}
     })
     await modal.present()
     this.show = false

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
@@ -11,7 +11,8 @@ import { ToastService } from '../@app-core/utils';
   styleUrls: ['./modal-add-todo.page.scss'],
 })
 export class ModalAddTodoPage implements OnInit {
- 
+  @Input() from: any
+  @Input() title: any
   listFamilyMember = []
   formAddToDo: FormGroup
   name = 'far fa-star'
@@ -19,10 +20,12 @@ export class ModalAddTodoPage implements OnInit {
   userJoin = []
   listName = []
   importance = false
-  myDateEnd = new Date().toISOString()
   headerCustom = {
-    title: 'NEW TO-DO', background: '#00B0B2'
+    title: '', background: '#00B0B2'
   }
+  text: ''
+  param: any
+  nameTextButton
   constructor(
     private modal: ModalController,
     private formBuilder: FormBuilder,
@@ -35,16 +38,25 @@ export class ModalAddTodoPage implements OnInit {
   ngOnInit() {
     this.getMembers()
     this.initForm()
+    this.headerCustom.title = this.title
+    if(this.title == 'NEW TO-DO') {
+      this.nameTextButton = 'Create'
+    }else {
+      this.nameTextButton = 'Next'
+    }
   }
   initForm() {
     this.formAddToDo = this.formBuilder.group({
       name: new FormControl('', Validators.compose([
         Validators.required,
       ])),
+      dateStart: new FormControl(''),
       dateEnd: new FormControl(''),
       importance: new FormControl(''),
       note: new FormControl(''),
-      join: new FormControl('')
+      join: new FormControl(''),
+      text: '',
+      metaData: new FormControl([])
     })
   }
   getMembers() {
@@ -104,24 +116,40 @@ export class ModalAddTodoPage implements OnInit {
   onSelectRepeat(item) {
     this.repeat = item.detail.value
   }
+
   submitEvent() {
-    let param = {
+    this.param = {
       name: this.formAddToDo.get('name').value,
       location: '',
-      dateStart: "",
-      dateEnd: this.myDateEnd,
+      dateStart: this.formAddToDo.get('dateStart').value,
+      dateEnd: this.formAddToDo.get('dateEnd').value,
       importance: this.importance,
       familyId: localStorage.getItem('familyId'),
       typeEvent: "to-do",
+      subType: "to-do",
       note: this.formAddToDo.get('note').value,
       join: this.userJoin,
-      done: false
     }
-    this.eventService.createEvent(param).subscribe(data => {
-      this.toarstService.present('Create new to-do successfully!')
-      this.modal.dismiss()
-      this.router.navigateByUrl('/to-do')
-    })
+    if(this.title == 'NEW TO-DO') {
+      this.param.typeEvent = "to-do"
+      this.param.subType = "to-do",
+      this.eventService.createEvent(this.param).subscribe(data => {
+        this.toarstService.present('Create new to-do successfully!')
+        this.router.navigateByUrl('/to-do')
+      },
+        (error) => {
+          throw error
+        })
+    }else {
+      this.param.typeEvent = "list-to-do"
+      this.param.subType = "list-to-do",
+      this.router.navigate(['/list-item'], {
+        queryParams: {
+          data: JSON.stringify(this.param)
+      }})
+    }
+    this.modal.dismiss()
+   
   }
 
 }

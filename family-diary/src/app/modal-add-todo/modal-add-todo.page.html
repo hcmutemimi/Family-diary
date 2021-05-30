@@ -6,7 +6,7 @@
         type="text"
         class="name"
         formControlName="name"
-        placeholder="Enter to-do title"
+        placeholder="Enter name"
       />
     </div>
     <div class="ion-padding">
@@ -41,16 +41,15 @@
       </ion-item>
       <ion-item>
         <img src="assets/img/calendarb.svg" alt="" />
-        <ion-label>DUE DATE</ion-label>
-        <input type="datetime-local" id="birthdaytime" name="birthdaytime" />
-        <!-- <time  formControlName="dateEnd" [(ngModel)]="myDateEnd"></time> -->
-        <ion-datetime
-          mode="ios"
-          formControlName="dateEnd"
-          displayformat="DDD, MM, YYYY, hh:mm"
-          [(ngModel)]="myDateEnd"
-        ></ion-datetime>
+        <ion-label>DATE START</ion-label>
+        <input type="datetime-local" formControlName="dateStart" />
       </ion-item>
+      <ion-item>
+        <img src="assets/img/calendarb.svg" alt="" />
+        <ion-label>DATE END</ion-label>
+        <input type="datetime-local" formControlName="dateEnd" />
+      </ion-item>
+
       <ion-item>
         <img src="assets/img/repeat.svg" alt="" />
         <ion-label>REPEAT</ion-label>
@@ -65,9 +64,9 @@
       </ion-item>
       <input type="text" formControlName="note" class="input-note note" />
     </ion-list>
-    <div class="footer">
+    <div class="footer" >
       <ion-button (click)="submitEvent()" class="btn-submit"
-        >Create<i class="fas fa-chevron-right"></i
+        >{{nameTextButton}}<i class="fas fa-chevron-right"></i
       ></ion-button>
     </div>
   </form>

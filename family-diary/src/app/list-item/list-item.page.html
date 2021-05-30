@@ -1,0 +1,25 @@
+<app-header-add [headerCustom]="headerCustom"></app-header-add>
+
+<ion-content>
+  <div class="list">
+    <form  [formGroup]="formAddToDo">
+      <ion-label>LIST TO DO</ion-label>
+      <div class="item">
+        <input type="text" class="input-note" formControlName="name" />
+        <i class="fas fa-plus-circle" (click)="addItem()"></i>
+      </div>
+      <div *ngFor="let item of listToDo">
+        <ion-item class="list-item" lines="none">
+          <ion-label> {{item.name}} </ion-label>
+          <i class="fas fa-minus-circle" (click)="removeItem(item)"></i>
+        </ion-item>
+
+      </div>
+      <div class="footer" >
+        <ion-button (click)="submitEvent()" class="btn-submit"
+          >DONE<i class="fas fa-chevron-right"></i
+        ></ion-button>
+      </div>
+    </form>
+  </div>
+</ion-content>

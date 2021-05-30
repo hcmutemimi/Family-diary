@@ -63,10 +63,18 @@ const routes: Routes = [
   },
   {
     path: 'new-family',
-    loadChildren: () => import('./new-family/new-family.module').then( m => m.NewFamilyPageModule)
+    loadChildren: () => import('./new-family/new-family.module').then( m => m.NewFamilyPageModule),
+    canActivate: [AuthGuardService],
+
+  },
+  {
+    path: 'list-item',
+    loadChildren: () => import('./list-item/list-item.module').then( m => m.ListItemPageModule),
+    canActivate: [AuthGuardService],
   },
   { path: '**', redirectTo: 'home'  },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
+ 
 
   
  

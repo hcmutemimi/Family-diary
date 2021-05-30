@@ -72,7 +72,7 @@ export class FamilyInfoPage implements OnInit {
   async deleteFamily() {
     let alertAvatarSetting = await this.alert.create({
       cssClass: 'alert-remove-user',
-      header: 'CONFIRM DELETE',
+      header: 'CONFIRM',
       message: 'Do you want delete this family?',
       mode: 'ios',
       buttons: [

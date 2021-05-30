@@ -1,6 +1,6 @@
 <ion-header class="ion-padding" [style.background]="headerCustom.background?headerCustom.background: '#fff'">
   <ion-toolbar [style.--background]="headerCustom.background">
-    <i class="fas fa-times" slot="start" (click)="dismiss()"></i>
+    <i class="{{name}}" slot="start" (click)="dismiss()" ></i>
     <ion-title class="center">{{headerCustom.title}}</ion-title>
     <!-- <ion-buttons slot="end" (click)="create()">Done</ion-buttons> -->
   </ion-toolbar>
