@@ -41,22 +41,23 @@ export class ToDoPage implements OnInit {
   ) { }
 
   ngOnInit() {
+
+  }
+  ionViewWillEnter() {
     this.getMembers()
     this.getDataToDo()
     this.getDataListToDo()
-
   }
   getDataToDo() {
-    this.param.type ='to-do'
+    this.param.type = 'to-do'
     this.eventService.getEvent(this.param).subscribe(data => {
       this.listToDo = data.message
       this.listData = this.listToDo
-      console.log(this.listData)
     })
-  
+
   }
   getDataListToDo() {
-    this.param.type ='list-to-do'
+    this.param.type = 'list-to-do'
     this.eventService.getEvent(this.param).subscribe(data => {
       this.listListToDo = data.message
       // this.listData = this.listToDo
@@ -110,11 +111,16 @@ export class ToDoPage implements OnInit {
       component: ModalAddTodoPage,
       swipeToClose: true,
       cssClass: 'modal__addToDo',
-      componentProps: { title: 'NEW LIST'}
+      componentProps: { title: 'NEW LIST' }
     })
     await modal.present()
     this.show = false
-   
+    modal.onWillDismiss().then(() => {
+      this.getMembers()
+      this.getDataToDo()
+      this.getDataListToDo()
+    })
+
   }
 
   async removeItem(item) {
@@ -134,7 +140,6 @@ export class ToDoPage implements OnInit {
           text: 'Okay',
           handler: () => {
             this.eventService.deleteEvent(item._id).subscribe(data => {
-              console.log(data)
             })
           }
         }
@@ -155,8 +160,11 @@ export class ToDoPage implements OnInit {
           i.join = false
         }
       });
-
-      this.getDataToDo()
+      if (this.tabToDo) {
+        this.getDataToDo()
+      }else {
+        this.getDataListToDo()
+      }
     }
   }
   toggleImg() {
@@ -184,15 +192,20 @@ export class ToDoPage implements OnInit {
   toggleClick() {
     this.show = !this.show
   }
-  
+
   async addToDo() {
     const modal = await this.modal.create({
       component: ModalAddTodoPage,
       swipeToClose: true,
       cssClass: 'modal__addToDo',
-      componentProps: { title: 'NEW TO-DO'}
+      componentProps: { title: 'NEW TO-DO' }
     })
     await modal.present()
     this.show = false
+    modal.onWillDismiss().then(() => {
+      this.getMembers()
+      this.getDataToDo()
+      this.getDataListToDo()
+    })
   }
 }

@@ -87,20 +87,21 @@ export class HomePage implements OnInit {
   ) { }
   ngOnInit() {
     // this.loadingService.present()
-    this.getData()
     this.getInfoUser()
   }
   goToSetting() {
     this.router.navigateByUrl('/account-setting')
   }
-
+  ionViewWillEnter() {
+    this.getData()
+  }
   async getData() {
     const result = await this.familyService.getListFamily().toPromise()
     this.listFamily = result.message.family
-    this.nameFamily = this.listFamily[1].name
-    this.selection = this.listFamily[1]._id
+    this.nameFamily = this.listFamily[0].name
+    this.selection = this.listFamily[0]._id
     localStorage.setItem('familyId', this.selection)
-    this.nameIcon = this.listFamily[1].name
+    this.nameIcon = this.listFamily[0].name
     this.getMember()
   }
 
@@ -114,12 +115,12 @@ export class HomePage implements OnInit {
     })
   }
   getInfoUser() {
-    this.accountService.getAccount().subscribe((data: any)=> {
+    this.accountService.getAccount().subscribe((data: any) => {
       this.nameUser = data.user.lName
       localStorage.setItem('name', this.nameUser)
       localStorage.setItem('userId', data.user._id)
       localStorage.setItem('email', data.user.email)
-      localStorage.setItem('avatar',data.user.avatar)
+      localStorage.setItem('avatar', data.user.avatar)
     })
   }
   toggleHasSetting(hasButton) {
@@ -139,7 +140,7 @@ export class HomePage implements OnInit {
     //     }
     //   })
     // }
-  this.router.navigateByUrl(item.desUrl);
+    this.router.navigateByUrl(item.desUrl);
   }
   async gotoNewFamily() {
     this.hasButton = false
@@ -149,6 +150,9 @@ export class HomePage implements OnInit {
       cssClass: 'modal__addToDo'
     })
     await modal.present()
+    modal.onWillDismiss().then(() => {
+      this.getData();
+    })
   }
 
 }

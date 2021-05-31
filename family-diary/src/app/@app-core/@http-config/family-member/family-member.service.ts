@@ -35,5 +35,13 @@ export class FamilyMemberService {
       catchError((errorRes) => { 
         throw errorRes.error; }));
   }
+  public removeUser(id, request) {
+    return this.http.post(`${APICONFIG.FAMILY_MEMEBER.REMOVE_USER(id)}`, request).pipe(
+      map((result: any) => {
+        return result;
+      }),
+      catchError((errorRes) => { 
+        throw errorRes.error; }));
+  } 
 
 }

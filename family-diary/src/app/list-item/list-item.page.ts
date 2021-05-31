@@ -37,7 +37,6 @@ export class ListItemPage implements OnInit {
     this.route.queryParams.subscribe(params =>{
       this.dataReceive = JSON.parse(params['data'])
     })
-    console.log(this.dataReceive)
   }
   addItem() {
    this.listToDo.push({

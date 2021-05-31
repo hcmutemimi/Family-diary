@@ -34,10 +34,13 @@ export const APICONFIG =  {
   },
   FAMILY: {
     GET: `/family`,
-    CREATE: `/family`
+    CREATE: `/family`,
+    DELETE: (id) => `/family/${id}`,
+    CHECK_HOST: `/family/check-host`
   },
   FAMILY_MEMEBER: {
-    GET: `/family-member`
+    GET: `/family-member`,
+    REMOVE_USER: (id) => `/family-member/remove/${id}`
   },
   EVENT : {
     CREATE: `/event`,

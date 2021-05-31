@@ -43,5 +43,20 @@ export class FamilyService {
       catchError((errorRes) => { 
         throw errorRes.error; }));
   }
-
+  public deleteFamily(id) {
+    return this.http.delete(`${APICONFIG.FAMILY.DELETE(id)}`).pipe(
+      map((result: any) => {
+        return result;
+      }),
+      catchError((errorRes) => { 
+        throw errorRes.error; }));
+  }
+  public checkHost(id) {
+    return this.http.post(`${APICONFIG.FAMILY.CHECK_HOST}`, id).pipe(
+      map((result: any) => {
+        return result;
+      }),
+      catchError((errorRes) => { 
+        throw errorRes.error; }));
+  }
 }
