@@ -72,8 +72,24 @@ const routes: Routes = [
     loadChildren: () => import('./list-item/list-item.module').then( m => m.ListItemPageModule),
     canActivate: [AuthGuardService],
   },
+  {
+    path: 'page-noti',
+    loadChildren: () => import('./@app-core/@modular/page-noti/page-noti.module').then(m => m.PageNotiModule),
+    canActivate: [AuthGuardService],
+
+  },
+  {
+    path: 'update-password',
+    loadChildren: () => import('./changepassword/changepassword.module').then( m => m.ChangepasswordPageModule),
+    canActivate: [AuthGuardService],
+  },
+  {
+    path: 'invite',
+    loadChildren: () => import('./invite/invite.module').then( m => m.InvitePageModule)
+  },
   { path: '**', redirectTo: 'home'  },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
+ 
  
 
   

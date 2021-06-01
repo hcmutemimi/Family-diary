@@ -29,16 +29,14 @@ export class AccountService {
     }
     return this.http.put(`${APICONFIG.ACCOUNT.UPDATE_PROFILE}`, req).pipe(
       map((result:any) => {
-      
         return result;
       }),
       catchError((errorRes) => { 
         throw errorRes.error; }));
   }
   public updatePassword(pass) {
-    return this.http.put(`${APICONFIG.ACCOUNT.UPDATE_PASS}`, pass).pipe(
-      map((result) => {
-     
+    return this.http.post(`${APICONFIG.ACCOUNT.UPDATE_PASS}`, pass).pipe(
+      map((result: any) => {
         return result;
       }),
       catchError((errorRes) => { 
@@ -55,43 +53,10 @@ export class AccountService {
   public editAccount(id: string, modifer: any) {
     return this.http.put<any>(`${APICONFIG.ACCOUNT.EDIT(id)}`, modifer).pipe(
       map((result) => {
-        // this.toastr.success(SUCCESS.EDIT, STATUS.SUCCESS);
         return result;
       }),
       catchError((errorRes) => { throw errorRes.error; }));
   }
-  // XOA MOT NHAN VIEN
-  public DeleteAccount(id: string) {
-    return this.http.delete(`${APICONFIG.ACCOUNT.DELETE(id)}`).pipe(
-      map((result) => {
-        // this.toastr.success(SUCCESS.DELETE, STATUS.SUCCESS);
-        return result;
-      }),
-      catchError((errorRes: any) => {
-        throw errorRes.error;
-      }));
-  }
-  public ContactAdmin(req) {
-    return this.http.post(`${APICONFIG.ACCOUNT.CONTACT_ADMIN}`, req).pipe(
-      map((result)=> {
-        return result;
-      }),
-      catchError((errorRes: any) => {
-        throw errorRes.error;
-      })
-    )
-  }
-  public upgradePremium(req) {
-    return this.http.post(`${APICONFIG.ACCOUNT.UPDATE_PREMIUM}`, req).pipe(
-      map((result) => {
-        return result
-      }),
-      catchError((errorRes: any) => {
-        throw errorRes.error;
-      })
-    )
-  }
-
   public uploadPhoto(req) {
     return this.http.post('http://image-service.patitek.com/api/v1/images/upload', req).pipe(
       map((result) => {
@@ -116,16 +81,6 @@ export class AccountService {
       })
     )
   }
-  public changePass(req) {
-    return this.http.post(`${APICONFIG.AUTH.CHANGE_PASS}`, req).pipe(
-      map((result) => {
-        return result
-      }),
-      catchError((errorRes: any) => {
-        throw errorRes.error;
-      }),
-     
-    )
-  }
+  
 
 }

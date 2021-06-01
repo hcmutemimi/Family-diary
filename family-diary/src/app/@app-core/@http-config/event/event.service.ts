@@ -58,6 +58,20 @@ export class EventService {
       }),
       catchError((errorRes) => { throw errorRes.error; }));
   }
+  public getEventId(id: string) {
+    return this.http.get<any>(`${APICONFIG.EVENT.GET_BY_ID(id)}`).pipe(
+      map((result) => {
+        return result;
+      }),
+      catchError((errorRes) => { throw errorRes.error; }));
+  }
+  public update(id, request) {
+    return this.http.post<any>(`${APICONFIG.EVENT.UPDATE(id)}`, request).pipe(
+      map((result) => {
+        return result;
+      }),
+      catchError((errorRes) => { throw errorRes.error; }));
+  }
 
 
 }

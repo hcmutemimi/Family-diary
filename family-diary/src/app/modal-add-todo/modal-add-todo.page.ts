@@ -84,7 +84,6 @@ export class ModalAddTodoPage implements OnInit {
           }
         })
         user.join = false
-
       }
       else {
         if (!this.userJoin.includes(user._id)) {
@@ -127,6 +126,7 @@ export class ModalAddTodoPage implements OnInit {
       familyId: localStorage.getItem('familyId'),
       typeEvent: "to-do",
       subType: "to-do",
+      notiAlert: this.repeat,
       note: this.formAddToDo.get('note').value,
       join: this.userJoin,
     }

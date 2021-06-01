@@ -5,6 +5,7 @@ import { AlertController, ModalController } from '@ionic/angular';
 import { EventService, FamilyMemberService } from '../@app-core/@http-config';
 import { ToastService } from '../@app-core/utils';
 import { ModalAddTodoPage } from '../modal-add-todo/modal-add-todo.page';
+import { ToDoDetailPage } from './to-do-detail/to-do-detail.page';
 
 @Component({
   selector: 'app-to-do',
@@ -56,6 +57,7 @@ export class ToDoPage implements OnInit {
     })
 
   }
+ 
   getDataListToDo() {
     this.param.type = 'list-to-do'
     this.eventService.getEvent(this.param).subscribe(data => {
@@ -100,13 +102,22 @@ export class ToDoPage implements OnInit {
   gotoMain() {
     this.router.navigateByUrl('/home')
   }
-  gotoDetail(item) {
-    let sendPrams = {
-
-    }
+  async gotoDetail(item) {
+    // this.router.navigate(['/to-do/to-do-detail'],{
+    //   queryParams: {
+    //     data: JSON.stringify(item._id)
+    //   }
+    // })
+    const modal = await this.modal.create({
+      component: ToDoDetailPage,
+      swipeToClose: true,
+      cssClass: 'modal__addToDo',
+      componentProps: { title: 'Detail', id: item._id  }
+    })
+    await modal.present()
+    this.show = false
   }
   async addList() {
-    this.show = false
     const modal = await this.modal.create({
       component: ModalAddTodoPage,
       swipeToClose: true,

@@ -16,7 +16,7 @@ import { HeaderAddModule } from '../@app-core/@modular/header-add/header-add.mod
     IonicModule,
     ReactiveFormsModule,
     ModalAddTodoPageRoutingModule,
-    HeaderAddModule
+   HeaderAddModule
   ],
   declarations: [ModalAddTodoPage]
 })

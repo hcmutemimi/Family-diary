@@ -3,7 +3,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { LoadingService, ToastService } from 'src/app/@app-core/utils';
-import { IDataNoti, PageNotiService } from '../@app-core/@http-config/page-noti/page-noti.service';
+import { AccountService, AuthService } from '../@app-core/@http-config';
+import { IDataNoti, PageNotiService } from '../@app-core/@modular/page-noti/page-noti.service';
 
 @Component({
   selector: 'app-changepassword',
@@ -17,46 +18,72 @@ export class ChangepasswordPage implements OnInit {
   checkpn = false;
   messagepn = '';
   count: any;
-  constructor(
-    private formBuilder: FormBuilder,
+  constructor(private formBuilder: FormBuilder,
     private pageNotiService: PageNotiService,
     private router: Router,
     private loadService: LoadingService,
     private passwordModal: ModalController,
-    // private authService: AuthService
-  ) {
+    private accountService: AccountService,
+    private toastService: ToastService
+    ) {
     this.formSubmit = this.formBuilder.group({
-      name: new FormControl('', Validators.required),
-      email: new FormControl('', Validators.required),
+      passwordcurrent: new FormControl('', Validators.required),
+      passwordnew: new FormControl('', Validators.required),
+      passwordconfirm: new FormControl('', Validators.required)
     })
   }
 
   ngOnInit() {
   }
+  async openModal(ev: any) {
+    const popover = await this.passwordModal.create({
+      component: ChangepasswordPage,
+      cssClass: 'modalPassword',
+    });
+    return await popover.present();
+  }
   dismissModal() {
     this.passwordModal.dismiss();
   }
   onSubmit() {
-    const name = this.formSubmit.value.name;
-    const email = this.formSubmit.value.email;
-
-    // this.check = false;
-    const datapasing: IDataNoti = {
-      title: 'SUCCESSFUL!',
-      des: 'Send email successful!',
-      routerLink: '/account-setting/family/family-info'
+    const cp = this.formSubmit.value.passwordcurrent;
+    const pn = this.formSubmit.value.passwordnew;
+    const pc = this.formSubmit.value.passwordconfirm;
+    if (pn.length < 6) {
+      this.checkpn = true;
+      this.messagepn = 'Min length password is 6.'
     }
-    var params = {
-      email: email,
-      name: name,
+    else if (pn != pc) {
+      this.check = true;
+      this.checkpn = false;
+      this.message = 'Password does not match !'
     }
-    this.dismissModal()
-    this.loadService.present()
-    this.pageNotiService.setdataStatusNoti(datapasing);
-    this.router.navigateByUrl('/page-noti');
-    this.loadService.dismiss();
-
-
+    else {
+      this.check = false;
+      const datapasing: IDataNoti = {
+        title: 'SUCCESSFUL!',
+        des: 'Change Password Successful!',
+        routerLink: '/home'
+      }
+      var ps = {
+        "currentPassword": cp,
+        "newPassword": pn,
+        // "new_passwor": pc
+      }
+      this.dismissModal()
+      this.loadService.present()
+      this.accountService.updatePassword(ps).subscribe(data => {
+        this.loadService.dismiss();
+        this.pageNotiService.setdataStatusNoti(datapasing);
+        this.router.navigateByUrl('/page-noti');
+      },
+      (error)=>{
+        this.toastService.present(error.message)
+        throw error
+      })
+    }
   }
-
+  async closeModalPassword() {
+    this.passwordModal.dismiss();
+  }
 }

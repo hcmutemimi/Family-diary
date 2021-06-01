@@ -40,8 +40,15 @@ html, body {
 .alert-wrapper.sc-ion-alert-md {
   min-width: 270px;
 }
-.modalPassword {
+.modalInvite {
   --height: 350px;
+  --width: 92%;
+  .modal-wrapper {
+    border-radius: 20px;
+  }
+}
+.modalPassword {
+  --height: 400px;
   --width: 92%;
   .modal-wrapper {
     border-radius: 20px;

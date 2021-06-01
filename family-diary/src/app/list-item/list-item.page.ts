@@ -50,7 +50,6 @@ export class ListItemPage implements OnInit {
   }
   submitEvent()  {
     this.dataReceive['metaData'] = this.listToDo
-    console.log(this.dataReceive)
     this.eventService.createEvent(this.dataReceive).subscribe(data => {
       this.toarstService.present('Create new to-do successfully!')
       this.router.navigateByUrl('/to-do')

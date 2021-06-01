@@ -4,6 +4,7 @@ import { AlertController, ModalController } from '@ionic/angular';
 import { FamilyMemberService, FamilyService } from 'src/app/@app-core/@http-config';
 import { ToastService } from 'src/app/@app-core/utils';
 import { ChangepasswordPage } from 'src/app/changepassword/changepassword.page';
+import { InvitePage } from 'src/app/invite/invite.page';
 
 @Component({
   selector: 'app-family-info',
@@ -125,8 +126,8 @@ export class FamilyInfoPage implements OnInit {
   }
   async openModalInvite() {
     const popover = await this.modal.create({
-      component: ChangepasswordPage,
-      cssClass: 'modalPassword',
+      component: InvitePage,
+      cssClass: 'modalInvite',
     });
     return await popover.present();
   }

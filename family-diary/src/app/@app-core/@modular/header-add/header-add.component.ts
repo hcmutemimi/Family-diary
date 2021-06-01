@@ -26,4 +26,7 @@ export class HeaderAddComponent implements OnInit {
 
     }
   }
+  goToDo() {
+    this.router.navigateByUrl('/to-do')
+  }
 }

@@ -4,6 +4,7 @@ import { AccountService } from '../@app-core/@http-config';
 // import { AccountService } from '../@app-core/http';
 // import { PopupComponent } from '../@modular/popup/popup.component';
 import { PopuplogoutComponent } from '../@app-core/@modular/popuplogout/popuplogout.component';
+import { ChangepasswordPage } from '../changepassword/changepassword.page';
 
 @Component({
   selector: 'app-account-setting',
@@ -41,7 +42,15 @@ export class AccountSettingPage implements OnInit {
     })
     await modal.present()
   }
-
+  async updatePassword() {
+    this.isOpeningModal = true
+    const modal = await this.modalController.create({
+      component: ChangepasswordPage,
+      swipeToClose: true,
+      cssClass: 'modalPassword'
+    })
+    await modal.present()
+  }
   // async presentPopover(ev: any) {
   //   const popover = await this.popoverController.create({
   //     component: PopupComponent,

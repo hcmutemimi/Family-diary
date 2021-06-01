@@ -2,6 +2,9 @@ ion-header {
     // background-color: #00B0B2;
     font-size: 18px;
     font-weight: 550;
+    height: 80px;
+    display: flex;
+    align-items: center;
   
     ion-toolbar {
       // --background: #00B0B2;
@@ -16,4 +19,29 @@ ion-header {
       font-weight: 550;
       text-align: center;
     }
+  }
+  ion-back-button {
+    // font-size: 2.2vh;
+  }
+  // .back-btn {
+  //   display: inline-block;
+  //   color: #fff;
+  //   border-radius: 18px;
+  //   width: 45px;
+  //   height: 45px;
+  //   position: fixed;
+  //   top: 17px;
+  //   left: 17px;
+  //   z-index: 10;
+  // }
+  .back-btn {
+    display: inline-block;
+    color: #fff;
+    border-radius: 18px;
+    width: 45px;
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 7px;
+    z-index: 10;
   }

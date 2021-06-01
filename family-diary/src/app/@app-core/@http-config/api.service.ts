@@ -15,7 +15,6 @@ export const APICONFIG =  {
     RESET_PASSWORD: `/reset_password/reset_password`,
     COUNTRY_CODE: `/country_codes`,
     UPDATE_AVATAR: `/app/app_users/update_avatar`,
-    CHANGE_PASS: `/app/app_users/change_password`,
   },
   CALENDARS: {
     GET_BY_MONTH: `/app/calendars/month`,
@@ -25,12 +24,9 @@ export const APICONFIG =  {
   ACCOUNT: {
     PROFILE_USER: `/user`,
     UPDATE_PROFILE: `/app/app_users/update_profile`,
-    UPDATE_PASS: `/app/users/update_password`,
+    UPDATE_PASS: `/user/update-password`,
     GETDETAIL: (id) => `/app/users/${id}`,
     EDIT: (id) => `/app/users/${id}`,
-    DELETE: (id) => `/app/users/${id}`,
-    UPDATE_PREMIUM: (id) => `/app/users/request_upgrade`,
-    CONTACT_ADMIN: `/app/interact_email/submit`
   },
   FAMILY: {
     GET: `/family`,
@@ -46,6 +42,9 @@ export const APICONFIG =  {
     CREATE: `/event`,
     GET: `/event/events`,
     UPDATE_STATUS: (id) => `/event/update-status-event/${id}`,
-    DELETE: (id) => `/event/${id}`
+    DELETE: (id) => `/event/${id}`,
+    GET_BY_ID: (id) => `/event/${id}`,
+    UPDATE: (id)=>`/event/update/${id}`
+
   }
 }
