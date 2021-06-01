@@ -87,6 +87,10 @@ const routes: Routes = [
     path: 'invite',
     loadChildren: () => import('./invite/invite.module').then( m => m.InvitePageModule)
   },
+  {
+    path: 'account',
+    loadChildren: () => import('./account/account.module').then( m => m.AccountPageModule)
+  },
   { path: '**', redirectTo: 'home'  },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
  

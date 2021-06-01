@@ -23,8 +23,8 @@ export const APICONFIG =  {
   },
   ACCOUNT: {
     PROFILE_USER: `/user`,
-    UPDATE_PROFILE: `/app/app_users/update_profile`,
-    UPDATE_PASS: `/user/update-password`,
+    UPDATE_PROFILE: `/user/update_info`,
+    UPDATE_PASS: `/user/update_password`,
     GETDETAIL: (id) => `/app/users/${id}`,
     EDIT: (id) => `/app/users/${id}`,
   },
