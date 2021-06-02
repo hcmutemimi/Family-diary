@@ -15,7 +15,9 @@
     <ion-item *ngFor="let item of listFamilyMember" class="ion-no-padding">
       <img src="assets/img/user.svg" alt="" />
       <ion-label> {{item?.lName}} </ion-label>
-      <ion-button  (click)="remove(item)" *ngIf="item._id != idHost"> REMOVE </ion-button>
+      <ion-button  (click)="remove(item)" *ngIf="item._id != idHost && item._id != idMy"> REMOVE </ion-button>
+      <ion-button  (click)="remove(item)" *ngIf="item._id == idMy && idHost != idMy"> LEAVE </ion-button>
+
     </ion-item>
   </ion-list>
   <div class="btn-add">

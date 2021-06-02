@@ -7,10 +7,12 @@ import { LoadingService, ToastService } from './utils';
 export class GlobalErrorHandlerService implements ErrorHandler {
 
   constructor(
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private toarstService: ToastService
   ) { }
   handleError(error: any): void {
     console.log(error)
+    // this.toarstService.present(error.message)
     this.loadingService.dismiss()
   }
 }

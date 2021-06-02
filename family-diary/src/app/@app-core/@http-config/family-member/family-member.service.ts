@@ -43,5 +43,21 @@ export class FamilyMemberService {
       catchError((errorRes) => { 
         throw errorRes.error; }));
   } 
+  public addMember(request) {
+    return this.http.post(`${APICONFIG.FAMILY_MEMEBER.ADD_MEMBER}`, request).pipe(
+      map((result: any) => {
+        return result;
+      }),
+      catchError((errorRes) => { 
+        throw errorRes.error; }));
+  } 
+  public getList() {
+    return this.http.get(`${APICONFIG.FAMILY_MEMEBER.GET_LIST}`).pipe(
+      map((result: any) => {
+        return result;
+      }),
+      catchError((errorRes) => { 
+        throw errorRes.error; }));
+  } 
 
 }

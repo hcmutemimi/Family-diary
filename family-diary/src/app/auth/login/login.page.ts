@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { PATTERN } from '../../@app-core/@http-config/pattern.service';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { LoadingService, ModalService, ToastService } from '../../@app-core/utils';
+import { Component, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
+import { PATTERN } from '../../@app-core/@http-config/pattern.service'
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
+import { LoadingService, ModalService, ToastService } from '../../@app-core/utils'
 import { AuthService } from '../../@app-core/@http-config/auth'
-import { ConfirmMailPage } from 'src/app/@app-core/@modular/confirm-mail/confirm-mail.page';
+import { ConfirmMailPage } from 'src/app/@app-core/@modular/confirm-mail/confirm-mail.page'
 
 @Component({
   selector: 'app-login',
@@ -17,48 +17,47 @@ export class LoginPage implements OnInit {
   // public name = 'eye-outline';
   // public status = 'login';
 
-  country_codes: any;
-  segmentValue = 'login';
-  matchPassword = false;
-  formLogin: FormGroup;
-  formSignUp: FormGroup;
-  public myDate = new Date().toISOString();
+  country_codes: any
+  segmentValue = 'login'
+  matchPassword = false
+  formLogin: FormGroup
+  formSignUp: FormGroup
+  public myDate = new Date().toISOString()
   validationLogin = {
     email: [
-      { type: 'required', message: 'Vui lòng nhập email của bạn.' },
+      { type: 'required', message: 'Enter your email.' },
     ],
     password: [
-      { type: 'required', message: 'Vui lòng nhập mật khẩu.' }
+      { type: 'required', message: 'Enter your password.' }
     ],
   }
 
   validationSignUp = {
     fName: [
-      { type: 'required', message: 'Họ không được để trống' },
-      { type: 'pattern', message: "Họ không chứa ký tự đặc biệt" },
+      { type: 'required', message: 'The field is not empty' },
+      { type: 'pattern', message: "Doesn't contain special characters" },
     ],
     lName: [
-      { type: 'required', message: 'Tên không được để trống' },
-      { type: 'pattern', message: "Tên không chứa ký tự đặc biệt" },
+      { type: 'required', message: 'The field is not empty' },
+      { type: 'pattern', message: "Doesn't contain special characters" },
     ],
     email: [
-      { type: 'required', message: 'Email không được trống' },
-      { type: 'pattern', message: 'Email không hợp lệ' },
+      { type: 'required', message: 'The field is not empty' },
+      { type: 'pattern', message: 'Email is Invalid' },
     ],
     phoneNumber: [
-      { type: 'required', message: 'Số điện toại không được trống' },
-      { type: 'pattern', message: 'Số điện thoại không hợp lệ' },
-    ],
+      { type: 'required', message: 'The field is not empty' },
+      { type: 'pattern', message: 'Phone number is Invalid'}],
     password: [
-      { type: 'required', message: 'Mật khẩu không được để trống' },
-      { type: 'minLength', message: 'Mật khẩu ít nhất 6 ký tự' },
+      { type: 'required', message: 'The field is not empty' },
+      { type: 'minLength', message: 'Password is not less than 6 characters' },
     ],
     birthday: [
-      { type: 'required', message: 'Ngày sinh không được để trống' },
+      { type: 'required', message: 'The field is not empty' },
     ],
   }
 
-  countries: any;
+  countries: any
   constructor(
     private router: Router,
     private authService: AuthService,
@@ -69,7 +68,7 @@ export class LoginPage implements OnInit {
     private modalService: ModalService
   ) { }
   ngOnInit() {
-    this.initForm();
+    this.initForm()
   }
 
   initForm() {
@@ -105,46 +104,51 @@ export class LoginPage implements OnInit {
   }
 
   changedSegment(event) {
-    this.segmentValue = event.target.value;
+    this.segmentValue = event.target.value
   }
 
   canSubmitLogin() {
-    return this.formLogin.valid;
+    return this.formLogin.valid
   }
 
   canSubmitSignUp() {
-    return this.formSignUp.valid;
+    return this.formSignUp.valid
   }
   submitLogin() {
     if (!this.canSubmitLogin()) {
-      this.markFormGroupTouched(this.formLogin);
+      this.markFormGroupTouched(this.formLogin)
     } else {
       this.authService.signin(this.formLogin.value).subscribe(() => {
         this.setLocalStore()
-        this.router.navigate(['home']);
-      });
+        this.router.navigate(['home'])
+      },
+      (error)=>{
+        throw error
+        // this.toastService.present(error.message)
+      })
     }
   }
   setLocalStore() {
     // this.accountService.getAccounts().subscribe(result => {
     //   localStorage.setItem('email',result.app_user.email) 
     //   if(result.app_user.avatar == null) {
-    //     localStorage.setItem('avatar', "https://i.imgur.com/edwXSJa.png");
+    //     localStorage.setItem('avatar', "https://i.imgur.com/edwXSJa.png")
     //   }
     //   else {
-    //     localStorage.setItem('avatar', result.app_user.avatar);
+    //     localStorage.setItem('avatar', result.app_user.avatar)
     //   }
-    // });
+    // })
   }
 
   submitSignUp() {
     if (!this.canSubmitSignUp()) {
-      this.markFormGroupTouched(this.formSignUp);
+      this.markFormGroupTouched(this.formSignUp)
     } else if (!this.checkMatchConfirmedPassword()) {
-      this.toastService.present('Mật khẩu không trùng khớp');
+      this.toastService.present('Password not match.')
     } else {
       this.authService.signup(this.formSignUp.value).subscribe((data: any) => {
           this.modalService.presentModal(ConfirmMailPage, this.formSignUp.value.email)
+          // this.formSignUp.reset();
       },
       (error)=>{
         this.toastService.present(error.message)
@@ -154,32 +158,32 @@ export class LoginPage implements OnInit {
   }
 
   // showPass() {
-  //   this.showpass = !this.showpass;
+  //   this.showpass = !this.showpass
   //   if (this.showpass) {
-  //     this.type = 'text';
+  //     this.type = 'text'
   //     this.name = 'eye-off-outline'
   //   }
   //   else {
-  //     this.type = 'password';
+  //     this.type = 'password'
   //     this.name = 'eye-outline'
   //   }
   // }
 
   clickForgotPassword() {
-    this.router.navigate(['auth-manager/forgot-password']);
+    this.router.navigate(['auth-manager/forgot-password'])
   }
 
   checkMatchConfirmedPassword() {
-    return this.formSignUp.get('password').value == this.formSignUp.get('confirmed_password').value;
+    return this.formSignUp.get('password').value == this.formSignUp.get('confirmed_password').value
   }
 
   private markFormGroupTouched(formGroup: FormGroup) {
     (<any>Object).values(formGroup.controls).forEach(control => {
-      control.markAsTouched();
+      control.markAsTouched()
 
       if (control.controls) {
-        this.markFormGroupTouched(control);
+        this.markFormGroupTouched(control)
       }
-    });
+    })
   }
 }

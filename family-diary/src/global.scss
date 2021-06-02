@@ -29,6 +29,7 @@
     --back43: #434141;
     --main-color: #00B0B2;
     --fd7160-color: #fd7160;
+    --orange-color: #FAAE41;
     --red: red;
   }
 html, body {
@@ -40,8 +41,8 @@ html, body {
 .alert-wrapper.sc-ion-alert-md {
   min-width: 270px;
 }
-.modalInvite {
-  --height: 350px;
+.modal__Invite {
+  --height: 400px;
   --width: 92%;
   .modal-wrapper {
     border-radius: 20px;

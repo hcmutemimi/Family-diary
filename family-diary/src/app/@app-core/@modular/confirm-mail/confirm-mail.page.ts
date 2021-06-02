@@ -11,12 +11,11 @@ import { AuthService } from './../../../@app-core/@http-config'
 export class ConfirmMailPage implements OnInit {
   @Input() data;
   code = ''
-  wrong = true;
+  wrong = false;
   constructor(
     private authService: AuthService,
     private toastService: ToastService,
     private modalService: ModalService,
-    private router: Router
     ) { }
 
   ngOnInit() {
@@ -30,8 +29,10 @@ export class ConfirmMailPage implements OnInit {
     }
     this.authService.activeAccount(email, code).subscribe(data => {
       this.modalService.dismiss()
-      this.toastService.present('Đăng ký tài khoản thành công! Bắt đầu đăng nhập')
-      this.router.navigateByUrl('login')
+      this.toastService.present('Sign up successfully! Let us start ')
+    },
+    (error) =>{
+      throw error
     })
   }
 }

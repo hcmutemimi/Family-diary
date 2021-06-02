@@ -9,17 +9,17 @@
       mode="ios"
     >
       <ion-segment-button value="login">
-        <ion-label>Đăng nhập</ion-label>
+        <ion-label>Login</ion-label>
       </ion-segment-button>
       <ion-segment-button value="signUp">
-        <ion-label>Đăng ký</ion-label>
+        <ion-label>Sign up</ion-label>
       </ion-segment-button>
     </ion-segment>
 
     <div class="group" [ngClass]="{'display-none': segmentValue != 'login'}">
       <form class="form" [formGroup]="formLogin" (onSubmit)="submitLogin()">
         <div class="margin-bottom">
-          <ion-label class="label">Nhập email của bạn</ion-label>
+          <ion-label class="label">Enter your email</ion-label>
           <ion-input
             class="input"
             type="text"
@@ -36,7 +36,7 @@
         </div>
 
         <div class="margin-bottom">
-          <ion-label class="label">Mật khẩu</ion-label>
+          <ion-label class="label">Password</ion-label>
           <ion-input
             class="input"
             type="password"
@@ -54,7 +54,7 @@
 
         <div class="ion-text-right">
           <ion-label class="forgot-password-btn" (click)="clickForgotPassword()"
-            >Quên mật khẩu?</ion-label
+            >Forgot password?</ion-label
           >
         </div>
       </form>
@@ -71,7 +71,7 @@
         <div class="margin-bottom">
           <ion-buttons class="row-1">
             <div class="name-box">
-              <ion-label class="label">Họ </ion-label>
+              <ion-label class="label">First name </ion-label>
               <input class="input" formControlName="fName" />
             </div>
           </ion-buttons>
@@ -87,7 +87,7 @@
         <div class="margin-bottom">
           <ion-buttons class="row-1">
             <div class="name-box">
-              <ion-label class="label">Tên</ion-label>
+              <ion-label class="label">Last name</ion-label>
               <input class="input" formControlName="lName" />
             </div>
           </ion-buttons>
@@ -118,7 +118,7 @@
         <div class="margin-bottom">
           <ion-buttons class="row-1">
             <div class="phone-number-box">
-              <ion-label class="label">Số điện thoại</ion-label>
+              <ion-label class="label">Phone number</ion-label>
               <ion-buttons class="phone-number-body">
                 <!-- <ion-label class="country-code">+84</ion-label> -->
                 <input class="input" formControlName="phoneNumber" />
@@ -135,7 +135,7 @@
             </div>
           </ng-container>
           <div class="margin-bottom">
-            <ion-label class="label">Ngày Sinh</ion-label>
+            <ion-label class="label">Date of birthday</ion-label>
               <ion-datetime
               mode="ios"
               displayFormat="DD/MM/YYYY"
@@ -155,8 +155,8 @@
          
         </div>
         <div class="margin-bottom">
-          <ion-label class="label">Mật khẩu</ion-label>
-          <input class="input" type="password" formControlName="password" />
+          <ion-label class="label">Password</ion-label>
+          <input class="input" type="password" formControlName ="password" />
           <ng-container *ngFor="let i of validationSignUp.password">
             <div
               class="error-message"
@@ -176,7 +176,7 @@
         </div>
 
         <div class="margin-bottom">
-          <ion-label class="label">Nhập lại mật khẩu</ion-label>
+          <ion-label class="label">Confirm password</ion-label>
           <input
             class="input"
             type="password"

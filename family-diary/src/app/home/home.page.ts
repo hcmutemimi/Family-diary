@@ -22,6 +22,7 @@ export class HomePage implements OnInit {
   selection
   nameIcon
   countFamily = []
+  
   menu = [
     {
       name: 'ACTIVITY',
@@ -96,13 +97,18 @@ export class HomePage implements OnInit {
     this.getData()
   }
   async getData() {
-    const result = await this.familyService.getListFamily().toPromise()
-    this.listFamily = result.message.family
-    this.nameFamily = this.listFamily[0].name
-    this.selection = this.listFamily[0]._id
-    localStorage.setItem('familyId', this.selection)
-    this.nameIcon = this.listFamily[0].name
-    this.getMember()
+    this.familyService.getListFamily().subscribe(data => {
+      this.listFamily = data.message.family
+      this.countFamily = data.message.counts
+
+      this.nameFamily = this.listFamily[0]?.name
+      this.selection = this.listFamily[0]?._id
+      localStorage.setItem('familyId', this.selection)
+      // this.nameIcon = this.listFamily[0].name
+      this.getMember()
+
+    })
+
   }
 
   getMember() {

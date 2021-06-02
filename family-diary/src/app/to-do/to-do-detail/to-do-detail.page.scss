@@ -1,136 +1,139 @@
 ion-content {
-    .title {
-      border-bottom: 1px solid #828282;
-      height: 74px;
-  
-      .name {
-        width: 90%;
-        margin: 0 auto;
-        margin-left: 5%;
-        border: 0;
-        border-bottom: 1px dotted #828282;
-        margin-top: 10px;
-        color: #828282;
-        font-weight: 550;
-        height: 55px;
-  
-        &:focus {
-          outline: none;
-        }
-      }
-    }
-  
-    .join {
-      display: flex;
-      justify-content: space-between;
-    }
-  
-    .family-member {
-      display: flex;
-      overflow-x: auto;
-      max-width: 100%;
-      justify-content: center;
-      list-style: none;
-      padding: 10px;
-      margin: 0;
-  
-      li {
-        text-align: center;
-        position: relative;
-  
-        ion-text {
-          line-height: 28px;
-        }
-  
-        .img-check {
-          position: absolute;
-          top: 0;
-          right: 4px;
-        }
-      }
-  
-      .family-member--img {
-        margin: 0 5px;
-        height: 40px;
-        width: 40px;
-      }
-    }
-  
-    ion-list {
-  
-      ion-item,
-      .list-to-do {
-        border-top: 1px solid #ccc;
-  
-        img {
-          width: 19px;
-        }
-  
-        ion-label {
-          margin-left: 10px;
-          min-width: 78px;
-        }
-  
-        i {
-          font-size: 22px;
-          color: #00B0B2;
-        }
-  
-        input {
-          border: 0;
-          outline: none;
-  
-          &:focus {
-            outline: none;
-          }
-        }
-      }
-    }
-  
-    .input-note {
+  .title {
+    border-bottom: 1px solid #828282;
+    height: 74px;
+
+    .name {
       width: 90%;
       margin: 0 auto;
-      margin-left: 16px;
       margin-left: 5%;
       border: 0;
       border-bottom: 1px dotted #828282;
       margin-top: 10px;
-      font-size: 16px;
       color: #828282;
       font-weight: 550;
-  
+      height: 55px;
+
       &:focus {
         outline: none;
       }
     }
   }
-  
-  .footer {
-    display: block;
-      position: fixed;
-      bottom: 0px;
-      width: 100%;
-      justify-content: flex-end;
-      background-color: #ccc;
-  
-    .btn-submit {
-      font-weight: bold;
-      display: block;
-      box-shadow: 0px 2px 6px rgba(0,0,0,0.25);
-      margin: 16px;
-  
-      i {
-        margin-left: 6px;
+
+  .join {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .family-member {
+    display: flex;
+    overflow-x: auto;
+    max-width: 100%;
+    justify-content: center;
+    list-style: none;
+    padding: 10px;
+    margin: 0;
+
+    li {
+      text-align: center;
+      position: relative;
+
+      ion-text {
+        line-height: 28px;
+      }
+
+      .img-check {
+        position: absolute;
+        top: 0;
+        right: 4px;
       }
     }
-    .btn-delete {
-      --background: #ff5d52 ;
-    }
-    .btn-update {
-      --color: #ff5d52;
-      border: 1px solid #ff5d52;
-      --background: #fff;
 
+    .family-member--img {
+      margin: 0 5px;
+      height: 40px;
+      width: 40px;
     }
   }
-  
+
+  ion-list {
+
+    ion-item,
+    .list-to-do {
+      border-top: 1px solid #ccc;
+
+      img {
+        width: 19px;
+      }
+
+      ion-label {
+        margin-left: 10px;
+        min-width: 78px;
+      }
+
+      i {
+        font-size: 22px;
+        color: #00B0B2;
+      }
+
+      input {
+        border: 0;
+        outline: none;
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+
+  .input-note {
+    width: 90%;
+    margin: 0 auto;
+    margin-left: 16px;
+    margin-left: 5%;
+    border: 0;
+    border-bottom: 1px dotted #828282;
+    margin-top: 10px;
+    font-size: 16px;
+    color: #828282;
+    font-weight: 550;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.footer {
+  display: block;
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  justify-content: flex-end;
+  background-color: #ccc;
+
+  .btn-submit {
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 10px;
+    display: block;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.25);
+    margin: 16px;
+
+    i {
+      margin-left: 6px;
+    }
+  }
+
+  .btn-delete {
+    --background: #ff5d52;
+  }
+
+  .btn-update {
+    --color: #ff5d52;
+    border: 1px solid #ff5d52;
+    --background: #fff;
+
+  }
+}

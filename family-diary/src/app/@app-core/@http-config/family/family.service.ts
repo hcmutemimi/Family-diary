@@ -51,8 +51,8 @@ export class FamilyService {
       catchError((errorRes) => { 
         throw errorRes.error; }));
   }
-  public checkHost(id) {
-    return this.http.post(`${APICONFIG.FAMILY.CHECK_HOST}`, id).pipe(
+  public checkHost(query) {
+    return this.http.get(`${APICONFIG.FAMILY.CHECK_HOST}?${(requestQuery(query))}`).pipe(
       map((result: any) => {
         return result;
       }),

@@ -28,9 +28,9 @@ export class AccountSettingPage implements OnInit {
     
   }
   ionViewWillEnter() {
-    this.accountService.getAccount().subscribe(data => {
-        this.avatar = data.user.avatar
-    })
+    // this.accountService.getAccount().subscribe(data => {
+    //     this.avatar = data.u.avatar
+    // })
   }
 
   async openModalLogOut() {

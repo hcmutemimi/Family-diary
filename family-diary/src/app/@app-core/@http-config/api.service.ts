@@ -35,8 +35,10 @@ export const APICONFIG =  {
     CHECK_HOST: `/family/check-host`
   },
   FAMILY_MEMEBER: {
+    ADD_MEMBER: `/family-member/add-member`,
     GET: `/family-member`,
-    REMOVE_USER: (id) => `/family-member/remove/${id}`
+    REMOVE_USER: (id) => `/family-member/remove/${id}`,
+    GET_LIST : `/family-member/get-list`
   },
   EVENT : {
     CREATE: `/event`,

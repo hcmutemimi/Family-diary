@@ -18,22 +18,24 @@ ion-content {
     }
 
     .email {
-      color: #424242;
+      color:var(--orange-color);
     }
 
     ion-input {
       background: #e0e0e0;
-      margin: 10px 0;
+      margin: 10px auto;
+      width: 86%;
       border-radius: 10px;
       color: #424242;
     }
 
     .wrong {
       color: rgb(255, 0, 0);
+      display: none;
     }
 
     .hidden {
-      display: none;
+      display: block;
     }
 
     .btn-confirm {

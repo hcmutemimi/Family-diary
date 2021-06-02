@@ -4,7 +4,15 @@
      
       <ion-item-group>
         <ion-label>
-       Please enter name <ion-label>(*)</ion-label>
+          Relationship <ion-label>(*)</ion-label>
+        </ion-label>
+        <input type="text" formControlName="relationship" />
+        <ion-label class="messagerrror" *ngIf="check">
+          {{message}}
+        </ion-label>
+      </ion-item-group>
+      <ion-item-group>
+        <ion-label>name
         </ion-label>
         <input type="text" formControlName="name" />
         <ion-label class="messagerrror" *ngIf="check">
@@ -20,6 +28,7 @@
           {{message}}
         </ion-label>
       </ion-item-group>
+     
       <ion-grid>
         <ion-row>
           <ion-col size-sm="6" size="6" class="ion-text-center">

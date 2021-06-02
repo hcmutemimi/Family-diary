@@ -173,7 +173,8 @@ ion-footer {
 
   ion-toolbar {
     --background: #135d5e;
-
+    display: flex;
+    height: 100%;
     ion-buttons {
       margin-left: 16px;
 

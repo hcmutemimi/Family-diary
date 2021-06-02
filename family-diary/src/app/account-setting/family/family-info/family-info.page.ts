@@ -23,6 +23,7 @@ export class FamilyInfoPage implements OnInit {
   }
   checkIsHost = false
   idHost:''
+  idMy
   constructor(
     private route: ActivatedRoute,
     private familyMemberService: FamilyMemberService,
@@ -34,47 +35,54 @@ export class FamilyInfoPage implements OnInit {
   ) { }
    
   ngOnInit() {
-    
+    this.idMy = localStorage.getItem('userId')
   }
   ionViewWillEnter() {
     this.getData()
     this.getMember()
-    this.checkHost()
   }
   ionViewWillLeave() {
     this.getData()
+    this.idHost = ''
     this.getMember()
   }
   getData() {
     this.route.queryParams.subscribe(params =>{
       this.infoFamily = JSON.parse(params['data'])
-      this.headerCustom.title = this.infoFamily.name
-      this.idFamily = this.infoFamily._id
+      this.headerCustom.title = this.infoFamily?.name
+      this.idFamily = this.infoFamily?._id
     })
   }
   getMember() {
     let queryParams = {
-      familyId: this.infoFamily._id
+      familyId: this.infoFamily?._id
     }
     this.familyMemberService.getListFamily(queryParams).subscribe(data => {
       this.listFamilyMember = data.message
+      this.checkHost()
     })
   }
   checkHost() {
-    let param = {
-      userId: localStorage.getItem('userId')
-    }
-    this.familyService.checkHost(param).subscribe(
-      (data)=>{
-        this.idHost = data.message.userId
-        if(this.idHost == localStorage.getItem('userId')) {
-          this.checkIsHost = true
-        }
-      },
-      (error) =>{
-        throw error
+    this.listFamilyMember.forEach(element => {
+      var param = {
+        userId: ''
       }
-    )
+      param.userId = element._id
+      this.familyService.checkHost(param).subscribe(
+        (data)=>{
+          if(data.message != null) {
+            if(element._id == data.message.userId ) {
+              this.idHost = element._id
+              console.log("id",this.idHost)
+            }
+          }
+        },
+        (error) =>{
+          throw error
+        }
+      )
+    });
+   
   }
   async remove(item) {
     let alertAvatarSetting = await this.alert.create({
@@ -127,9 +135,12 @@ export class FamilyInfoPage implements OnInit {
   async openModalInvite() {
     const popover = await this.modal.create({
       component: InvitePage,
-      cssClass: 'modalInvite',
+      cssClass: 'modal__Invite',
     });
-    return await popover.present();
+    await popover.present();
+    popover.onWillDismiss().then(() => {
+      this.getData();
+    })
   }
   async deleteFamily() {
     let alertAvatarSetting = await this.alert.create({
