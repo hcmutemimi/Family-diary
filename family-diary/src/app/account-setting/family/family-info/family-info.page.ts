@@ -1,3 +1,4 @@
+import { CompilerConfig } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, ModalController } from '@ionic/angular';
@@ -65,7 +66,8 @@ export class FamilyInfoPage implements OnInit {
   checkHost() {
     this.listFamilyMember.forEach(element => {
       var param = {
-        userId: ''
+        userId: '',
+        familyId: localStorage.getItem('familyId')
       }
       param.userId = element._id
       this.familyService.checkHost(param).subscribe(
@@ -73,7 +75,6 @@ export class FamilyInfoPage implements OnInit {
           if(data.message != null) {
             if(element._id == data.message.userId ) {
               this.idHost = element._id
-              console.log("id",this.idHost)
             }
           }
         },

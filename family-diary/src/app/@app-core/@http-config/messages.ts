@@ -45,5 +45,36 @@ export const SAYHI = {
   EVENNING: {
     
   }
+  
 
 }
+export const DAY = [
+  {
+    day: 0,
+    text: 'Sun',
+  },
+  {
+    day: 1,
+    text: 'Mon',
+  },
+  {
+    day: 2,
+    text: 'Tue',
+  },
+  {
+    day: 3,
+    text: 'Wed',
+  },
+  {
+    day: 4,
+    text: 'Thur',
+  },
+  {
+    day: 5,
+    text: 'Fri',
+  },
+  {
+    day: 6,
+    text: 'Sat',
+  }
+]

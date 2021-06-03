@@ -91,8 +91,8 @@ const routes: Routes = [
     path: 'account',
     loadChildren: () => import('./account/account.module').then( m => m.AccountPageModule)
   },
-  { path: '**', redirectTo: 'home'  },
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '**', redirectTo: 'event'  },
+  { path: '', redirectTo: 'event', pathMatch: 'full' },
  
  
 

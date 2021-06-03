@@ -36,9 +36,9 @@
     </li>
   </ul>
   <ion-list *ngIf = "tabToDo">
-    <div class="item" *ngFor="let item of listData"(click)="gotoDetail(item)" >
+    <div class="item" *ngFor="let item of listData">
       <ion-checkbox (ionChange) = "changeStatus(item)" checked ="{{item.done}}"></ion-checkbox>
-      <ion-buttons>
+      <ion-buttons (click)="gotoDetail(item)" >
         <ion-label class="title">{{item.name}} </ion-label>
         <span class="due"> DUE: {{item.dateEnd | date:'EEE, MMMM d, y, h:mm a'}}</span><br />
         For <span *ngFor="let i of item.join">, {{i.name}} </span>

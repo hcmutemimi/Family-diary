@@ -61,22 +61,15 @@
     </ion-item>
       <ion-item>
         <ion-label>STARTS: </ion-label>
-        <ion-datetime id="end"
-          mode="ios"
-          formControlName="dateStart"
-          displayFormat="DD/MM/YYYY, HH:mm"
-          [(ngModel)]="myDateStart"
-        ></ion-datetime>
+        <input type="datetime-local" formControlName="dateStart" />
       </ion-item>
       <ion-item >
         <ion-label>ENDS: </ion-label>
-        <ion-datetime id="endDate"
-          disabled = "{{labelDateEnd}}"
-          formControlName="dateEnd"
-          mode="ios"
-          displayFormat="DD/MM/YYYY, HH:mm"
-          [(ngModel)]="myDateEnd"
-        ></ion-datetime>
+        <ion-input [disabled] ="labelDateEnd">
+          <input  type="datetime-local" formControlName="dateEnd" class="endDate" />
+
+        </ion-input>
+
       </ion-item>
       <ion-item>
         <ion-label>VISIBLE FOR</ion-label>
@@ -104,7 +97,7 @@
         class="text-input"
         type="text"
         formControlName="note"
-        placeholder="Enter note"
+        placeholder="Enter note here"
       />
       <div class="footer">
         <ion-button (click)="submitEvent()" class="btn-submit"

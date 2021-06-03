@@ -123,8 +123,8 @@ export class LoginPage implements OnInit {
         this.router.navigate(['home'])
       },
       (error)=>{
+        this.toastService.present(error.message)
         throw error
-        // this.toastService.present(error.message)
       })
     }
   }

@@ -16,9 +16,6 @@ export class AddEventPage implements OnInit {
   headerCustom = {
     background: '#A88FCD', title: 'ADD NEW EVENT'
   }
-  myDateStart = new Date().toISOString();
-  myDateEnd = new Date().toISOString();
-  
   formAddEvent: FormGroup;
   subType = 'birthday'
   userJoin = []
@@ -104,9 +101,10 @@ export class AddEventPage implements OnInit {
     }
   }
   changeTime(item) {
+
     if(item.detail.checked) {
       this.labelDateEnd = true
-      this.myDateEnd = 'ALL-DAY'
+      this.formAddEvent.get('dateEnd').setValue('ALL-DAY')
     }else {
       this.labelDateEnd = false
     }
@@ -134,8 +132,8 @@ export class AddEventPage implements OnInit {
     let param = {
       name: this.formAddEvent.get('name').value,
       location: this.formAddEvent.get('location').value,
-      dateStart: this.myDateStart,
-      dateEnd: this.myDateEnd,
+      dateStart: this.formAddEvent.get('dateStart').value,
+      dateEnd: this.formAddEvent.get('dateEnd').value,
       subType: this.subType,
       importance: this.importance,
       familyId: localStorage.getItem('familyId'),

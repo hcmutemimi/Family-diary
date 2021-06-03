@@ -51,6 +51,14 @@ export class EventService {
       catchError((errorRes) => { 
         throw errorRes.error; }));
   }
+  public getEventFamily(params) {
+    return this.http.get(`${APICONFIG.EVENT.GET_EVENT_FAMILY}?${(requestQuery(params))}`,).pipe(
+      map((result: any) => {
+        return result;
+      }),
+      catchError((errorRes) => { 
+        throw errorRes.error; }));
+  }
   public deleteEvent(id: string) {
     return this.http.delete<any>(`${APICONFIG.EVENT.DELETE(id)}`).pipe(
       map((result) => {

@@ -1,69 +1,167 @@
 ion-content {
   --padding-top: 80px;
+  --overflow: hidden;
 }
 
 ion-slides {
-  ion-slide {
-    height: 270px;
+  .slide-event {
+    display: block;
+    align-items: baseline;
+    overflow: scroll;
+    height: 250px;
+    @media screen and (min-height: 640px) {
+      height: 250px;
+    }
+    @media screen and (min-height: 667px) {
+      height: 276px;
+    }
+    @media screen and (min-height: 731px) {
+      height: 340px;
+    }
+    @media screen and (min-height: 736px) {
+      height: 345px;
+    }
+    @media screen and (min-height: 812px) {
+      height: 420px;
+    }
+    @media screen and (min-height: 823px) {
+      height: 432px;
+    }
+   
+  }
+
+  .slide-banner {
+    height: 250px;
 
     .text-intro {
       text-align: left;
       width: 100%;
       color: #424242;
     }
-
-   
   }
-  
-}
-ion-segment {
-    // position: fixed;
-    background-color: #fff;
-    border-radius: 0;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
 
-    ion-text {
-      width: 40%;
-      margin-left: 20px;
-      align-items: center;
-      font-weight: 550;
-      font-size: 12px;
-      display: flex;
-      color: #A88FCD;
+}
+
+ion-segment {
+  // position: fixed;
+  background-color: #fff;
+  border-radius: 0;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+
+  ion-text {
+    width: 40%;
+    margin-left: 20px;
+    align-items: center;
+    font-weight: 550;
+    font-size: 12px;
+    display: flex;
+    color: #A88FCD;
+  }
+
+  ion-button {
+    .footer_under {
+      position: absolute;
+      content: "";
+      width: 100%;
+      left: 0;
+      bottom: 0px;
+      height: 4px;
+      border-radius: 6px;
+      background: #A88FCD;
     }
 
-    ion-button {
-      .footer_under {
-        position: absolute;
-        content: "";
-        width: 100%;
-        left: 0;
-        bottom: 0px;
-        height: 4px;
-        border-radius: 6px;
-        background: #A88FCD;
+    font-size: 15px;
+    min-width: 30%;
+    --padding-start: 0;
+    --background-activated: transparent;
+    --background-focused: transparent;
+    --background-hover: transparent;
+    --color: #9b9b9b;
+    --background: white;
+    text-align: left;
+    max-height: 30px;
+    --border-radius: 0;
+    margin: 0;
+  }
+
+  .show {
+    --color: var(--orange-color);
+  }
+}
+
+.plus {
+  position: absolute;
+  bottom: 0px;
+  z-index: 10;
+  right: 33px;
+}
+
+.wrapper-event {
+  width: 100%;
+  // margin-bottom: 53px ;
+  .event-time {
+    padding-left: 16px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    font-size: 17px;
+    font-weight: bold;
+    color: #8c8b90;
+    height: 47px;
+    background-color: #efeef3;
+  }
+
+  .group-event {
+    color: #505052;
+
+
+    .event {
+      height: 60px;
+      border-bottom: 0.5px solid #ccc;
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+
+      .event-date {
+        width: 43px;
+        height: 44px;
+        color: rgb(63, 63, 63);
+        border-radius: 4px;
+        font-weight: bold;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        background-color: #dbdbdb;
+
+        .day {
+          text-transform: uppercase;
+          font-weight: 600;
+          font-size: 12px;
+          margin: auto;
+
+          ion-label {
+            font-size: 19px;
+            font-weight: 700;
+
+          }
+        }
+
       }
 
-      font-size: 15px;
-      min-width: 30%;
-      --padding-start: 0;
-      --background-activated: transparent;
-      --background-focused: transparent;
-      --background-hover: transparent;
-      --color: #9b9b9b;
-      --background: white;
-      text-align: left;
-      max-height: 30px;
-      --border-radius: 0;
-      margin: 0;
+      .event-content {
+        font-size: 16px;
+        font-family: "Saira", sans-serif !important;
+        flex: 1;
+        color: #A88FCD;
+        font-weight: 550;
+        margin-left: 6vh;
+      }
+
+      ion-icon {
+        font-size: 20px;
+      }
     }
 
-    .show {
-      --color: var(--orange-color);
-    }
   }
-  .plus {
-    position: absolute;
-    bottom: 25px;
-    right: 33px;
-  }
+
+}

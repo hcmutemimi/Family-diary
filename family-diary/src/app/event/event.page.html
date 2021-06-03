@@ -1,33 +1,103 @@
 <app-header [headerCustom]="headerCustom"></app-header>
 
 <ion-content class="">
-  <ion-slides pager="true" [options]="slideOpts" class="ion-padding">
-    <ion-slide>
+  <ion-slides pager="true" [options]="slideOpts" #slidesBanner class="ion-padding">
+    <ion-slide class="slide-banner">
       <h1 class="text-intro">Nothing <br />upcoming</h1>
     </ion-slide>
-    <ion-slide>
+    <ion-slide class="slide-banner"> 
       <h1>Slide 1</h1>
     </ion-slide>
-    <ion-slide>
+    <ion-slide class="slide-banner">
       <h1>Slide 2</h1>
     </ion-slide>
-    <ion-slide>
+    <ion-slide class="slide-banner">
       <h1>Slide 3</h1>
     </ion-slide>
   </ion-slides>
   <ion-segment value="birthday" swipeGesture="false" mode="ios">
-    <ion-button value="birthday" class="btn-custom" (click)="changeTabsBirthday()" [ngClass]="{'show': tagNew}">
+    <ion-button
+      value="birthday"
+      class="btn-custom"
+      (click)="changeTabsBirthday()"
+      [ngClass]="{'show': tagNew}"
+    >
       <ion-label>Birthdays</ion-label>
       <span class="footer_under" *ngIf="valueTag=='birthday'"></span>
     </ion-button>
-    <ion-button value="anniversaries" class="btn-custom" (click)="changeTabsAnni()" [ngClass]="{'show': tagNew}">
+    <ion-button
+      value="anniversaries"
+      class="btn-custom"
+      (click)="changeTabsAnni()"
+      [ngClass]="{'show': tagNew}"
+    >
       <ion-label>Anniversaries</ion-label>
       <span class="footer_under" *ngIf="valueTag=='anniversaries'"></span>
     </ion-button>
-    <ion-button value="orther" class="btn-custom" (click)="changeTabsOrther()" [ngClass]="{'show': tagNew}">
+    <ion-button
+      value="orther"
+      class="btn-custom"
+      (click)="changeTabsOrther()"
+      [ngClass]="{'show': tagNew}"
+    >
       <ion-label>Event orther</ion-label>
       <span class="footer_under" *ngIf="valueTag=='orther'"></span>
     </ion-button>
   </ion-segment>
-  <img src="assets/img/plus.svg" alt="" class="plus"(click)="openAddEvent()">
+ 
+  <ion-slides pager="false" [options]="slideOptsEvent"  #slides (ionSlideDidChange)="slideChanged()">
+    <ion-slide class="slide-event">
+      <div class="wrapper-event" *ngFor ="let item of listBirFinal" >
+        <ion-label class="event-time">{{item[0].cutDate |date :'MMMM, Y'}}</ion-label>
+        <ion-item-group class="group-event"*ngFor = "let i of item">
+          <div class="event">
+            <ion-label class="event-date">
+              <span class="day">{{i.day}}<br />
+                <ion-label>  04</ion-label>
+              </span>
+            </ion-label>
+            <span class="event-content three-dots-2">
+              {{i.name}} </span>
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </div>
+        </ion-item-group>
+      </div>
+    </ion-slide>
+    <ion-slide class="slide-event">
+      <div class="wrapper-event" *ngFor ="let item of listAniFinal" >
+        <ion-label class="event-time">{{item[0].cutDate |date :'MMMM, Y'}}</ion-label>
+        <ion-item-group class="group-event"*ngFor = "let i of item">
+          <div class="event">
+            <ion-label class="event-date">
+              <span class="day">{{i.day}}<br />
+                <ion-label>  04</ion-label>
+              </span>
+            </ion-label>
+            <span class="event-content three-dots-2">
+              {{i.name}} </span>
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </div>
+        </ion-item-group>
+      </div>
+    </ion-slide>
+    <ion-slide class="slide-event">
+      <div class="wrapper-event" *ngFor ="let item of listOrtherFinal" >
+        <ion-label class="event-time">{{item[0].cutDate |date :'MMMM, Y'}}</ion-label>
+        <ion-item-group class="group-event"*ngFor = "let i of item">
+          <div class="event">
+            <ion-label class="event-date">
+              <span class="day">{{i.day}}<br />
+                <ion-label>  04</ion-label>
+              </span>
+            </ion-label>
+            <span class="event-content three-dots-2">
+              {{i.name}} </span>
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </div>
+        </ion-item-group>
+      </div>
+     
+    </ion-slide>
+  </ion-slides>
+  <img src="assets/img/plus.svg" alt="" class="plus" (click)="openAddEvent()" />
 </ion-content>
