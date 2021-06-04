@@ -95,6 +95,7 @@
         <div class="item active-effect" (click)="goToDetail(item)">
           <ion-buttons class="img-container" [style.background-color]="item.bg">
             <img class="img" [src]="item.thumbImage" alt="" />
+            <span class="activity" *ngIf="item.name == 'ACTIVITY' && history"></span>
           </ion-buttons>
           <span class="name">{{ item.name }}</span>
         </div>

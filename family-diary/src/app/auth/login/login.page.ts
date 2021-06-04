@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
-import { PATTERN } from '../../@app-core/@http-config/pattern.service'
+import { PATTERN } from '../../@app-core/@http-config'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { LoadingService, ModalService, ToastService } from '../../@app-core/utils'
 import { AuthService } from '../../@app-core/@http-config/auth'

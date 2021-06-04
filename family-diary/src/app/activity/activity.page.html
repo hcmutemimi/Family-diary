@@ -1,0 +1,51 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>activity</ion-title>
+  </ion-toolbar>
+</ion-header>
+<app-header [headerCustom]="headerCustom"></app-header>  -->
+<!-- 
+ <ion-content>
+  <ion-text class="">Your family be long to</ion-text>
+  <ion-buttons *ngFor="let item of listFamily" class="item active-effect" (click)="goToDetail(item)">
+		<ion-buttons class="left-box">
+			<div class="img-container">
+				<img class="img" src="assets/img/family.png">
+			</div>
+      <div class="name-family">
+        <span class="title">{{ item.name }}</span>
+        <span class="content">{{item.count}} members</span>
+      </div>
+		</ion-buttons>
+		<ion-buttons class="right-box">
+			<ion-buttons class="icon-container">
+				<ion-icon name="chevron-forward-outline"></ion-icon>
+			</ion-buttons>
+		</ion-buttons>
+	</ion-buttons>
+</ion-content> -->
+<ion-header>
+  <ion-buttons></ion-buttons>
+  <ion-title>Your family(ies)</ion-title>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-radio-group mode="ios" [value]="activeitem" class="list">
+    <ion-item
+      *ngFor="let item of listFamily"
+      class="item"
+      (click)="gotoActivities(item.fm)"
+    >
+      <ion-label class="label"
+        >{{ item.name }}</ion-label
+      >
+      <ion-radio
+        [ngClass]="{'activeRadio':item.fm == activeitem}"
+        class="radio"
+        [value]="item.fm"
+      >
+      </ion-radio>
+    </ion-item>
+
+  </ion-radio-group>
+</ion-content>

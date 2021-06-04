@@ -1,6 +1,6 @@
 <div class="header ion-page ion-no-border"
   [style.background]="headerCustom.background">
-  <ion-label class="three-dots-2">{{ headerCustom.title }}</ion-label>
+  <ion-label class="three-dots-2" [style.color] ="headerCustom.color">{{ headerCustom.title }}</ion-label>
   <ion-icon name="home" class="active-effect" style="color: #E7E7E7;" (click)="gotoMain()"></ion-icon>
-  <ion-back-button defaultHref=“home” icon="chevron-back-outline" text="" class="back-btn"></ion-back-button>
+  <ion-back-button defaultHref=“home” icon="chevron-back-outline" text="" class="back-btn" *ngIf="headerCustom?.back != false"></ion-back-button>
 </div>

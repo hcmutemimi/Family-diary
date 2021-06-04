@@ -240,6 +240,16 @@ ion-content {
             .img {
               width: 3.5vh;
             }
+            .activity{
+              content: "";
+              position: absolute;
+              width: 8px;
+              height: 8px;
+              border-radius: 50%;
+              top: 0px;
+              right: 8px;
+              background-color: #FD7160;
+            }
           }
 
           .name {

@@ -38,7 +38,9 @@ export const APICONFIG =  {
     ADD_MEMBER: `/family-member/add-member`,
     GET: `/family-member`,
     REMOVE_USER: (id) => `/family-member/remove/${id}`,
-    GET_LIST : `/family-member/get-list`
+    GET_LIST : `/family-member/get-list`,
+    GET_HISTORY_STATUS: `/family-member/history-status`,
+    UPDATE_HISTORY_STATUS: `/family-member/update/history-status`
   },
   EVENT : {
     CREATE: `/event`,
@@ -49,5 +51,8 @@ export const APICONFIG =  {
     GET_BY_ID: (id) => `/event/${id}`,
     UPDATE: (id)=>`/event/update/${id}`
 
+  },
+  HISTORY: {
+    GET: `/history`
   }
 }

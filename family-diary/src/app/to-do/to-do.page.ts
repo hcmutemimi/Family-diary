@@ -28,7 +28,7 @@ export class ToDoPage implements OnInit {
   show = false
   param = {
     userId: localStorage.getItem('userId'),
-    type: '',
+    subType: '',
     familyId: localStorage.getItem('familyId')
   }
   constructor(
@@ -50,7 +50,7 @@ export class ToDoPage implements OnInit {
     this.getDataListToDo()
   }
   getDataToDo() {
-    this.param.type = 'to-do'
+    this.param.subType = 'to-do'
     this.eventService.getEvent(this.param).subscribe(data => {
       this.listToDo = data.message
       this.listData = this.listToDo
@@ -59,7 +59,7 @@ export class ToDoPage implements OnInit {
   }
  
   getDataListToDo() {
-    this.param.type = 'list-to-do'
+    this.param.subType = 'list-to-do'
     this.eventService.getEvent(this.param).subscribe(data => {
       this.listListToDo = data.message
       // this.listData = this.listToDo

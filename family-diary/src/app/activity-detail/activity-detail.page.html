@@ -1,0 +1,24 @@
+<app-header [headerCustom]="headerCustom"></app-header>
+<ion-content >
+<div class="wrapper"  *ngFor="let item of listHistoryFinal">
+    <ion-label class="date">
+        <span class="before"></span>
+           {{item[0].updatedAt |date :'EEEE, MMMM d, y'}}
+            <span class="after"></span>
+    </ion-label>
+        <div class="item" *ngFor = "let i of item" (click)="goToDestine(i)">
+            <img [src] = "i.img" alt="" [style.border-color]="i.colorCode"
+            [style.border-radius.%]="i.objectName =='to-do'? 50:0" >
+            <div class="group-right">
+                <div class="name-time">
+                    <ion-label class="name-change">{{i.changer}}</ion-label>
+                    <ion-label class="time">{{i.updatedAt |date: 'h:mm a'}}</ion-label>
+                </div>
+                <div class="type-update">
+                    {{i.typeChange}}: {{i.objectName}}
+                </div>
+            </div>
+    </div>
+   
+</div>
+</ion-content>

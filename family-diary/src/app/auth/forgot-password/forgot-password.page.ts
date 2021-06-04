@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError } from 'rxjs/operators';
 import { ToastService } from 'src/app/@app-core/utils/toast.service';
-import { PATTERN } from '../../@app-core/@http-config/pattern.service';
+import { PATTERN } from '../../@app-core/@http-config/pattern';
 import { LoadingService, } from '../../@app-core/utils/loading.service';
 
 @Component({

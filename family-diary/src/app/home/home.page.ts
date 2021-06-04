@@ -22,12 +22,15 @@ export class HomePage implements OnInit {
   selection
   nameIcon
   countFamily = []
-  
+  listCount = []
+  listFM = []
+  idFM
+  history = false
   menu = [
     {
       name: 'ACTIVITY',
       thumbImage: 'assets/img/menu/activity.svg',
-      desUrl: 'news',
+      desUrl: '/activity-detail',
       bg: '#edfaf1'
     },
     {
@@ -89,35 +92,57 @@ export class HomePage implements OnInit {
   ngOnInit() {
     // this.loadingService.present()
     this.getInfoUser()
+
+  }
+  ionViewWillEnter() {
+    this.getData()
+
   }
   goToSetting() {
     this.router.navigateByUrl('/account-setting')
   }
-  ionViewWillEnter() {
-    this.getData()
-  }
   async getData() {
     this.familyService.getListFamily().subscribe(data => {
       this.listFamily = data.message.family
-      this.countFamily = data.message.counts
-
+      this.listCount = data.message.counts
+      this.listFM = data.message.listFM
+      this.listFamily.forEach(e => {
+        this.listCount.forEach(i => {
+          if (i._id === e._id) {
+            e.count = i.total
+          }
+        })
+        this.listFM.forEach(i => {
+          if (i.familyId === e._id) {
+            e.fm = i.idFM
+          }
+        })
+      })
       this.nameFamily = this.listFamily[0]?.name
       this.selection = this.listFamily[0]?._id
       localStorage.setItem('familyId', this.selection)
-      // this.nameIcon = this.listFamily[0].name
+      this.idFM = this.listFamily[0]?.fm
+
+      localStorage.setItem('idFM', this.idFM)
       this.getMember()
-
     })
-
   }
-
   getMember() {
     let queryParams = {
       familyId: this.selection
     }
     this.familyMemberService.getListFamily(queryParams).subscribe(data => {
       this.listFamilyMember = data.message
+      this.getHistoryStatus()
       // this.loadingService.dismiss()
+    })
+  }
+  getHistoryStatus() {
+    let p = {
+      familyMemberId: localStorage.getItem('idFM')
+    }
+    this.familyMemberService.historyStatus(p).subscribe(data => {
+      this.history = data.message.history
     })
   }
   getInfoUser() {
@@ -138,12 +163,23 @@ export class HomePage implements OnInit {
     localStorage.setItem('familyId', this.selection)
     this.nameFamily = i.name
     this.getMember()
+    var r = this.listFM.filter(i => {
+      return i.familyId == this.selection
+    })
+    this.idFM = r[0].idFM
+    localStorage.setItem('idFM', this.idFM)
   }
-  goToDetail(item) {
-    //   this.router.navigate(['/news'], {
-    //     queryParams: {
-    //       data: JSON.stringify(data)
-    //     }
+  async goToDetail(item) {
+    
+    // if (item.desUrl == '/activity') {
+    //   const modal = await this.modal.create({
+    //     component: ActivityPage,
+    //     swipeToClose: true,
+    //     cssClass: 'modal__addToDo'
+    //   })
+    //   await modal.present()
+    //   modal.onWillDismiss().then(() => {
+    //     this.getData();
     //   })
     // }
     this.router.navigateByUrl(item.desUrl);

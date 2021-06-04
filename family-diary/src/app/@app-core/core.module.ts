@@ -5,6 +5,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { GlobalErrorHandlerService } from './global-error-handler.service'
 import { IntercepterService } from './http-interceptor';
+import { HistoryService } from './@http-config/history';
 @NgModule({
   declarations: [],
   imports: [
@@ -29,7 +30,8 @@ export class CoreModule {
         FamilyService,
         FamilyMemberService,
         CalendarService,
-        EventService
+        EventService,
+        HistoryService
       ]
     }
   }

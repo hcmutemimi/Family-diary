@@ -65,7 +65,6 @@ const routes: Routes = [
     path: 'new-family',
     loadChildren: () => import('./new-family/new-family.module').then( m => m.NewFamilyPageModule),
     canActivate: [AuthGuardService],
-
   },
   {
     path: 'list-item',
@@ -76,7 +75,6 @@ const routes: Routes = [
     path: 'page-noti',
     loadChildren: () => import('./@app-core/@modular/page-noti/page-noti.module').then(m => m.PageNotiModule),
     canActivate: [AuthGuardService],
-
   },
   {
     path: 'update-password',
@@ -85,14 +83,28 @@ const routes: Routes = [
   },
   {
     path: 'invite',
-    loadChildren: () => import('./invite/invite.module').then( m => m.InvitePageModule)
+    loadChildren: () => import('./invite/invite.module').then( m => m.InvitePageModule),
+    canActivate: [AuthGuardService],
   },
   {
     path: 'account',
-    loadChildren: () => import('./account/account.module').then( m => m.AccountPageModule)
+    loadChildren: () => import('./account/account.module').then( m => m.AccountPageModule),
+    canActivate: [AuthGuardService],
   },
-  { path: '**', redirectTo: 'event'  },
-  { path: '', redirectTo: 'event', pathMatch: 'full' },
+  {
+    path: 'activity',
+    loadChildren: () => import('./activity/activity.module').then( m => m.ActivityPageModule),
+    canActivate: [AuthGuardService],
+  },
+  {
+    path: 'activity-detail',
+    loadChildren: () => import('./activity-detail/activity-detail.module').then( m => m.ActivityDetailPageModule),
+    canActivate: [AuthGuardService],
+  },
+  { path: '**', redirectTo: 'home'  },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+
+  
  
  
 

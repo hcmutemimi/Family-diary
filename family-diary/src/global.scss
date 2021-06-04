@@ -42,6 +42,15 @@ html, body {
   }
   
 }
+.modal-activity {
+  margin-top: -20%;
+  --height: 30%;
+  --width: 90%;
+  --overflow: scroll;
+  .modal-wrapper {
+    border-radius: 20px;
+  }
+}
 .display-none {
     display: none;
 }

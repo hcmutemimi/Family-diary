@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastService } from 'src/app/@app-core/utils/toast.service';
-import { PATTERN } from '../../@app-core/@http-config/pattern.service';
+import { PATTERN } from '../../@app-core/@http-config/';
 import { LoadingService, } from '../../@app-core/utils/loading.service';
 import { Inject } from '@angular/core';
 import { HttpHeaders } from "@angular/common/http";

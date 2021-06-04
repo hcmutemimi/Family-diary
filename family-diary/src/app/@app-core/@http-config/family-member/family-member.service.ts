@@ -59,5 +59,20 @@ export class FamilyMemberService {
       catchError((errorRes) => { 
         throw errorRes.error; }));
   } 
-
+  public historyStatus(query) {
+    return this.http.get(`${APICONFIG.FAMILY_MEMEBER.GET_HISTORY_STATUS}?${(requestQuery(query))}`).pipe(
+      map((result: any) => {
+        return result;
+      }),
+      catchError((errorRes) => { 
+        throw errorRes.error; }));
+  } 
+  public updateHistory(id) {
+    return this.http.post(`${APICONFIG.FAMILY_MEMEBER.UPDATE_HISTORY_STATUS}`, id).pipe(
+      map((result: any) => {
+        return result;
+      }),
+      catchError((errorRes) => { 
+        throw errorRes.error; }));
+  } 
 }
