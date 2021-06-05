@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { IDataNoti, PageNotiService } from './page-noti.service';
+import { Component, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
+import { IDataNoti, PageNotiService } from './page-noti.service'
 
 @Component({
   selector: 'app-page-noti',
@@ -8,8 +8,8 @@ import { IDataNoti, PageNotiService } from './page-noti.service';
   styleUrls: ['./page-noti.component.scss'],
 })
 export class PageNotiComponent implements OnInit {
-  public title = "";
-  public des = "";
+  public title = ""
+  public des = ""
   public routerLink = ''
   constructor(
     private pageNotiService: PageNotiService,
@@ -19,13 +19,12 @@ export class PageNotiComponent implements OnInit {
 
   ngOnInit() {
     this.pageNotiService.dataStatusNoti.subscribe((data: IDataNoti) => {
-      this.title = data.title;
-      this.routerLink = data.routerLink;
-      this.des = data.des;
+      this.title = data.title
+      this.routerLink = data.routerLink
+      this.des = data.des
       setTimeout(() => {
-        this.router.navigateByUrl(this.routerLink);
-      }, 2000);
-     
+        this.router.navigateByUrl(this.routerLink)
+      }, 3000)
     })
   
   }

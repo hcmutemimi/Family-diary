@@ -12,9 +12,9 @@ import { ConfirmMailPage } from 'src/app/@app-core/@modular/confirm-mail/confirm
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  // public type = 'password';
-  // public showpass = false;
-  // public name = 'eye-outline';
+  public type = 'password';
+  public showpass = false;
+  public name = 'eye-outline';
   // public status = 'login';
 
   country_codes: any
@@ -106,7 +106,17 @@ export class LoginPage implements OnInit {
   changedSegment(event) {
     this.segmentValue = event.target.value
   }
-
+  showPassword() {
+    this.showpass = !this.showpass
+    if (this.showpass) {
+      this.type = 'text'
+      this.name ='eye-off-outline'
+    }
+    else {
+      this.type = 'password';
+      this.name ='eye-outline'
+    }
+  }
   canSubmitLogin() {
     return this.formLogin.valid
   }
@@ -115,15 +125,21 @@ export class LoginPage implements OnInit {
     return this.formSignUp.valid
   }
   submitLogin() {
+    this.loadingService.present()
     if (!this.canSubmitLogin()) {
       this.markFormGroupTouched(this.formLogin)
+      this.loadingService.dismiss()
     } else {
       this.authService.signin(this.formLogin.value).subscribe(() => {
         this.setLocalStore()
+      this.loadingService.dismiss()
+
         this.router.navigate(['home'])
       },
       (error)=>{
         this.toastService.present(error.message)
+      this.loadingService.dismiss()
+
         throw error
       })
     }
@@ -141,16 +157,20 @@ export class LoginPage implements OnInit {
   }
 
   submitSignUp() {
+    this.loadingService.present()
     if (!this.canSubmitSignUp()) {
       this.markFormGroupTouched(this.formSignUp)
     } else if (!this.checkMatchConfirmedPassword()) {
       this.toastService.present('Password not match.')
     } else {
       this.authService.signup(this.formSignUp.value).subscribe((data: any) => {
+        this.loadingService.dismiss()
           this.modalService.presentModal(ConfirmMailPage, this.formSignUp.value.email)
-          // this.formSignUp.reset();
+          this.formSignUp.reset()
       },
       (error)=>{
+        this.loadingService.dismiss()
+
         this.toastService.present(error.message)
       }
       )
@@ -170,7 +190,7 @@ export class LoginPage implements OnInit {
   // }
 
   clickForgotPassword() {
-    this.router.navigate(['auth-manager/forgot-password'])
+    this.router.navigate(['/forgot-password'])
   }
 
   checkMatchConfirmedPassword() {

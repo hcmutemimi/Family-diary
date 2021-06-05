@@ -97,7 +97,7 @@ ion-content {
   
     .forgot-password-btn {
       color: #fff;
-      font-size: 12px;
+      font-size: 13px;
     }
   }
   
@@ -146,4 +146,20 @@ ion-content {
   .address-input {
     margin-top: 8px;
   }
-  
+  .group-input {
+    display: flex;
+  }
+  .btn-change-type {
+    background-color: #30b9bb;
+    border-top-right-radius: 5px;
+    color: #ccc;
+    border-bottom-right-radius: 5px;
+    ion-icon {
+      font-size: 18px;
+    }
+  }
+  .input-pass{
+    border-right: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }

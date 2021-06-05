@@ -49,6 +49,7 @@ export class AccountPage implements OnInit {
     private router: Router,
   ) { }
   ngOnInit() {
+    this.loadingService.present()
     this.initForm();
     this.getData();
 

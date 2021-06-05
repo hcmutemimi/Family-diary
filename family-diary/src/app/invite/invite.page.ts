@@ -1,11 +1,11 @@
 
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
-import { LoadingService, ToastService } from 'src/app/@app-core/utils';
-import { FamilyMemberService } from '../@app-core/@http-config';
-import { IDataNoti, PageNotiService } from '../@app-core/@modular/page-noti/page-noti.service';
+import { Component, OnInit } from '@angular/core'
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
+import { ActivatedRoute, Router } from '@angular/router'
+import { ModalController } from '@ionic/angular'
+import { LoadingService, ToastService } from 'src/app/@app-core/utils'
+import { FamilyMemberService } from '../@app-core/@http-config'
+import { IDataNoti, PageNotiService } from '../@app-core/@modular/page-noti/page-noti.service'
 
 @Component({
   selector: 'app-invite',
@@ -13,12 +13,12 @@ import { IDataNoti, PageNotiService } from '../@app-core/@modular/page-noti/page
   styleUrls: ['./invite.page.scss'],
 })
 export class InvitePage implements OnInit {
-  formSubmit: FormGroup;
-  check = false;
-  message = '';
-  checkpn = false;
-  messagepn = '';
-  count: any;
+  formSubmit: FormGroup
+  check = false
+  message = ''
+  checkpn = false
+  messagepn = ''
+  count: any
   dataReceive
   query
   constructor(
@@ -28,7 +28,8 @@ export class InvitePage implements OnInit {
     private loadService: LoadingService,
     private passwordModal: ModalController,
     private familyService: FamilyMemberService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastService: ToastService
     // private authService: AuthService
   ) {
     this.formSubmit = this.formBuilder.group({
@@ -39,30 +40,25 @@ export class InvitePage implements OnInit {
   }
 
   ngOnInit() {
-  
+
   }
   ionViewWillEnter() {
-     this.query = this.route.queryParams.subscribe(params => {
+    this.query = this.route.queryParams.subscribe(params => {
       this.dataReceive = JSON.parse(params['data'])
     })
   }
   ionViewWillLeave() {
     this.query.unsubscribe()
   }
-  dismissModal() {
-    this.passwordModal.dismiss();
-  }
   onSubmit() {
-    const relationship = this.formSubmit.value.relationship;
-    const email = this.formSubmit.value.email;
-    const name = this.formSubmit.value.name;
-
-    // this.check = false;
-    const datapasing: IDataNoti = {
-      title: 'SUCCESSFUL!',
-      des: 'Invited successfully!',
-      routerLink: '/home'
-    }
+    const relationship = this.formSubmit.value.relationship
+    const email = this.formSubmit.value.email
+    const name = this.formSubmit.value.name
+    // const datapasing: IDataNoti = {
+    //   title: 'SUCCESSFUL!',
+    //   des: 'Invited successfully!',
+    //   routerLink: '/home'
+    // }
     var params = {
       email: email,
       familyId: this.dataReceive._id,
@@ -70,13 +66,15 @@ export class InvitePage implements OnInit {
       name: name,
       role: ""
     }
-    this.dismissModal()
     this.loadService.present()
 
     this.familyService.addMember(params).subscribe(data => {
-      this.pageNotiService.setdataStatusNoti(datapasing);
-      this.router.navigateByUrl('/page-noti');
-      this.loadService.dismiss();
+      // this.pageNotiService.setdataStatusNoti(datapasing)
+      // this.router.navigateByUrl('/page-noti')
+      this.toastService.present('Invited member successfully!')
+      this.loadService.dismiss()
+      this.passwordModal.dismiss()
+
     },
       (error) => {
         throw error

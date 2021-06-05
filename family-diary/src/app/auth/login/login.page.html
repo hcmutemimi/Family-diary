@@ -37,11 +37,17 @@
 
         <div class="margin-bottom">
           <ion-label class="label">Password</ion-label>
-          <ion-input
-            class="input"
-            type="password"
+          <div class="group-input">
+            <ion-input
+            class="input input-pass"
+            type="{{type}}"
             formControlName="password"
           ></ion-input>
+          <button *ngIf="!showPass" type="button" (click)="showPassword()" class="btn-change-type">
+            <ion-icon name="{{name}}" class="ion-eye"></ion-icon>
+          </button>
+          </div>
+         
           <ng-container *ngFor="let validation of validationLogin.password">
             <div
               class="error-message"

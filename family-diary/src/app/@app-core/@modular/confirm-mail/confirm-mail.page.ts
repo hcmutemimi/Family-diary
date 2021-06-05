@@ -16,6 +16,7 @@ export class ConfirmMailPage implements OnInit {
     private authService: AuthService,
     private toastService: ToastService,
     private modalService: ModalService,
+    private router: Router
     ) { }
 
   ngOnInit() {
@@ -30,6 +31,7 @@ export class ConfirmMailPage implements OnInit {
     this.authService.activeAccount(email, code).subscribe(data => {
       this.modalService.dismiss()
       this.toastService.present('Sign up successfully! Let us start ')
+      this.router.navigateByUrl('/login')
     },
     (error) =>{
       throw error

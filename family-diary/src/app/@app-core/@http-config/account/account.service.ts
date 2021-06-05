@@ -6,11 +6,8 @@ import { catchError, map } from 'rxjs/operators';
 
 @Injectable()
 export class AccountService {
-
   constructor(
     private http: HttpClient,
-    // private storage: StorageService,
-    // private toastr: ToastrService,
   ) { }
 
   public getAccount() {
@@ -24,9 +21,6 @@ export class AccountService {
   }
   
   public updateProfile(data) {
-    // const req = {
-    //   app_user: data
-    // }
     return this.http.post(`${APICONFIG.ACCOUNT.UPDATE_PROFILE}`, data).pipe(
       map((result:any) => {
         return result;
@@ -68,19 +62,19 @@ export class AccountService {
     )
   }
 
-  public updateAvatar(req) {
-    return this.http.put(`${APICONFIG.AUTH.UPDATE_AVATAR}`, req).pipe(
-      map((result) => {
-        return result
-      }),
-      catchError((errorRes: any) => {
-        throw errorRes.error;
-      }),
-      catchError((errorRes: any) => {
-        throw errorRes.error;
-      })
-    )
-  }
+  // public updateAvatar(req) {
+  //   return this.http.put(`${APICONFIG.AUTH.UPDATE_AVATAR}`, req).pipe(
+  //     map((result) => {
+  //       return result
+  //     }),
+  //     catchError((errorRes: any) => {
+  //       throw errorRes.error;
+  //     }),
+  //     catchError((errorRes: any) => {
+  //       throw errorRes.error;
+  //     })
+  //   )
+  // }
   
 
 }

@@ -1,8 +1,8 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController, NavController, Platform } from '@ionic/angular';
 import { AccountService, FamilyMemberService, FamilyService } from '../@app-core/@http-config';
-import { LoadingService } from '../@app-core/utils';
+import { LoadingService, ToastService } from '../@app-core/utils';
 import { NewFamilyPage } from '../new-family/new-family.page';
 
 @Component({
@@ -16,7 +16,7 @@ export class HomePage implements OnInit {
   avatarReplace = 'https://i.imgur.com/edwXSJa.png';
   listFamilyMember = []
   listFamily = []
-  hasButton = false
+  hasButton
   nameFamily
   nameUser
   selection
@@ -25,7 +25,10 @@ export class HomePage implements OnInit {
   listCount = []
   listFM = []
   idFM
-  history = false
+  history = true
+  subscribe: any
+  count = 0
+  public alertPresented = false
   menu = [
     {
       name: 'ACTIVITY',
@@ -87,16 +90,65 @@ export class HomePage implements OnInit {
     public familyService: FamilyService,
     private loadingService: LoadingService,
     private accountService: AccountService,
-    private modal: ModalController
+    private modal: ModalController,
+    private platform: Platform,
+    private toastService: ToastService,
+    private navController: NavController, 
+    private alertController: AlertController
+
   ) { }
   ngOnInit() {
-    // this.loadingService.present()
     this.getInfoUser()
+    this.blockBackBtn()
 
   }
+  blockBackBtn() {
+    this.subscribe = this.platform.backButton.subscribeWithPriority(99999, () => {
+      if (this.router.url === '/home') {
+        this.count++;
+        if (this.count == 1) {
+          this.toastService.present('Press again to exit app!');
+        }
+        else {
+          this.presentAlert();
+        }
+        setTimeout(() => {
+          this.count = 0;
+        }, 2000);
+      }
+      else {
+        this.navController.back();
+      }
+    })
+  }
+  async presentAlert() {
+    this.alertPresented = true;
+    const alert = await this.alertController.create({
+      cssClass: 'logout-alert',
+      header: 'Do you want to exit app?',
+      mode: 'ios',
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: () => {
+            this.alertPresented = false;
+            return;
+          }
+        },
+        {
+          text: 'Agree',
+          handler: () => {
+            localStorage.removeItem('isRepeat');
+            navigator['app'].exitApp();
+          }
+        },
+      ]
+    });
+    await alert.present();
+  }
   ionViewWillEnter() {
+    this.loadingService.present()
     this.getData()
-
   }
   goToSetting() {
     this.router.navigateByUrl('/account-setting')
@@ -134,7 +186,6 @@ export class HomePage implements OnInit {
     this.familyMemberService.getListFamily(queryParams).subscribe(data => {
       this.listFamilyMember = data.message
       this.getHistoryStatus()
-      // this.loadingService.dismiss()
     })
   }
   getHistoryStatus() {
@@ -142,6 +193,7 @@ export class HomePage implements OnInit {
       familyMemberId: localStorage.getItem('idFM')
     }
     this.familyMemberService.historyStatus(p).subscribe(data => {
+      this.loadingService.dismiss()
       this.history = data.message.history
     })
   }

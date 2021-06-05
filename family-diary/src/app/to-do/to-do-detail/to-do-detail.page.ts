@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { EventService, FamilyMemberService, FamilyService } from 'src/app/@app-core/@http-config';
-import { ToastService } from 'src/app/@app-core/utils';
+import { LoadingService, ToastService } from 'src/app/@app-core/utils';
 
 @Component({
   selector: 'app-to-do-detail',
@@ -38,10 +38,12 @@ export class ToDoDetailPage implements OnInit {
     private toarstService: ToastService,
     private router: Router,
     private route: ActivatedRoute,
-    private familyService: FamilyService
+    private familyService: FamilyService,
+    private laodingService: LoadingService
   ) { }
 
   ngOnInit() {
+    this.laodingService.present()
     this.initForm()
     this.headerCustom.title = this.title
   }
@@ -70,6 +72,7 @@ export class ToDoDetailPage implements OnInit {
     this.eventService.getEventId(this.id).subscribe(
       (data) => {
         this.dataReceive = data.message
+        this.laodingService.dismiss()
         this.formEditToDo.get('name').setValue(this.dataReceive.name)
         this.formEditToDo.get('dateStart').setValue(this.dataReceive.dateStart)
         this.formEditToDo.get('dateEnd').setValue(this.dataReceive.dateEnd)
@@ -109,7 +112,8 @@ export class ToDoDetailPage implements OnInit {
   }
   checkHost() {
     let param = {
-      userId: localStorage.getItem('userId')
+      userId: localStorage.getItem('userId'),
+      familyId: localStorage.getItem('familyId')
     }
     this.familyService.checkHost(param).subscribe(
       (data) => {

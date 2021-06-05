@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, CanActivate, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
 import { FamilyMemberService } from 'src/app/@app-core/@http-config';
 import { HistoryService } from 'src/app/@app-core/@http-config/history';
+import { LoadingService } from '../@app-core/utils';
+import { ToDoDetailPage } from '../to-do/to-do-detail/to-do-detail.page';
 
 @Component({
   selector: 'app-activity-detail',
@@ -22,9 +25,12 @@ export class ActivityDetailPage implements OnInit {
     private familyMemberService: FamilyMemberService,
     private route: ActivatedRoute,
     private history: HistoryService,
-    private router: Router
+    private router: Router,
+    private modal: ModalController,
+    private loadingService: LoadingService
   ) { }
   ngOnInit() {
+    this.loadingService.present()
     this.param = {
       familyMemberId: localStorage.getItem('idFM')
     }
@@ -42,6 +48,7 @@ export class ActivityDetailPage implements OnInit {
       familyId: localStorage.getItem('familyId')
     }
       this.history.getAll(param2).subscribe(data =>{
+        this.loadingService.dismiss()
         this.listHistory = data.message
         this.handleDate(this.listHistory)
           this.handle(this.listHistory,'cutDate', this.listHistoryFinal)
@@ -72,12 +79,22 @@ export class ActivityDetailPage implements OnInit {
       final.push(result)
     })
   }
-  goToDestine(item) {
-    if(item.objectName == 'todo' || item.objectName == 'list-to-do') {
+  async goToDestine(item) {
+    if(item.objectName == 'to-do' && item.typeChange =='New' || item.objectName =='list-to-do') {
       this.router.navigateByUrl('to-do')
-    }else  {
+    }else if(item.objectName == 'to-do' && item.typeChange =='Updated') {
+      const modal = await this.modal.create({
+        component: ToDoDetailPage,
+        swipeToClose: true,
+        cssClass: 'modal__addToDo',
+        componentProps: { title: 'Detail To Do', id: item.objectId  }
+      })
+      await modal.present()
+    }
+    else{
         this.router.navigateByUrl('event')
     }
   }
+
 
 }

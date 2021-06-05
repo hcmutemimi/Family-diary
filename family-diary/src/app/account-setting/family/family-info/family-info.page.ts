@@ -1,11 +1,11 @@
-import { CompilerConfig } from '@angular/compiler';
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController, ModalController } from '@ionic/angular';
-import { FamilyMemberService, FamilyService } from 'src/app/@app-core/@http-config';
-import { ToastService } from 'src/app/@app-core/utils';
-import { ChangepasswordPage } from 'src/app/changepassword/changepassword.page';
-import { InvitePage } from 'src/app/invite/invite.page';
+import { CompilerConfig } from '@angular/compiler'
+import { Component, OnInit } from '@angular/core'
+import { ActivatedRoute, Router } from '@angular/router'
+import { AlertController, ModalController } from '@ionic/angular'
+import { FamilyMemberService, FamilyService } from 'src/app/@app-core/@http-config'
+import { LoadingService, ToastService } from 'src/app/@app-core/utils'
+import { ChangepasswordPage } from 'src/app/changepassword/changepassword.page'
+import { InvitePage } from 'src/app/invite/invite.page'
 
 @Component({
   selector: 'app-family-info',
@@ -32,11 +32,13 @@ export class FamilyInfoPage implements OnInit {
     private modal: ModalController,
     private familyService: FamilyService,
     private toartService: ToastService,
-    private router: Router
+    private router: Router,
+    private loadingService: LoadingService
   ) { }
    
   ngOnInit() {
     this.idMy = localStorage.getItem('userId')
+    this.loadingService.present()
   }
   ionViewWillEnter() {
     this.getData()
@@ -56,7 +58,8 @@ export class FamilyInfoPage implements OnInit {
   }
   getMember() {
     let queryParams = {
-      familyId: this.infoFamily?._id
+      familyId: this.infoFamily?._id,
+      
     }
     this.familyMemberService.getListFamily(queryParams).subscribe(data => {
       this.listFamilyMember = data.message
@@ -72,9 +75,11 @@ export class FamilyInfoPage implements OnInit {
       param.userId = element._id
       this.familyService.checkHost(param).subscribe(
         (data)=>{
+          this.loadingService.dismiss()
           if(data.message != null) {
             if(element._id == data.message.userId ) {
               this.idHost = element._id
+              this.checkIsHost = true
             }
           }
         },
@@ -82,7 +87,7 @@ export class FamilyInfoPage implements OnInit {
           throw error
         }
       )
-    });
+    })
    
   }
   async remove(item) {
@@ -105,27 +110,28 @@ export class FamilyInfoPage implements OnInit {
         }
       ],
   
-    });
-    await alertAvatarSetting.present();
+    })
+    await alertAvatarSetting.present()
   }
   removeFunction(idFamily, userId) {
+    this.loadingService.present()
     this.familyMemberService.removeUser(idFamily, userId).subscribe(
-      (data)=>{
+      ()=>{
         this.toartService.present('Leave successfully !')
         this.getMember()
+        this.loadingService.dismiss()
       },
       (error)=>{
         if(error.message =='YOU_ARE_HOST') {
         this.toartService.present('You are host of family, not allowed ')
         }
         throw error
-
       }
     )
   }
   deleteFunction(id) {
     this.familyService.deleteFamily(id).subscribe(
-      (data)=>{ 
+      ()=>{ 
         this.toartService.present('Delete successfully !')
         this.router.navigateByUrl('/home')
       },
@@ -137,10 +143,10 @@ export class FamilyInfoPage implements OnInit {
     const popover = await this.modal.create({
       component: InvitePage,
       cssClass: 'modal__Invite',
-    });
-    await popover.present();
-    popover.onWillDismiss().then(() => {
-      this.getData();
+    })
+    await popover.present()
+    popover.onDidDismiss().then(() => {
+      this.getMember()
     })
   }
   async deleteFamily() {
@@ -162,7 +168,7 @@ export class FamilyInfoPage implements OnInit {
         }
       ],
   
-    });
-    await alertAvatarSetting.present();
+    })
+    await alertAvatarSetting.present()
   }
 }

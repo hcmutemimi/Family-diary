@@ -57,7 +57,7 @@ ion-content {
   }
 
   ion-list {
-
+    margin-bottom: 120px;
     ion-item,
     .list-to-do {
       border-top: 1px solid #ccc;
@@ -110,13 +110,12 @@ ion-content {
   position: fixed;
   bottom: 0px;
   width: 100%;
+  background: #fff;
   justify-content: flex-end;
-  background-color: #ccc;
 
   .btn-submit {
     font-weight: bold;
     text-transform: uppercase;
-    border-radius: 10px;
     display: block;
     box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.25);
     margin: 16px;
@@ -132,7 +131,6 @@ ion-content {
 
   .btn-update {
     --color: #ff5d52;
-    border: 1px solid #ff5d52;
     --background: #fff;
 
   }

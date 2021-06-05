@@ -74,7 +74,6 @@ const routes: Routes = [
   {
     path: 'page-noti',
     loadChildren: () => import('./@app-core/@modular/page-noti/page-noti.module').then(m => m.PageNotiModule),
-    canActivate: [AuthGuardService],
   },
   {
     path: 'update-password',

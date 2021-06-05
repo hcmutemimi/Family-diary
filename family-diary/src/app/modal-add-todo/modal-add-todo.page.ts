@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { EventService, FamilyMemberService } from '../@app-core/@http-config';
-import { ToastService } from '../@app-core/utils';
+import { LoadingService, ToastService } from '../@app-core/utils';
 
 @Component({
   selector: 'app-modal-add-todo',
@@ -32,16 +32,18 @@ export class ModalAddTodoPage implements OnInit {
     private familyMemberService: FamilyMemberService,
     private eventService: EventService,
     private toarstService: ToastService,
-    private router: Router
+    private router: Router,
+    private loadingService: LoadingService
   ) { }
 
   ngOnInit() {
+    this.loadingService.present()
     this.getMembers()
     this.initForm()
     this.headerCustom.title = this.title
-    if(this.title == 'NEW TO-DO') {
+    if (this.title == 'NEW TO-DO') {
       this.nameTextButton = 'Create'
-    }else {
+    } else {
       this.nameTextButton = 'Next'
     }
   }
@@ -65,6 +67,7 @@ export class ModalAddTodoPage implements OnInit {
     }
     this.familyMemberService.getListFamily(queryParams).subscribe(data => {
       this.listFamilyMember = data.message
+      this.loadingService.dismiss()
       this.listFamilyMember.forEach((i) => {
         if (i._id == localStorage.getItem('userId')) {
           i.join = true
@@ -117,6 +120,7 @@ export class ModalAddTodoPage implements OnInit {
   }
 
   submitEvent() {
+    this.loadingService.present()
     this.param = {
       name: this.formAddToDo.get('name').value,
       location: '',
@@ -130,26 +134,29 @@ export class ModalAddTodoPage implements OnInit {
       note: this.formAddToDo.get('note').value,
       join: this.userJoin,
     }
-    if(this.title == 'NEW TO-DO') {
+    if (this.title == 'NEW TO-DO') {
       this.param.typeEvent = "to-do"
       this.param.subType = "to-do",
-      this.eventService.createEvent(this.param).subscribe(data => {
-        this.toarstService.present('Create new to-do successfully!')
-        this.router.navigateByUrl('/to-do')
-      },
-        (error) => {
-          throw error
-        })
-    }else {
+        this.eventService.createEvent(this.param).subscribe(data => {
+          this.loadingService.dismiss()
+          this.modal.dismiss()
+          this.toarstService.present('Create new to-do successfully!')
+          this.router.navigateByUrl('/to-do')
+        },
+          (error) => {
+            throw error
+          })
+    } else {
+      this.modal.dismiss()
       this.param.typeEvent = "list-to-do"
       this.param.subType = "list-to-do",
-      this.router.navigate(['/list-item'], {
-        queryParams: {
-          data: JSON.stringify(this.param)
-      }})
+        this.router.navigate(['/list-item'], {
+          queryParams: {
+            data: JSON.stringify(this.param)
+          }
+        })
     }
-    this.modal.dismiss()
-   
+
   }
 
 }

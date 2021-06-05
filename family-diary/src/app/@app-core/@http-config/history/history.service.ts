@@ -3,8 +3,6 @@ import { HttpClient } from '@angular/common/http'
 import { catchError, map } from 'rxjs/operators'
 import { APICONFIG } from '../api.service'
 import { requestQuery } from '../../utils'
-// import { AccountService } from '../account'
-
 @Injectable()
 export class HistoryService {
   constructor(

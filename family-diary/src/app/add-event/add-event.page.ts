@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { EventService, FamilyMemberService } from '../@app-core/@http-config';
-import { ToastService } from '../@app-core/utils';
+import { LoadingService, ToastService } from '../@app-core/utils';
 
 @Component({
   selector: 'app-add-event',
@@ -36,6 +36,7 @@ export class AddEventPage implements OnInit {
     private familyMemberService: FamilyMemberService,
     private eventService: EventService,
     private toarstService: ToastService,
+    private loadingService: LoadingService,
     private route: Router,
     private modal: ModalController
 
@@ -43,6 +44,7 @@ export class AddEventPage implements OnInit {
 
   ngOnInit() {
     this.initForm()
+    this.loadingService.present()
     this.getMembers()
     this.listName.push({name: localStorage.getItem('name')})
   }
@@ -51,6 +53,7 @@ export class AddEventPage implements OnInit {
       familyId: localStorage.getItem('familyId')
     }
     this.familyMemberService.getListFamily(queryParams).subscribe(data => {
+      this.loadingService.dismiss()
       this.listFamilyMember = data.message
       this.listFamilyMember.forEach((i) => {
         if (i._id == localStorage.getItem('userId')) {
@@ -129,6 +132,7 @@ export class AddEventPage implements OnInit {
     this.elert = item.detail.value
   }
   submitEvent() {
+    this.loadingService.present()
     let param = {
       name: this.formAddEvent.get('name').value,
       location: this.formAddEvent.get('location').value,
@@ -142,6 +146,7 @@ export class AddEventPage implements OnInit {
       join: this.userJoin
     }
     this.eventService.createEvent(param).subscribe(data =>{
+      this.loadingService.dismiss()
       this.modal.dismiss()
       this.toarstService.present('Create event successfully!')
       this.route.navigateByUrl('/event')

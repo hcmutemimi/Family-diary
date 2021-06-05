@@ -25,7 +25,6 @@ export class ActivityPage implements OnInit {
 
   ngOnInit() {
     this.getData()
-    console.log(this.activeitem)
   }
   async getData() {
     this.familyService.getListFamily().subscribe(data => {

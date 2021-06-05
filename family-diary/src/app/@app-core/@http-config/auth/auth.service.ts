@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { catchError, map } from 'rxjs/operators'
-import { Router } from '@angular/router'
 import { StorageService } from 'src/app/@app-core/storage.service'
 import { BehaviorSubject, Observable } from 'rxjs'
-import { LoadingService, ToastService, requestQuery } from '../../utils'
+import { requestQuery } from '../../utils'
 import { APICONFIG } from '../api.service'
-// import { AccountService } from '../account'
 
 @Injectable()
 export class AuthService {
@@ -14,11 +12,7 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private router: Router,
     private storage: StorageService,
-    private loadingService: LoadingService,
-    private toastService: ToastService,
-    // private accountService: AccountService
   ) { }
 
   public get receiveData(): Observable<any> {
@@ -27,31 +21,16 @@ export class AuthService {
   public sendData(value: any) {
     this.data.next(value)
   }
-  public forgotPassword(req) {
-    // return this.http.post(`${APICONFIG.AUTH.RESET_PASSWORD_EMAIL}`, req).pipe(
-    //   map((result: any) => {
-        
-    //     return result
-    //   }),
-    //   catchError((errorRes: any) => {
-        
-    //     this.toastService.present(errorRes.error.messages[0])
-    //     this.loadingService.dismiss()
-    //     throw errorRes.error
-    //   }))
-    // return this.http.post(`${APICONFIG.AUTH.RESET_PASSWORD_EMAIL}`, req).pipe(
-    //   map((result: any) => {
-       
-    //     return result
-    //   }),
-    //   catchError((errorRes: any) => {
-       
-    //     throw errorRes.error
-    //   })
-    // )
-
+  public sendCode(req) {
+    return this.http.post(`${APICONFIG.AUTH.SEND_CODE}`, req).pipe(
+      map((result: any) => {
+        return result
+      }),
+      catchError((errorRes: any) => {
+        throw errorRes.error
+      }))
   }
-  public checkcodePassword(req) {
+  public checkCode(req) {
     return this.http.post(`${APICONFIG.AUTH.CHECK_CODE_RESET}`, req).pipe(
       map((result) => {
         return result
@@ -67,51 +46,24 @@ export class AuthService {
         return result
       }),
       catchError((errorRes: any) => {
-        throw errorRes.error}
+        throw errorRes.error
+      }
       ))
   }
-  // public newPassword(req) {
-  //   return this.http.post(`${APICONFIG.AUTH.RESET_PASSWORD}`, req).pipe(
-  //     map((result) => {
-  //       this.setLocalStoredata()
-  //       return result
-  //     }),
-  //     catchError((errorRes: any) => {
-  //       this.toastService.present(errorRes.error.errors, 'top')
-  //       throw errorRes.error
-  //     }
-  //     ))
-  // }
-   public setLocalStoredata() {
-    // this.accountService.getAccounts().subscribe(result => {
-      
-    //   localStorage.setItem('full_name', result.app_user.full_name)
-    //   localStorage.setItem('email',result.app_user.email) 
-    //   if(result.app_user.avatar == null) {
-    //     result.app_user['avatar'] = "https://i.imgur.com/edwXSJa.png"
-    //     localStorage.setItem('avatar', result.app_user.avatar)
-    //   }
-    //   else {
-    //     localStorage.setItem('avatar', result.app_user.avatar)
-    //   }
-    // })
+  public newPassword(req) {
+    return this.http.post(`${APICONFIG.AUTH.RESET_PASSWORD}`, req).pipe(
+      map((result) => {
+        return result
+      }),
+      catchError((errorRes: any) => {
+        throw errorRes.error
+      }
+      ))
   }
-  // public resetPassword(req) {
-  //   return this.http.post(`${APICONFIG.AUTH.RESET_PASSWORD}`, req).pipe(
-  //     map((result) => {
-  //       return result
-  //     }),
-  //     catchError((errorRes: any) => {
-  //       throw errorRes.error
-  //     }
-  //     ))
-  // }
- 
   logout() {
     localStorage.clear();
     this.storage.clear();
     this.storage.setInfoAccount();
-    //  this.router.navigateByUrl('/auth/login');
     window.location.assign('/');
   }
   public signin(req) {
@@ -127,16 +79,9 @@ export class AuthService {
         this.storage.clear()
         throw errorRes.error
       })
-      )
+    )
   }
- 
-  // logout() {
-  //   localStorage.clear()
-  //   this.storage.clear()
-  //   this.storage.setInfoAccount()
-  //   //  this.router.navigateByUrl('/auth/login')
-  //   window.location.assign('/')
-  // }
+
   public signup(req) {
     return this.http.post(`${APICONFIG.AUTH.SIGNUP}`, req).pipe(
       map((result: any) => {
@@ -147,16 +92,7 @@ export class AuthService {
       }))
   }
 
-  public countryCode() {
-    return this.http.get(`${APICONFIG.AUTH.COUNTRY_CODE}`).pipe(
-      map((result: any) => {
-        return result
-      }),
-      catchError((errorRes: any) => {
-        throw errorRes.error
-      }))
-  }
- 
+
   checkLogin() {
     const token = localStorage.getItem('authorization')
     if (!token) {

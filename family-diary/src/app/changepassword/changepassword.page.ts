@@ -62,13 +62,12 @@ export class ChangepasswordPage implements OnInit {
       this.check = false;
       const datapasing: IDataNoti = {
         title: 'SUCCESSFUL!',
-        des: 'Change Password Successful!',
+        des: 'Change Password Successfully!',
         routerLink: '/home'
       }
       var ps = {
         "currentPassword": cp,
         "newPassword": pn,
-        // "new_passwor": pc
       }
       this.dismissModal()
       this.loadService.present()

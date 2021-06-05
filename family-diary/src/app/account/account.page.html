@@ -12,7 +12,7 @@
       </ion-avatar>
       <ion-icon class="icon-edit" name="camera"></ion-icon>
     </div>
-    <ion-label *ngIf="loadedData && !activatedInput" class="edit-btn" (click)="activateInput()">Chỉnh sửa</ion-label>
+    <ion-label *ngIf="loadedData && !activatedInput" class="edit-btn" (click)="activateInput()">Edit</ion-label>
   </div>
 
   <ion-list class="list">
@@ -20,7 +20,7 @@
 
     <form [formGroup]="form" (ngSubmit)="updateInfo()">
       <div class="item">
-        <ion-label class="item-label">Họ tên</ion-label>
+        <ion-label class="item-label">First Name</ion-label>
         <ion-input class="item-content" maxlength="30" [readonly]="!activatedInput"
           [ngClass]="{ 'item-content-activated': activatedInput}" formControlName="fName"></ion-input>
         <ng-container *ngFor="let validation of validationMessages.fName">
@@ -31,7 +31,7 @@
         </ng-container>
       </div>
       <div class="item">
-        <ion-label class="item-label">Họ tên</ion-label>
+        <ion-label class="item-label">Last Name</ion-label>
         <ion-input class="item-content" maxlength="30" [readonly]="!activatedInput"
           [ngClass]="{ 'item-content-activated': activatedInput}" formControlName="lName"></ion-input>
         <ng-container *ngFor="let validation of validationMessages.lName">
@@ -42,12 +42,12 @@
         </ng-container>
       </div>
       <div class="item">
-        <ion-label class="item-label">Năm sinh</ion-label>
+        <ion-label class="item-label">Date of birth</ion-label>
         <ion-datetime class="item-content" [readonly]="!activatedInput" [ngClass]="{ 'item-content-activated': activatedInput}"
           formControlName="birthday" displayFormat="YYYY" min="1900" max="2021"></ion-datetime>
       </div>
       <div class="item">
-        <ion-label class="item-label">Số điện thoại</ion-label>
+        <ion-label class="item-label">Phone number</ion-label>
         <ion-input autocomplete="off" type="text" class="item-content" [readonly]="!activatedInput"
           [ngClass]="{ 'item-content-activated': activatedInput}" formControlName="phoneNumber"></ion-input>
         <ng-container *ngFor="let validation of validationMessages.phoneNumber">
@@ -81,7 +81,7 @@
       </div> -->
     </form>
     <ion-label *ngIf="!activatedInput" class="change__password" (click)="openModalPassword()">
-      Đổi mật khẩu
+     Change password
     </ion-label>
   </ion-list>
   <ion-buttons class="footer" *ngIf="activatedInput">

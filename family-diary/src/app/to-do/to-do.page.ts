@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, ModalController } from '@ionic/angular';
 import { EventService, FamilyMemberService } from '../@app-core/@http-config';
-import { ToastService } from '../@app-core/utils';
+import { LoadingService, ToastService } from '../@app-core/utils';
 import { ModalAddTodoPage } from '../modal-add-todo/modal-add-todo.page';
 import { ToDoDetailPage } from './to-do-detail/to-do-detail.page';
 
@@ -37,11 +37,13 @@ export class ToDoPage implements OnInit {
     private modal: ModalController,
     private eventService: EventService,
     private toarstService: ToastService,
+    private loadingService: LoadingService,
     private alertCtrl: AlertController
 
   ) { }
 
   ngOnInit() {
+    this.loadingService.present()
 
   }
   ionViewWillEnter() {
@@ -54,6 +56,7 @@ export class ToDoPage implements OnInit {
     this.eventService.getEvent(this.param).subscribe(data => {
       this.listToDo = data.message
       this.listData = this.listToDo
+      this.loadingService.dismiss()
     })
 
   }
@@ -62,6 +65,8 @@ export class ToDoPage implements OnInit {
     this.param.subType = 'list-to-do'
     this.eventService.getEvent(this.param).subscribe(data => {
       this.listListToDo = data.message
+      this.loadingService.dismiss()
+
       // this.listData = this.listToDo
     })
   }
@@ -90,6 +95,7 @@ export class ToDoPage implements OnInit {
     }
     this.familyMemberService.getListFamily(queryParams).subscribe(data => {
       this.listFamilyMember = data.message
+      this.loadingService.dismiss()
       this.listFamilyMember.forEach((i) => {
         if (i._id == localStorage.getItem('userId')) {
           i.join = true
@@ -112,7 +118,7 @@ export class ToDoPage implements OnInit {
       component: ToDoDetailPage,
       swipeToClose: true,
       cssClass: 'modal__addToDo',
-      componentProps: { title: 'Detail', id: item._id  }
+      componentProps: { title: 'Detail To Do', id: item._id  }
     })
     await modal.present()
     this.show = false
@@ -126,7 +132,7 @@ export class ToDoPage implements OnInit {
     })
     await modal.present()
     this.show = false
-    modal.onWillDismiss().then(() => {
+    modal.onDidDismiss().then(() => {
       this.getMembers()
       this.getDataToDo()
       this.getDataListToDo()

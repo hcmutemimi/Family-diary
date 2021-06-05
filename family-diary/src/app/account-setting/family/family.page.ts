@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FamilyService } from 'src/app/@app-core/@http-config/family/family.service';
+import { LoadingService } from 'src/app/@app-core/utils';
 
 @Component({
   selector: 'app-family',
@@ -17,23 +18,31 @@ export class FamilyPage implements OnInit {
   }
   constructor(
     public familyService: FamilyService,
-    private router: Router
+    private router: Router,
+    private loadingService: LoadingService 
   ) { }
 
   ngOnInit() {
+    this.loadingService.present()
     this.getData()
   }
   async getData() {
-    const result = await this.familyService.getListFamily().toPromise()
-    this.listFamily = result.message.family
-    this.listCount = result.message.counts
-    this.listFamily.forEach(e => {
-        this.listCount.forEach(i => {
-          if(i._id === e._id) {
-            e.count = i.total
-          }
-        });
-    });
+   this.familyService.getListFamily().subscribe(
+     (result) =>{
+      this.listFamily = result.message.family
+      this.listCount = result.message.counts
+      this.listFamily.forEach(e => {
+          this.listCount.forEach(i => {
+            if(i._id === e._id) {
+              e.count = i.total
+            }
+          })
+     })
+  
+    },
+    (error) =>{
+      throw error
+    })
   }
   goToDetail(item) {
     localStorage.setItem('nameFamily',item.name)
@@ -44,16 +53,5 @@ export class FamilyPage implements OnInit {
       }
     })
   }
-  // getData() {
-  //   this.familyService.getListFamily().subscribe((data=>{
-  //     this.listFamily = data.message
-  //     this.selection = this.listFamily[0]._id
-  //   }))
-  // }
-  // savefamilyId() {
-  //     localStorage.setItem('familyId', this.selection)
 
-  // }
-  // click() {
-  // }
 }
