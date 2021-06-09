@@ -65,7 +65,15 @@ export class VerificationPage implements OnInit {
     this.email = localStorage.getItem('email')
   }
   resendCode() {
-    this.router.navigateByUrl('/forgot-password')
+    this.loadingService.present()
+    this.authService.sendCode({ email: this.email }).subscribe(
+      () => {
+        this.loadingService.dismiss()
+        this.toastService.present('Check the OTP code in your email!', 'top', 1000)
+      },
+      (error)=>{
+        throw error
+      })
   }
   keytab($event,prevInput, fieldInput, nextInput) {
     if(this.inputCode.value[fieldInput] !== null && this.inputCode.value[fieldInput] !== '' && this.inputCode.value[fieldInput].toString().length > 1) {

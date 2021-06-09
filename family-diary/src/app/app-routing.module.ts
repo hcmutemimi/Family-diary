@@ -100,8 +100,14 @@ const routes: Routes = [
     loadChildren: () => import('./activity-detail/activity-detail.module').then( m => m.ActivityDetailPageModule),
     canActivate: [AuthGuardService],
   },
+  {
+    path: 'edit-family',
+    loadChildren: () => import('./edit-family/edit-family.module').then( m => m.EditFamilyPageModule),
+    canActivate: [AuthGuardService],
+  },
   { path: '**', redirectTo: 'home'  },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
+
 
   
  

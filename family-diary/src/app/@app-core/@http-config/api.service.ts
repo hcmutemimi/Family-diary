@@ -5,6 +5,9 @@ export const API_URL = new InjectionToken<string>('apiUrl');
 
 export const APICONFIG =  {
   BASEPOINT: environment.apiUrl,
+  UPLOAD: {
+    GET_URL : `/upload`
+  },
   AUTH: {
     SIGNIN: '/auth/signin',
     SIGNUP: `/auth/signup`,
@@ -22,15 +25,18 @@ export const APICONFIG =  {
   ACCOUNT: {
     PROFILE_USER: `/user`,
     UPDATE_PROFILE: `/user/update_info`,
+    
     UPDATE_PASS: `/user/update_password`,
     GETDETAIL: (id) => `/app/users/${id}`,
     EDIT: (id) => `/app/users/${id}`,
   },
   FAMILY: {
     GET: `/family`,
+    GET_BY_ID:`/family/get-family`,
     CREATE: `/family`,
     DELETE: (id) => `/family/${id}`,
-    CHECK_HOST: `/family/check-host`
+    CHECK_HOST: `/family/check-host`,
+    UPDATE:(id) =>`/family/update/${(id)}`
   },
   FAMILY_MEMEBER: {
     ADD_MEMBER: `/family-member/add-member`,

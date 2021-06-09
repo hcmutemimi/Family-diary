@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core'
+import { Injectable, Query } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { catchError, map } from 'rxjs/operators'
 import { requestQuery } from '../../utils'
@@ -27,8 +27,24 @@ export class FamilyService {
       catchError((errorRes) => { 
         throw errorRes.error; }));
   }
+  public getById(query) {
+    return this.http.get(`${APICONFIG.FAMILY.GET_BY_ID}?${(requestQuery(query))}`).pipe(
+      map((result: any) => {
+        return result;
+      }),
+      catchError((errorRes) => { 
+        throw errorRes.error; }));
+  }
   public deleteFamily(id) {
     return this.http.delete(`${APICONFIG.FAMILY.DELETE(id)}`).pipe(
+      map((result: any) => {
+        return result;
+      }),
+      catchError((errorRes) => { 
+        throw errorRes.error; }));
+  }
+  public updateFamily(id, modifer) {
+    return this.http.put(`${APICONFIG.FAMILY.UPDATE(id)}`, modifer).pipe(
       map((result: any) => {
         return result;
       }),

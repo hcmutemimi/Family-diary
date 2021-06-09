@@ -1,8 +1,10 @@
+import { createUrlResolverWithoutPackagePrefix } from '@angular/compiler';
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, ModalController, NavController, Platform } from '@ionic/angular';
-import { AccountService, FamilyMemberService, FamilyService } from '../@app-core/@http-config';
+import { AccountService, EventService, FamilyMemberService, FamilyService } from '../@app-core/@http-config';
 import { LoadingService, ToastService } from '../@app-core/utils';
+import { GeolocationService } from '../@app-core/utils/geolocation.service';
 import { NewFamilyPage } from '../new-family/new-family.page';
 
 @Component({
@@ -25,10 +27,12 @@ export class HomePage implements OnInit {
   listCount = []
   listFM = []
   idFM
-  history = true
+  history = false
   subscribe: any
   count = 0
   public alertPresented = false
+  dataToDo = []
+  dataEvent = []
   menu = [
     {
       name: 'ACTIVITY',
@@ -52,7 +56,7 @@ export class HomePage implements OnInit {
     {
       name: 'SHOPPING',
       thumbImage: 'assets/img/menu/shopping.svg',
-      desUrl: 'pray',
+      desUrl: '',
       bg: '#EAFAFA'
     },
     {
@@ -64,13 +68,13 @@ export class HomePage implements OnInit {
     {
       name: 'MEAL PLANNER',
       thumbImage: 'assets/img/menu/meal.svg',
-      desUrl: 'main/hymn-music',
+      desUrl: '',
       bg: '#dbf1ed'
     },
     {
       name: 'MAP',
       thumbImage: 'assets/img/menu/locator.svg',
-      desUrl: 'donate',
+      desUrl: '/map',
     },
     {
       name: 'GALLERY',
@@ -81,9 +85,14 @@ export class HomePage implements OnInit {
     {
       name: 'ABOUT US',
       thumbImage: 'assets/img/menu/about-us.svg',
-      desUrl: 'main/hymn-video',
+      desUrl: '',
     },
   ]
+  queryParam = {
+    familyId: localStorage.getItem('familyId'),
+    userId: localStorage.getItem('userId'),
+    subType: 'to-do',
+  }
   constructor(
     private router: Router,
     private familyMemberService: FamilyMemberService,
@@ -94,16 +103,21 @@ export class HomePage implements OnInit {
     private platform: Platform,
     private toastService: ToastService,
     private navController: NavController, 
-    private alertController: AlertController
+    private alertController: AlertController,
+    private eventService: EventService
+    // private geolocationService: GeolocationService,
+
 
   ) { }
   ngOnInit() {
     this.getInfoUser()
     this.blockBackBtn()
-
+    this.getDataToDo()
+    this.getDataEvent()
   }
+
   blockBackBtn() {
-    this.subscribe = this.platform.backButton.subscribeWithPriority(99999, () => {
+    this.subscribe = this.platform.backButton.subscribe(() => {
       if (this.router.url === '/home') {
         this.count++;
         if (this.count == 1) {
@@ -179,6 +193,29 @@ export class HomePage implements OnInit {
       this.getMember()
     })
   }
+  getDataToDo() {
+    this.eventService.getEventFamily(this.queryParam).subscribe(data =>{
+        this.dataToDo = data.message
+        this.dataToDo.sort( function(a, b) {
+          return new Date(b.dateStart).getTime() - new Date(a.dateStart).getTime()
+        })
+    },
+    (error) =>{
+      throw error
+    })
+  }
+  getDataEvent() {
+    this.queryParam.subType = 'orther'
+    this.eventService.getEventFamily(this.queryParam).subscribe( data =>{
+      this.dataEvent = data.message
+      this.dataEvent.sort( function(a, b) {
+        return new Date(b.dateStart).getTime() - new Date(a.dateStart).getTime()
+      })
+    },
+    (error) =>{
+      throw error
+    })
+  }
   getMember() {
     let queryParams = {
       familyId: this.selection
@@ -223,18 +260,20 @@ export class HomePage implements OnInit {
   }
   async goToDetail(item) {
     
-    // if (item.desUrl == '/activity') {
-    //   const modal = await this.modal.create({
-    //     component: ActivityPage,
-    //     swipeToClose: true,
-    //     cssClass: 'modal__addToDo'
-    //   })
-    //   await modal.present()
-    //   modal.onWillDismiss().then(() => {
-    //     this.getData();
-    //   })
-    // }
-    this.router.navigateByUrl(item.desUrl);
+    if (item.desUrl == '/map') {
+      // this.geolocationService.openModalGoogleMap();
+
+      // const modal = await this.modal.create({
+      //   component: ActivityPage,
+      //   swipeToClose: true,
+      //   cssClass: 'modal__addToDo'
+      // })
+      // await modal.present()
+      // modal.onWillDismiss().then(() => {
+      //   this.getData();
+      // })
+    }
+    else this.router.navigateByUrl(item.desUrl);
   }
   async gotoNewFamily() {
     this.hasButton = false

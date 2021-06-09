@@ -4,9 +4,8 @@ import { NgModule } from '@angular/core';
 // import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-
+import { Camera } from '@ionic-native/camera/ngx';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-import { AccountService } from './@app-core/@http-config/account';
 import { AuthService } from './@app-core/@http-config/auth';
 import { StorageService } from './@app-core/storage.service';
 import { CoreModule } from './@app-core/core.module';
@@ -33,8 +32,8 @@ import { AuthGuardService } from './@app-core/auth-guard.service';
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   AuthService,
   StorageService,
-  AccountService,
-  AuthGuardService
+  AuthGuardService,
+  Camera
   ],
   bootstrap: [AppComponent],
 })

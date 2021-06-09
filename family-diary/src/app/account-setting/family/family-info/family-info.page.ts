@@ -5,6 +5,7 @@ import { AlertController, ModalController } from '@ionic/angular'
 import { FamilyMemberService, FamilyService } from 'src/app/@app-core/@http-config'
 import { LoadingService, ToastService } from 'src/app/@app-core/utils'
 import { ChangepasswordPage } from 'src/app/changepassword/changepassword.page'
+import { EditFamilyPage } from 'src/app/edit-family/edit-family.page'
 import { InvitePage } from 'src/app/invite/invite.page'
 
 @Component({
@@ -23,7 +24,7 @@ export class FamilyInfoPage implements OnInit {
     userId: ''
   }
   checkIsHost = false
-  idHost:''
+  idHost: ''
   idMy
   constructor(
     private route: ActivatedRoute,
@@ -35,31 +36,51 @@ export class FamilyInfoPage implements OnInit {
     private router: Router,
     private loadingService: LoadingService
   ) { }
-   
+
   ngOnInit() {
     this.idMy = localStorage.getItem('userId')
     this.loadingService.present()
   }
   ionViewWillEnter() {
     this.getData()
-    this.getMember()
   }
   ionViewWillLeave() {
-    this.getData()
     this.idHost = ''
-    this.getMember()
+    this.getData()
   }
+ 
   getData() {
-    this.route.queryParams.subscribe(params =>{
+    this.route.queryParams.subscribe(params => {
       this.infoFamily = JSON.parse(params['data'])
       this.headerCustom.title = this.infoFamily?.name
       this.idFamily = this.infoFamily?._id
+    this.getMember()
+    })
+  }
+  async editProfileFamily() {
+    const popover = await this.modal.create({
+      component: EditFamilyPage,
+      cssClass: 'modal__Invite',
+    })
+    await popover.present()
+    popover.onDidDismiss().then(() => {
+      this.getMember()
+    })
+    popover.onDidDismiss().then(() => {
+      this.getInfo()
+    })
+  }
+  getInfo() {
+    let id = {
+      familyId: localStorage.getItem('familyId')
+    }
+    this.familyService.getById(id).subscribe(data =>{
+      this.headerCustom.title = data.message.name
     })
   }
   getMember() {
     let queryParams = {
-      familyId: this.infoFamily?._id,
-      
+      familyId: this.idFamily
     }
     this.familyMemberService.getListFamily(queryParams).subscribe(data => {
       this.listFamilyMember = data.message
@@ -74,21 +95,21 @@ export class FamilyInfoPage implements OnInit {
       }
       param.userId = element._id
       this.familyService.checkHost(param).subscribe(
-        (data)=>{
+        (data) => {
           this.loadingService.dismiss()
-          if(data.message != null) {
-            if(element._id == data.message.userId ) {
+          if (data.message != null) {
+            if (element._id == data.message.userId) {
               this.idHost = element._id
               this.checkIsHost = true
             }
           }
         },
-        (error) =>{
+        (error) => {
           throw error
         }
       )
     })
-   
+
   }
   async remove(item) {
     let alertAvatarSetting = await this.alert.create({
@@ -109,21 +130,21 @@ export class FamilyInfoPage implements OnInit {
           }
         }
       ],
-  
+
     })
     await alertAvatarSetting.present()
   }
   removeFunction(idFamily, userId) {
     this.loadingService.present()
     this.familyMemberService.removeUser(idFamily, userId).subscribe(
-      ()=>{
+      () => {
         this.toartService.present('Leave successfully !')
         this.getMember()
         this.loadingService.dismiss()
       },
-      (error)=>{
-        if(error.message =='YOU_ARE_HOST') {
-        this.toartService.present('You are host of family, not allowed ')
+      (error) => {
+        if (error.message == 'YOU_ARE_HOST') {
+          this.toartService.present('You are host of family, not allowed ')
         }
         throw error
       }
@@ -131,11 +152,11 @@ export class FamilyInfoPage implements OnInit {
   }
   deleteFunction(id) {
     this.familyService.deleteFamily(id).subscribe(
-      ()=>{ 
+      () => {
         this.toartService.present('Delete successfully !')
         this.router.navigateByUrl('/home')
       },
-      (error)=>{
+      (error) => {
         throw error
       })
   }
@@ -167,7 +188,7 @@ export class FamilyInfoPage implements OnInit {
           }
         }
       ],
-  
+
     })
     await alertAvatarSetting.present()
   }

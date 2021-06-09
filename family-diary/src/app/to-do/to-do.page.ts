@@ -53,21 +53,25 @@ export class ToDoPage implements OnInit {
   }
   getDataToDo() {
     this.param.subType = 'to-do'
-    this.eventService.getEvent(this.param).subscribe(data => {
+    this.eventService.getEventFamily(this.param).subscribe(data => {
       this.listToDo = data.message
       this.listData = this.listToDo
       this.loadingService.dismiss()
+    },
+    (error) =>{
+      throw error
     })
 
   }
  
   getDataListToDo() {
     this.param.subType = 'list-to-do'
-    this.eventService.getEvent(this.param).subscribe(data => {
+    this.eventService.getEventFamily(this.param).subscribe(data => {
       this.listListToDo = data.message
       this.loadingService.dismiss()
-
-      // this.listData = this.listToDo
+    },
+    (error) =>{
+      throw error
     })
   }
   changeTabs(boolean) {

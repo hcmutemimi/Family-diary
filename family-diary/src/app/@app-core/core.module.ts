@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { GlobalErrorHandlerService } from './global-error-handler.service'
 import { IntercepterService } from './http-interceptor';
 import { HistoryService } from './@http-config/history';
+import { CameraService } from './utils/camera.service';
 @NgModule({
   declarations: [],
   imports: [
@@ -22,7 +23,7 @@ export class CoreModule {
         {
           provide: API_URL, useValue: environment.apiUrl
         },
-        {provide: HTTP_INTERCEPTORS,useClass: IntercepterService, multi: true},
+        {provide: HTTP_INTERCEPTORS, useClass: IntercepterService, multi: true},
         { provide: ErrorHandler, useClass: GlobalErrorHandlerService },
         AuthService,
         StorageService,
@@ -31,7 +32,8 @@ export class CoreModule {
         FamilyMemberService,
         CalendarService,
         EventService,
-        HistoryService
+        HistoryService,
+        CameraService
       ]
     }
   }

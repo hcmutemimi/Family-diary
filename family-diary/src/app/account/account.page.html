@@ -10,7 +10,7 @@
           <img src="https://i.imgur.com/edwXSJa.png" alt=""*ngIf="!avatar" >
           <ion-spinner *ngIf="!avatar" class="absolute-center" name="lines"></ion-spinner>
       </ion-avatar>
-      <ion-icon class="icon-edit" name="camera"></ion-icon>
+        <ion-icon class="icon-edit" name="camera" ></ion-icon>
     </div>
     <ion-label *ngIf="loadedData && !activatedInput" class="edit-btn" (click)="activateInput()">Edit</ion-label>
   </div>
@@ -44,7 +44,7 @@
       <div class="item">
         <ion-label class="item-label">Date of birth</ion-label>
         <ion-datetime class="item-content" [readonly]="!activatedInput" [ngClass]="{ 'item-content-activated': activatedInput}"
-          formControlName="birthday" displayFormat="YYYY" min="1900" max="2021"></ion-datetime>
+          formControlName="birthday"  min="1900" max="2021"></ion-datetime>
       </div>
       <div class="item">
         <ion-label class="item-label">Phone number</ion-label>

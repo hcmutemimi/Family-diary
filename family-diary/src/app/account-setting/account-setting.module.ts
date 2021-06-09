@@ -1,13 +1,13 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
-import { IonicModule } from '@ionic/angular';
+import { IonicModule } from '@ionic/angular'
 
-import { AccountSettingPageRoutingModule } from './account-setting-routing.module';
+import { AccountSettingPageRoutingModule } from './account-setting-routing.module'
 
-import { AccountSettingPage } from './account-setting.page';
-import { HeaderModule } from '../@app-core/@modular/header/header.module';
+import { AccountSettingPage } from './account-setting.page'
+import { HeaderModule } from '../@app-core/@modular/header/header.module'
 
 @NgModule({
   imports: [
@@ -16,7 +16,7 @@ import { HeaderModule } from '../@app-core/@modular/header/header.module';
     IonicModule,
     ReactiveFormsModule,
     AccountSettingPageRoutingModule,
-    HeaderModule
+    HeaderModule,
   ],
   declarations: [AccountSettingPage]
 })

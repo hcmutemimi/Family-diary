@@ -72,6 +72,7 @@ export class NewPasswordPage implements OnInit {
         email: localStorage.getItem('email')
       }
       this.authService.newPassword(param).subscribe(() => {
+        localStorage.removeItem('email')
         this.pageNotiService.setdataStatusNoti(datapasing)
         this.router.navigateByUrl('/page-noti')
       },

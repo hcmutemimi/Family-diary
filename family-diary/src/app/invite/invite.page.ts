@@ -23,14 +23,11 @@ export class InvitePage implements OnInit {
   query
   constructor(
     private formBuilder: FormBuilder,
-    private pageNotiService: PageNotiService,
-    private router: Router,
     private loadService: LoadingService,
     private passwordModal: ModalController,
     private familyService: FamilyMemberService,
     private route: ActivatedRoute,
     private toastService: ToastService
-    // private authService: AuthService
   ) {
     this.formSubmit = this.formBuilder.group({
       name: new FormControl('', Validators.required),

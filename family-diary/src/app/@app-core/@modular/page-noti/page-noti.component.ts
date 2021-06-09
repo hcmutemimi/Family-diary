@@ -24,7 +24,7 @@ export class PageNotiComponent implements OnInit {
       this.des = data.des
       setTimeout(() => {
         this.router.navigateByUrl(this.routerLink)
-      }, 3000)
+      }, 1900)
     })
   
   }

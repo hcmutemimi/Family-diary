@@ -1,0 +1,32 @@
+<ion-content>
+  <ion-item-group>
+    <form  [formGroup]="formSubmit" (ngSubmit)="onSubmit()">
+     
+      <ion-item-group>
+        <ion-label>Name family<ion-label>(*)</ion-label>
+        </ion-label>
+        <input type="text" formControlName="name" />
+      </ion-item-group>
+      <!-- <ion-item-group>
+        <ion-label>
+       Please enter email <ion-label>(*)</ion-label>
+        </ion-label>
+        <input type="email" formControlName="email" />
+        <ion-label class="messagerrror" *ngIf="check">
+          {{message}}
+        </ion-label>
+      </ion-item-group> -->
+     
+      <ion-grid>
+        <ion-row>
+          <ion-col size-sm="6" size="6" class="ion-text-center">
+            <ion-button class="btn-cancel"  (click)="dismissModal()">Cancel</ion-button>
+          </ion-col>
+          <ion-col size-sm="6" size="6" class="ion-text-center">
+            <ion-button type="submit" [disabled]="formSubmit.invalid">Change</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </form>
+  </ion-item-group>
+</ion-content>
