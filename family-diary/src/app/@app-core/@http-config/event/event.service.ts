@@ -30,7 +30,15 @@ export class EventService {
         throw errorRes.error; }));
   }
   public getEvent(params) {
-    return this.http.get(`${APICONFIG.EVENT.GET}?${(requestQuery(params))}`,).pipe(
+    return this.http.get(`${APICONFIG.EVENT.GET}?${(requestQuery(params))}`).pipe(
+      map((result: any) => {
+        return result;
+      }),
+      catchError((errorRes) => { 
+        throw errorRes.error; }));
+  }
+  public getEventByMonth(params) {
+    return this.http.get(`${APICONFIG.EVENT.GET_BY_MONTH}?${(requestQuery(params))}`).pipe(
       map((result: any) => {
         return result;
       }),

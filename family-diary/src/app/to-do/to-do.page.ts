@@ -126,6 +126,11 @@ export class ToDoPage implements OnInit {
     })
     await modal.present()
     this.show = false
+    modal.onDidDismiss().then(() =>{
+      this.getMembers()
+      this.getDataToDo()
+      this.getDataListToDo()
+    })
   }
   async addList() {
     const modal = await this.modal.create({

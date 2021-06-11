@@ -111,6 +111,7 @@ export class EventPage implements OnInit {
       this.listOrther = data.message
       this.handleDate(this.listOrther)
       this.handle(this.listOrther, 'cutDate', this.listOrtherFinal)
+      console.log(this.listOrther)
       this.loading.dismiss()
     },
     (error) =>{

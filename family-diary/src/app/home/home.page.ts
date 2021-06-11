@@ -33,6 +33,7 @@ export class HomePage implements OnInit {
   public alertPresented = false
   dataToDo = []
   dataEvent = []
+  checkInfo
   menu = [
     {
       name: 'ACTIVITY',
@@ -43,7 +44,7 @@ export class HomePage implements OnInit {
     {
       name: 'CALENDAR',
       thumbImage: 'assets/img/menu/calendar.svg',
-      desUrl: 'calendar',
+      desUrl: 'calendar-event',
       bg: '#fff1f0'
     },
     {
@@ -241,6 +242,19 @@ export class HomePage implements OnInit {
       localStorage.setItem('userId', data.user._id)
       localStorage.setItem('email', data.user.email)
       localStorage.setItem('avatar', data.user.avatar)
+      if(data.user.lName === null || 
+        data.user.fName === null ||
+        data.user.birthday === null ||
+        data.user.name === null ||
+        data.user.email === null ||
+        data.user.phoneNumber === null ||
+        data.user.birthday === null ||
+        data.user.avatar === null ||
+        data.user.lat === null ||
+        data.user.long === null
+         ) {
+        this.checkInfo = true
+      }
     })
   }
   toggleHasSetting(hasButton) {

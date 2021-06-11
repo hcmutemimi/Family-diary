@@ -53,7 +53,7 @@
           <div class="event">
             <ion-label class="event-date">
               <span class="day">{{i.day}}<br />
-                <ion-label>  04</ion-label>
+                <ion-label>{{i.dateStart | date:'dd'}}</ion-label>
               </span>
             </ion-label>
             <span class="event-content three-dots-2">
@@ -70,7 +70,7 @@
           <div class="event">
             <ion-label class="event-date">
               <span class="day">{{i.day}}<br />
-                <ion-label>  04</ion-label>
+                <ion-label>{{i.dateStart | date:'dd'}}</ion-label>
               </span>
             </ion-label>
             <span class="event-content three-dots-2">
@@ -87,11 +87,19 @@
           <div class="event">
             <ion-label class="event-date">
               <span class="day">{{i.day}}<br />
-                <ion-label>  04</ion-label>
+                <ion-label> {{i.dateStart | date:'dd'}}</ion-label>
               </span>
             </ion-label>
-            <span class="event-content three-dots-2">
-              {{i.name}} </span>
+            <ion-buttons class="wrapper-content">
+              <span class="event-content three-dots-2">
+                {{i.name}} </span>
+                <span class="list-join"> For: 
+                  <ion-label *ngFor="let j of i.join">
+                    {{j.name}},
+                  </ion-label>
+                </span>
+            </ion-buttons>
+           
             <ion-icon name="chevron-forward-outline"></ion-icon>
           </div>
         </ion-item-group>
