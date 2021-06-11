@@ -144,7 +144,7 @@ ion-content {
       text-align: left;
       display: flex;
       align-items: center;
-      font-size: 17px;
+      font-size: 15px;
       color: #8c8b90;
       height: 47px;
       background-color: #efeef3;
@@ -162,15 +162,16 @@ ion-content {
         padding: 0 14px;
   
         .event-date {
-          width: 43px;
-          height: 44px;
+          // width: 43px;
+          // height: 44px;
           color: rgb(63, 63, 63);
           border-radius: 4px;
-          font-weight: bold;
+          // font-weight: bold;
           text-align: center;
+          font-size: 14px;
           display: flex;
           align-items: center;
-          background-color: #dbdbdb;
+          // background-color: #dbdbdb;
   
           .day- {
             text-transform: uppercase;
@@ -194,7 +195,7 @@ ion-content {
             font-size: 16px;
             font-family: "Saira", sans-serif !important;
             flex: 1;
-            color: #fd7160;
+            color: #000;
             font-weight: 550;
             text-align: center;
            
@@ -205,7 +206,11 @@ ion-content {
             align-items: center;
             justify-content: center;
             font-size: 14px;
-            ion-label {
+            .for {
+              margin-right:  4px;
+            }
+            .name {
+            color: #fd7160;
               font-size: 14px;
              
             }

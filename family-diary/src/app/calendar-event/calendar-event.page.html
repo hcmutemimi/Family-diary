@@ -26,20 +26,24 @@
   </div>
   <div class="event">
     <div class="wrapper-event" *ngFor ="let item of listData">
-      <ion-label class="event-time">{{item.dateStart | date: 'EEEE, MMMM d, y, h:mm'}}</ion-label>
+      <ion-label class="event-time">{{item.dateStart | date: 'EEEE, MMMM d, y, h:mm a'}}</ion-label>
       <ion-item-group class="group-event">
-        <div class="event">
+        <div class="event">  
           <ion-label class="event-date">
-            <span class="day-">{{item.dateStart | date: 'MMMM'}}<br />
+            Start<br />
+            {{item.dateStart | date: 'h:mm a'}}
+            <!-- <span class="day-">{{item.dateStart | date: 'MMMM'}}<br />
               <ion-label> {{item.dateStart | date: 'dd'}}</ion-label>
-            </span>
+            </span> -->
           </ion-label>
           <ion-buttons class="wrapper-content">
             <span class="event-content three-dots-2">
               {{item.name}} </span>
-              <span class="list-join"> For: 
-                <ion-label *ngFor="let j of item.join">
-                  {{j.name}},
+              <span class="list-join">
+                 
+                <ion-label class="for">For:</ion-label>
+                <ion-label *ngFor="let j of item.join" class="name">
+                  {{j.name}} , 
                 </ion-label>
               </span>
           </ion-buttons>

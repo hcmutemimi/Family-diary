@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ActivityPageRoutingModule } from './activity-routing.module';
+import { AboutUsPageRoutingModule } from './about-us-routing.module';
 
-import { ActivityPage } from './activity.page';
+import { AboutUsPage } from './about-us.page';
 import { HeaderModule } from '../@app-core/@modular/header/header.module';
 
 @NgModule({
@@ -14,9 +14,9 @@ import { HeaderModule } from '../@app-core/@modular/header/header.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    ActivityPageRoutingModule,
+    AboutUsPageRoutingModule,
     HeaderModule
   ],
-  declarations: [ActivityPage]
+  declarations: [AboutUsPage]
 })
-export class ActivityPageModule {}
+export class AboutUsPageModule {}

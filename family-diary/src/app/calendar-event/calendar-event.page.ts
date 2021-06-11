@@ -143,7 +143,6 @@ export class CalendarEventPage implements OnInit {
         this.daysofMonth[0]['mr'] = '78vw'
         break
     }
-    console.log(this.daysofMonth)
    
     return this.daysofMonth
   }

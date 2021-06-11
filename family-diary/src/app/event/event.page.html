@@ -1,19 +1,19 @@
 <app-header [headerCustom]="headerCustom"></app-header>
 
-<ion-content class="">
-  <ion-slides pager="true" [options]="slideOpts" #slidesBanner class="ion-padding">
-    <ion-slide class="slide-banner">
-      <h1 class="text-intro">Nothing <br />upcoming</h1>
-    </ion-slide>
-    <ion-slide class="slide-banner"> 
+<ion-content>
+  <ion-slides pager="true" [options]="slideOptsEvent" #slidesBanner>
+    <ion-slide class="slide-banner birthday" *ngIf="listBir.length>0"> 
       <h1>Slide 1</h1>
     </ion-slide>
-    <ion-slide class="slide-banner">
+    <ion-slide class="slide-banner anniversary" *ngIf="listAni.length>0">
       <h1>Slide 2</h1>
     </ion-slide>
-    <ion-slide class="slide-banner">
+    <ion-slide class="slide-banner orther"  *ngIf="listOrther.length>0">
       <h1>Slide 3</h1>
     </ion-slide>
+    <!-- <ion-slide class="slide-banner">
+      <h1 class="text-intro">Nothing <br />upcoming</h1>
+    </ion-slide> -->
   </ion-slides>
   <ion-segment value="birthday" swipeGesture="false" mode="ios">
     <ion-button
@@ -45,7 +45,7 @@
     </ion-button>
   </ion-segment>
  
-  <ion-slides pager="false" [options]="slideOptsEvent"  #slides (ionSlideDidChange)="slideChanged()">
+  <ion-slides pager="false" [options]="slideOpts"  #slides (ionSlideDidChange)="slideChanged()">
     <ion-slide class="slide-event">
       <div class="wrapper-event" *ngFor ="let item of listBirFinal" >
         <ion-label class="event-time">{{item[0].cutDate |date :'MMMM, Y'}}</ion-label>

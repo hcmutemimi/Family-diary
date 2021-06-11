@@ -10,9 +10,6 @@ export class EventService {
   constructor(
     private http: HttpClient,
   ) { }
-
-
-
   public createEvent(request) {
     return this.http.post(`${APICONFIG.EVENT.CREATE}`, request).pipe(
       map((result: any) => {
@@ -29,8 +26,16 @@ export class EventService {
       catchError((errorRes) => { 
         throw errorRes.error; }));
   }
-  public getEvent(params) {
-    return this.http.get(`${APICONFIG.EVENT.GET}?${(requestQuery(params))}`).pipe(
+  public getEventStatus(params) {
+    return this.http.get(`${APICONFIG.EVENT.GET_BY_STATUS}?${(requestQuery(params))}`).pipe(
+      map((result: any) => {
+        return result;
+      }),
+      catchError((errorRes) => { 
+        throw errorRes.error; }));
+  }
+  public getAllEventByUser(params) {
+    return this.http.get(`${APICONFIG.EVENT.GET_ALL_BY_USER}?${(requestQuery(params))}`).pipe(
       map((result: any) => {
         return result;
       }),

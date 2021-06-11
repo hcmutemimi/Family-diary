@@ -48,7 +48,8 @@ export const APICONFIG =  {
   },
   EVENT : {
     CREATE: `/event`,
-    GET: `/event/events`,
+    GET_BY_STATUS: `/event/event-status`,
+    GET_ALL_BY_USER: `/event/event-all`,
     GET_BY_MONTH: `/event/event-by-month`,
     GET_EVENT_FAMILY: `/event/event-family`,
     UPDATE_STATUS: (id) => `/event/update-status-event/${id}`,

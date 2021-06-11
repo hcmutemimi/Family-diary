@@ -197,6 +197,7 @@ export class ToDoDetailPage implements OnInit {
   deleteEvent() {
     this.eventService.deleteEvent(this.id).subscribe(data => {
       this.toarstService.present('Deleted successfully!')
+      this.modal.dismiss()
       this.router.navigateByUrl('/to-do')
     },
       (error) => {

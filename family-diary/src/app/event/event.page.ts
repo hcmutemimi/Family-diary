@@ -16,6 +16,14 @@ export class EventPage implements OnInit {
   headerCustom = {
     background: '#fff', title: 'EVENTS'
   }
+  slideOptsEvent = {
+    grabCursor: true,
+    centeredSlides: true,
+    loop: true,
+    autoplay: true,
+    // setInitialSlide: 2,
+    // speed: 100
+  };
   valueTag = 'birthday'
   param = {
     subType: '',
@@ -28,14 +36,12 @@ export class EventPage implements OnInit {
   }
   currentIndex = 0
   listDay = DAY
-
   listOrther = []
   listAni = []
   listBir = []
   listOrtherFinal = []
   listBirFinal = []
   listAniFinal = []
-
   constructor(
     private route: Router,
     private modal: ModalController,
@@ -47,9 +53,10 @@ export class EventPage implements OnInit {
 
   ngOnInit() {
   }
-  ionViewDidEnter() {
+  ionViewWillEnter() {
     this.getData()
   }
+
   async openAddEvent() {
     const modal = await this.modal.create({
       component: AddEventPage,
@@ -58,14 +65,13 @@ export class EventPage implements OnInit {
     })
     await modal.present()
     modal.onWillDismiss().then(() => {
-      this.reset()
+      this.getData()
     })
   }
   reset() {
     this.listOrtherFinal = []
     this.listBirFinal = []
     this.listAniFinal = []
-    this.getData()
   }
   changeTabsBirthday() {
     this.valueTag = 'birthday'
@@ -105,43 +111,43 @@ export class EventPage implements OnInit {
     this.route.navigateByUrl('add-event')
   }
   getData() {
+    this.reset()
     this.param.subType = 'orther'
     this.loading.present()
-    this.eventService.getEvent(this.param).subscribe(data => {
+    this.eventService.getEventFamily(this.param).subscribe(data => {
       this.listOrther = data.message
       this.handleDate(this.listOrther)
       this.handle(this.listOrther, 'cutDate', this.listOrtherFinal)
-      console.log(this.listOrther)
       this.loading.dismiss()
     },
-    (error) =>{
-      this.toarst.present(error.message)
-      throw error
-    })
+      (error) => {
+        this.toarst.present(error.message)
+        throw error
+      })
     this.paramHasUser.subType = 'birthday'
-    this.eventService.getEventFamily(this.paramHasUser).subscribe(data => {
+    this.eventService.getAllEventByUser(this.paramHasUser).subscribe(data => {
       this.listBir = data.message
       this.handleDate(this.listBir)
       this.handle(this.listBir, 'cutDate', this.listBirFinal)
       this.loading.dismiss()
     },
-    (error) =>{
-      this.toarst.present(error.message)
-      throw error
-    })
+      (error) => {
+        this.toarst.present(error.message)
+        throw error
+      })
     this.paramHasUser.subType = 'anniversaries'
-    this.eventService.getEventFamily(this.paramHasUser).subscribe(data => {
+    this.eventService.getAllEventByUser(this.paramHasUser).subscribe(data => {
       this.listAni = data.message
       this.handleDate(this.listAni)
       this.handle(this.listAni, 'cutDate', this.listAniFinal)
       this.loading.dismiss()
     },
-    (error) =>{
-      this.toarst.present(error.message)
-      throw error
-    })
-
+      (error) => {
+        this.toarst.present(error.message)
+        throw error
+      })
   }
+  
   handleDate(list) {
     list.forEach(item => {
       item['cutDate'] = item.dateStart.slice(0, 7)

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
-import { PATTERN } from '../../@app-core/@http-config'
+import { AccountService, FamilyService, PATTERN } from '../../@app-core/@http-config'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { LoadingService, ModalService, ToastService } from '../../@app-core/utils'
 import { AuthService } from '../../@app-core/@http-config/auth'
@@ -47,7 +47,7 @@ export class LoginPage implements OnInit {
     ],
     phoneNumber: [
       { type: 'required', message: 'The field is not empty' },
-      { type: 'pattern', message: 'Phone number is Invalid'}],
+      { type: 'pattern', message: 'Phone number is Invalid' }],
     password: [
       { type: 'required', message: 'The field is not empty' },
       { type: 'minLength', message: 'Password is not less than 6 characters' },
@@ -63,9 +63,10 @@ export class LoginPage implements OnInit {
     private authService: AuthService,
     private formBuilder: FormBuilder,
     private toastService: ToastService,
-    // private accountService: AccountService,
+    private accountService: AccountService,
     private loadingService: LoadingService,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private familyService: FamilyService
   ) { }
   ngOnInit() {
     this.initForm()
@@ -110,11 +111,11 @@ export class LoginPage implements OnInit {
     this.showpass = !this.showpass
     if (this.showpass) {
       this.type = 'text'
-      this.name ='eye-off-outline'
+      this.name = 'eye-off-outline'
     }
     else {
       this.type = 'password';
-      this.name ='eye-outline'
+      this.name = 'eye-outline'
     }
   }
   canSubmitLogin() {
@@ -131,17 +132,16 @@ export class LoginPage implements OnInit {
       this.loadingService.dismiss()
     } else {
       this.authService.signin(this.formLogin.value).subscribe(() => {
-        this.setLocalStore()
-      this.loadingService.dismiss()
-
-        this.router.navigate(['home'])
+        this.getInfoUser()
+        this.getDataFamily()
+        this.loadingService.dismiss()
       },
-      (error)=>{
-        this.toastService.present(error.message)
-      this.loadingService.dismiss()
+        (error) => {
+          this.toastService.present(error.message)
+          this.loadingService.dismiss()
 
-        throw error
-      })
+          throw error
+        })
     }
   }
   setLocalStore() {
@@ -155,6 +155,36 @@ export class LoginPage implements OnInit {
     //   }
     // })
   }
+  getDataFamily() {
+    this.familyService.getListFamily().subscribe(data => {
+      localStorage.setItem('familyId', data.message.family[0]._id)
+      this.router.navigate(['home'])
+    },
+    (error) =>{
+      throw error
+    })
+  }
+  getInfoUser() {
+    this.accountService.getAccount().subscribe((data: any) => {
+      localStorage.setItem('name', data.user.lName)
+      localStorage.setItem('userId', data.user._id)
+      localStorage.setItem('email', data.user.email)
+      localStorage.setItem('avatar', data.user.avatar)
+      if(data.user.lName === null || 
+        data.user.fName === null ||
+        data.user.birthday === null ||
+        data.user.name === null ||
+        data.user.email === null ||
+        data.user.phoneNumber === null ||
+        data.user.birthday === null ||
+        data.user.avatar === null ||
+        data.user.lat === null ||
+        data.user.long === null
+         ) {
+      }
+   
+    })
+  }
 
   submitSignUp() {
     this.loadingService.present()
@@ -165,14 +195,14 @@ export class LoginPage implements OnInit {
     } else {
       this.authService.signup(this.formSignUp.value).subscribe((data: any) => {
         this.loadingService.dismiss()
-          this.modalService.presentModal(ConfirmMailPage, this.formSignUp.value.email)
-          this.formSignUp.reset()
+        this.modalService.presentModal(ConfirmMailPage, this.formSignUp.value.email)
+        this.formSignUp.reset()
       },
-      (error)=>{
-        this.loadingService.dismiss()
+        (error) => {
+          this.loadingService.dismiss()
 
-        this.toastService.present(error.message)
-      }
+          this.toastService.present(error.message)
+        }
       )
     }
   }

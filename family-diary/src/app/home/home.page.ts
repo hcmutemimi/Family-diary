@@ -14,6 +14,12 @@ import { NewFamilyPage } from '../new-family/new-family.page';
 })
 export class HomePage implements OnInit {
   avatar = localStorage.getItem('avatar');
+  slideOpts = {
+    centeredSlides: true,
+    loop: true,
+    setInitialSlide: 0,
+    autoplay: true
+  };
   name = 'Trần Hoài Mi'
   avatarReplace = 'https://i.imgur.com/edwXSJa.png';
   listFamilyMember = []
@@ -34,6 +40,7 @@ export class HomePage implements OnInit {
   dataToDo = []
   dataEvent = []
   checkInfo
+  hasFamily
   menu = [
     {
       name: 'ACTIVITY',
@@ -86,11 +93,11 @@ export class HomePage implements OnInit {
     {
       name: 'ABOUT US',
       thumbImage: 'assets/img/menu/about-us.svg',
-      desUrl: '',
+      desUrl: 'about-us',
     },
   ]
   queryParam = {
-    familyId: localStorage.getItem('familyId'),
+    familyId: '',
     userId: localStorage.getItem('userId'),
     subType: 'to-do',
   }
@@ -103,7 +110,7 @@ export class HomePage implements OnInit {
     private modal: ModalController,
     private platform: Platform,
     private toastService: ToastService,
-    private navController: NavController, 
+    private navController: NavController,
     private alertController: AlertController,
     private eventService: EventService
     // private geolocationService: GeolocationService,
@@ -111,10 +118,16 @@ export class HomePage implements OnInit {
 
   ) { }
   ngOnInit() {
-    this.getInfoUser()
     this.blockBackBtn()
+    this.queryParam.familyId = localStorage.getItem('familyId')
     this.getDataToDo()
     this.getDataEvent()
+
+
+  }
+  ionViewDidEnter() {
+    this.getInfoUser()
+
   }
 
   blockBackBtn() {
@@ -163,12 +176,16 @@ export class HomePage implements OnInit {
   }
   ionViewWillEnter() {
     this.loadingService.present()
-    this.getData()
+    if(localStorage.getItem('hasFamily')) {
+      this.getFamily()
+    }else {
+      this.getInitData()
+    }
   }
   goToSetting() {
     this.router.navigateByUrl('/account-setting')
   }
-  async getData() {
+  getInitData() {
     this.familyService.getListFamily().subscribe(data => {
       this.listFamily = data.message.family
       this.listCount = data.message.counts
@@ -185,41 +202,64 @@ export class HomePage implements OnInit {
           }
         })
       })
+      this.getMember()
+    })
       this.nameFamily = this.listFamily[0]?.name
       this.selection = this.listFamily[0]?._id
-      localStorage.setItem('familyId', this.selection)
       this.idFM = this.listFamily[0]?.fm
-
       localStorage.setItem('idFM', this.idFM)
+      localStorage.setItem('nameFamily', this.nameFamily)
+      localStorage.setItem('familyId', this.selection)
+      localStorage.setItem('hasFamily', 'true')
+      this.getMember()
+  }
+  getFamily() {
+    this.nameFamily = localStorage.getItem('nameFamily')
+    this.familyService.getListFamily().subscribe(data => {
+      this.listFamily = data.message.family
+      this.listCount = data.message.counts
+      this.listFM = data.message.listFM
+      this.listFamily.forEach(e => {
+        this.listCount.forEach(i => {
+          if (i._id === e._id) {
+            e.count = i.total
+          }
+        })
+        this.listFM.forEach(i => {
+          if (i.familyId === e._id) {
+            e.fm = i.idFM
+          }
+        })
+      })
       this.getMember()
     })
   }
-  getDataToDo() {
-    this.eventService.getEventFamily(this.queryParam).subscribe(data =>{
-        this.dataToDo = data.message
-        this.dataToDo.sort( function(a, b) {
-          return new Date(b.dateStart).getTime() - new Date(a.dateStart).getTime()
-        })
-    },
-    (error) =>{
-      throw error
-    })
-  }
-  getDataEvent() {
-    this.queryParam.subType = 'orther'
-    this.eventService.getEventFamily(this.queryParam).subscribe( data =>{
-      this.dataEvent = data.message
-      this.dataEvent.sort( function(a, b) {
+   getDataToDo() {
+    this.eventService.getEventFamily(this.queryParam).subscribe(data => {
+      this.dataToDo = data.message
+      this.dataToDo.sort(function (a, b) {
         return new Date(b.dateStart).getTime() - new Date(a.dateStart).getTime()
       })
     },
-    (error) =>{
-      throw error
-    })
+      (error) => {
+        throw error
+      })
+  }
+  getDataEvent() {
+    this.queryParam.subType = 'orther'
+    this.eventService.getEventFamily(this.queryParam).subscribe(data => {
+      this.dataEvent = data.message
+      this.dataEvent.sort(function (a, b) {
+        return new Date(b.dateStart).getTime() - new Date(a.dateStart).getTime()
+      })
+    },
+      (error) => {
+        throw error
+      })
   }
   getMember() {
     let queryParams = {
-      familyId: this.selection
+      familyId: localStorage.getItem('familyId')
     }
     this.familyMemberService.getListFamily(queryParams).subscribe(data => {
       this.listFamilyMember = data.message
@@ -238,11 +278,7 @@ export class HomePage implements OnInit {
   getInfoUser() {
     this.accountService.getAccount().subscribe((data: any) => {
       this.nameUser = data.user.lName
-      localStorage.setItem('name', this.nameUser)
-      localStorage.setItem('userId', data.user._id)
-      localStorage.setItem('email', data.user.email)
-      localStorage.setItem('avatar', data.user.avatar)
-      if(data.user.lName === null || 
+      if (data.user.lName === null ||
         data.user.fName === null ||
         data.user.birthday === null ||
         data.user.name === null ||
@@ -252,7 +288,7 @@ export class HomePage implements OnInit {
         data.user.avatar === null ||
         data.user.lat === null ||
         data.user.long === null
-         ) {
+      ) {
         this.checkInfo = true
       }
     })
@@ -265,6 +301,7 @@ export class HomePage implements OnInit {
     this.selection = i._id
     localStorage.setItem('familyId', this.selection)
     this.nameFamily = i.name
+    localStorage.setItem('nameFamily', this.nameFamily)
     this.getMember()
     var r = this.listFM.filter(i => {
       return i.familyId == this.selection
@@ -273,7 +310,7 @@ export class HomePage implements OnInit {
     localStorage.setItem('idFM', this.idFM)
   }
   async goToDetail(item) {
-    
+
     if (item.desUrl == '/map') {
       // this.geolocationService.openModalGoogleMap();
 
@@ -298,7 +335,7 @@ export class HomePage implements OnInit {
     })
     await modal.present()
     modal.onWillDismiss().then(() => {
-      this.getData();
+      this.getFamily();
     })
   }
 

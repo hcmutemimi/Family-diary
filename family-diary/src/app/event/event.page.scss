@@ -32,12 +32,23 @@ ion-slides {
 
   .slide-banner {
     height: 250px;
-
     .text-intro {
       text-align: left;
+      margin-left: 20px;
       width: 100%;
       color: #424242;
     }
+  }
+  .birthday {
+    background: url("./../../assets/slide/birthday.png") no-repeat ;
+  }
+  .anniversary {
+    background: url("./../../assets/slide/ani.png") no-repeat ;
+
+  }
+  .orther {
+    background: url("./../../assets/slide/orther.png") no-repeat ;
+
   }
 
 }

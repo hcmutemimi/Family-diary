@@ -86,11 +86,6 @@ const routes: Routes = [
     canActivate: [AuthGuardService],
   },
   {
-    path: 'activity',
-    loadChildren: () => import('./activity/activity.module').then( m => m.ActivityPageModule),
-    canActivate: [AuthGuardService],
-  },
-  {
     path: 'activity-detail',
     loadChildren: () => import('./activity-detail/activity-detail.module').then( m => m.ActivityDetailPageModule),
     canActivate: [AuthGuardService],
@@ -104,8 +99,14 @@ const routes: Routes = [
     path: 'calendar-event',
     loadChildren: () => import('./calendar-event/calendar-event.module').then( m => m.CalendarEventPageModule)
   },
-  { path: '**', redirectTo: 'calendar-event'  },
-  { path: '', redirectTo: 'calendar-event', pathMatch: 'full' },
+  {
+    path: 'about-us',
+    loadChildren: () => import('./about-us/about-us.module').then( m => m.AboutUsPageModule),
+    canActivate: [AuthGuardService],
+  },
+  { path: '**', redirectTo: 'home'  },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  
  
 
 
