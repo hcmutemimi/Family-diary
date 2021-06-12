@@ -1,19 +1,31 @@
 <app-header [headerCustom]="headerCustom"></app-header>
 
 <ion-content>
-  <ion-slides pager="true" [options]="slideOptsEvent" #slidesBanner>
-    <ion-slide class="slide-banner birthday" *ngIf="listBir.length>0"> 
-      <h1>Slide 1</h1>
+  <ion-slides pager="true" [options]="slideOptsEvent" >
+    <ion-slide class="slide-banner birthday" *ngIf="listBir.length>0">
+      <h4 class="EEEE"> {{listBir[0].dateStart |date :'EEEE'}}, </h4> 
+      <h4 class="month"> {{listBir[0].dateStart |date :'MMM d'}} </h4> 
+      <h4 class="year"> {{listBir[0].dateStart |date :'YYYY'}} </h4> 
+      <h4 class="info-bir">
+        <span>{{listBir[0].name}}</span></h4>
     </ion-slide>
     <ion-slide class="slide-banner anniversary" *ngIf="listAni.length>0">
-      <h1>Slide 2</h1>
+      <h4 class="EEEE"> {{listAni[0].dateStart |date :'EEEE'}}, </h4> 
+      <h4 class="month"> {{listAni[0].dateStart |date :'MMM d'}} </h4> 
+      <h4 class="year"> {{listAni[0].dateStart |date :'YYYY'}} </h4> 
+      <h4 class="info-bir">
+        <span>{{listAni[0].name}}</span></h4>
     </ion-slide>
-    <ion-slide class="slide-banner orther"  *ngIf="listOrther.length>0">
-      <h1>Slide 3</h1>
+    <ion-slide class="slide-banner orther" *ngIf="listOrther.length>0">
+      <h4 class="EEEE"> {{listOrther[0].dateStart |date :'EEEE'}}, </h4> 
+      <h4 class="month"> {{listOrther[0].dateStart |date :'MMM d'}} </h4> 
+      <h4 class="year"> {{listOrther[0].dateStart |date :'YYYY'}} </h4> 
+      <h4 class="info-orther">
+        <span>{{listOrther[0].name}}</span></h4>
     </ion-slide>
-    <!-- <ion-slide class="slide-banner">
-      <h1 class="text-intro">Nothing <br />upcoming</h1>
-    </ion-slide> -->
+    <ion-slide class="slide-banner orther" *ngIf="check">
+      <h2 class="text-intro"><br /> <h6>Let's start creating events for your family.</h6></h2> 
+    </ion-slide>
   </ion-slides>
   <ion-segment value="birthday" swipeGesture="false" mode="ios">
     <ion-button
@@ -44,67 +56,76 @@
       <span class="footer_under" *ngIf="valueTag=='orther'"></span>
     </ion-button>
   </ion-segment>
- 
-  <ion-slides pager="false" [options]="slideOpts"  #slides (ionSlideDidChange)="slideChanged()">
+
+  <ion-slides
+    pager="false"
+    [options]="slideOpts"
+    #slides
+    (ionSlideDidChange)="slideChanged()"
+  >
     <ion-slide class="slide-event">
-      <div class="wrapper-event" *ngFor ="let item of listBirFinal" >
-        <ion-label class="event-time">{{item[0].cutDate |date :'MMMM, Y'}}</ion-label>
-        <ion-item-group class="group-event"*ngFor = "let i of item">
+      <div class="wrapper-event" *ngFor="let item of listBirFinal">
+        <ion-label class="event-time"
+          >{{item[0].cutDate |date :'MMMM, Y'}}</ion-label
+        >
+        <ion-item-group class="group-event" *ngFor="let i of item">
           <div class="event">
             <ion-label class="event-date">
-              <span class="day">{{i.day}}<br />
+              <span class="day"
+                >{{i.day}}<br />
                 <ion-label>{{i.dateStart | date:'dd'}}</ion-label>
               </span>
             </ion-label>
-            <span class="event-content three-dots-2">
-              {{i.name}} </span>
+            <span class="event-content three-dots-2"> {{i.name}} </span>
             <ion-icon name="chevron-forward-outline"></ion-icon>
           </div>
         </ion-item-group>
       </div>
     </ion-slide>
     <ion-slide class="slide-event">
-      <div class="wrapper-event" *ngFor ="let item of listAniFinal" >
-        <ion-label class="event-time">{{item[0].cutDate |date :'MMMM, Y'}}</ion-label>
-        <ion-item-group class="group-event"*ngFor = "let i of item">
+      <div class="wrapper-event" *ngFor="let item of listAniFinal">
+        <ion-label class="event-time"
+          >{{item[0].cutDate |date :'MMMM, Y'}}</ion-label
+        >
+        <ion-item-group class="group-event" *ngFor="let i of item">
           <div class="event">
             <ion-label class="event-date">
-              <span class="day">{{i.day}}<br />
+              <span class="day"
+                >{{i.day}}<br />
                 <ion-label>{{i.dateStart | date:'dd'}}</ion-label>
               </span>
             </ion-label>
-            <span class="event-content three-dots-2">
-              {{i.name}} </span>
+            <span class="event-content three-dots-2"> {{i.name}} </span>
             <ion-icon name="chevron-forward-outline"></ion-icon>
           </div>
         </ion-item-group>
       </div>
     </ion-slide>
     <ion-slide class="slide-event">
-      <div class="wrapper-event" *ngFor ="let item of listOrtherFinal" >
-        <ion-label class="event-time">{{item[0].cutDate |date :'MMMM, Y'}}</ion-label>
-        <ion-item-group class="group-event"*ngFor = "let i of item">
+      <div class="wrapper-event" *ngFor="let item of listOrtherFinal">
+        <ion-label class="event-time"
+          >{{item[0].cutDate |date :'MMMM, Y'}}</ion-label
+        >
+        <ion-item-group class="group-event" *ngFor="let i of item">
           <div class="event">
             <ion-label class="event-date">
-              <span class="day">{{i.day}}<br />
+              <span class="day"
+                >{{i.day}}<br />
                 <ion-label> {{i.dateStart | date:'dd'}}</ion-label>
               </span>
             </ion-label>
             <ion-buttons class="wrapper-content">
-              <span class="event-content three-dots-2">
-                {{i.name}} </span>
-                <span class="list-join"> For: 
-                  <ion-label *ngFor="let j of i.join">
-                    {{j.name}},
-                  </ion-label>
-                </span>
+              <span class="event-content three-dots-2"> {{i.name}} </span>
+              <span class="list-join">
+                For:
+                <ion-label *ngFor="let j of i.join"> {{j.name}}, </ion-label>
+              </span>
             </ion-buttons>
-           
+
             <ion-icon name="chevron-forward-outline"></ion-icon>
           </div>
         </ion-item-group>
       </div>
-     
     </ion-slide>
   </ion-slides>
   <img src="assets/img/plus.svg" alt="" class="plus" (click)="openAddEvent()" />

@@ -11,18 +11,17 @@
     </ion-buttons>
   
     <ion-buttons class="day-of-month">
-      <ion-buttons class="dates " >
-        <ion-label  *ngFor="let i of DATES"> {{i}}</ion-label>
+        <ion-buttons class="dates " >
+          <ion-label  *ngFor="let i of DATES"> {{i}}</ion-label>
+        </ion-buttons>
+          <ion-label *ngFor = "let item of daysofMonth" class="day"
+          [style.margin-left]="item.day == '01'? item.mr:'0vw'"
+          [ngClass] ="{'to-day': item.today == today }"
+          >
+          {{item.day}}
+          <span class="active" *ngIf="item.check"></span>
+        </ion-label>
       </ion-buttons>
-        <ion-label *ngFor = "let item of daysofMonth" class="day"
-        [style.margin-left]="item.day == '01'? item.mr:'0vw'"
-        [ngClass] ="{'to-day': item.today == today }"
-        >
-        {{item.day}}
-        <span class="active" *ngIf="item.check"></span>
-      </ion-label>
-     
-    </ion-buttons>
   </div>
   <div class="event">
     <div class="wrapper-event" *ngFor ="let item of listData">
@@ -62,10 +61,10 @@
     <ion-icon md="caret-up" ios="chevron-up-circle-outline"></ion-icon>
   </ion-fab-button>
   <ion-fab-list side="top">
-    <div class="group" (click) ="gotoShopping()">
-      <span class="shopping">Add Shopping</span>
+    <div class="group" (click) ="gotoListToDo()">
+      <span class="shopping">Add List to do</span>
       <ion-fab-button color="light" class="btn-fab btn-shopping">
-        <img src="assets/img/cart.svg" alt="add to-do" />
+        <img src="assets/img/list-to-do.svg" alt="add to-do" />
       </ion-fab-button>
     </div>
 

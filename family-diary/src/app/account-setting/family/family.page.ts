@@ -23,6 +23,9 @@ export class FamilyPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    
+  }
+  ionViewWillEnter() {
     this.loadingService.present()
     this.getData()
   }

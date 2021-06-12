@@ -23,7 +23,6 @@ export class HeaderAddComponent implements OnInit {
       this.router.navigateByUrl('to-do')
     }else {
       this.modal.dismiss()
-
     }
   }
   goToDo() {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { FamilyService } from '../@app-core/@http-config';
@@ -10,11 +10,14 @@ import { FamilyService } from '../@app-core/@http-config';
 })
 export class EditFamilyPage implements OnInit {
   formSubmit: FormGroup
+  @Input() id: any
+  @Input() check: any
   param
   constructor(
     private formBuilder: FormBuilder,
     private family: FamilyService,
-    private modal: ModalController
+    private modal: ModalController,
+    
   ) {
     this.formSubmit = this.formBuilder.group({
       name: new FormControl('', Validators.required),
@@ -23,7 +26,7 @@ export class EditFamilyPage implements OnInit {
 
   ngOnInit() {
     this.param =  {
-      familyId: localStorage.getItem('familyId')
+      familyId: this.id
     }
     this.family.getById(this.param).subscribe(data =>{
       this.formSubmit.get('name').setValue(data.message.name)
@@ -40,13 +43,18 @@ export class EditFamilyPage implements OnInit {
     let name = {
       name: this.formSubmit.get('name').value
     }
-    this.family.updateFamily(localStorage.getItem('familyId'), name).subscribe(data =>{
-      console.log(data)
+    this.family.updateFamily(this.id, name).subscribe(data =>{
+      if(this.check == true) {
+        localStorage.setItem('nameFamily', this.formSubmit.get('name').value)
+      }
       this.modal.dismiss()
     },
     (error) =>{
       throw error
     })
+  }
+  dismissModal() {
+    this.modal.dismiss()
   }
 
 }

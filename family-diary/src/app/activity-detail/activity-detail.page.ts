@@ -18,7 +18,7 @@ export class ActivityDetailPage implements OnInit {
   listHistory = []
   listHistoryFinal = []
   headerCustom = {
-    background: '#43bf6a', title: 'ACTIVITIES HISTORY', color: '#fff'
+    background: '#43bf6a', title: 'ACTIVITIES HISTORY', color: '#fff', back: true
   }
 
   constructor(

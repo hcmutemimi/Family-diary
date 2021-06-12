@@ -54,7 +54,8 @@
           <img src="assets/img/oclock.png" alt="" class="o-clock" />
           <ion-item-group class="to-do-item">
             <span>{{dataToDo[0]?.name}}</span><br />
-            <span class="overdue"> Overdue: {{dataToDo[0]?.dateEnd | date: 'MMM d y, h:mm a'}}</span>
+            <span *ngIf="!dataToDo[0]">Getting started on your plan</span>
+            <span class="overdue"  *ngIf="dataToDo[0]"> Overdue: {{dataToDo[0]?.dateEnd | date: 'MMM d y, h:mm a'}}</span>
           </ion-item-group>
         </div>
       </ion-item-group>
@@ -83,9 +84,9 @@
         <div class="to-do-content">
           <ion-item-group class="to-do-item">
             <span>{{dataEvent[0]?.name}}</span><br />
-            <span *ngIf="dataEvent[0]?.dateEnd == 'ALL-DAY'" class="overdue">Overdue: {{dataEvent[0]?.dateStart | date: 'MMM d y'}}</span>
-            <span *ngIf="dataEvent[0]?.dateEnd != 'ALL-DAY'" class="overdue">Overdue: {{dataEvent[0]?.dateEnd | date: 'MMM d y, h:mm a'}}</span>
-
+            <span *ngIf="dataEvent[0]?.dateEnd == 'ALL-DAY'&& dataEvent[0]" class="overdue">Overdue: {{dataEvent[0]?.dateStart | date: 'MMM d y'}}</span>
+            <span *ngIf="dataEvent[0]?.dateEnd != 'ALL-DAY' && dataEvent[0]" class="overdue">Overdue: {{dataEvent[0]?.dateEnd | date: 'MMM d y, h:mm a'}}</span>
+            <span *ngIf="!dataEvent[0]">Let's start creating events for your family</span>
           </ion-item-group>
         </div>
       </ion-item-group>

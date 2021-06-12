@@ -23,16 +23,16 @@ export class HomePage implements OnInit {
   name = 'Trần Hoài Mi'
   avatarReplace = 'https://i.imgur.com/edwXSJa.png';
   listFamilyMember = []
-  listFamily = []
   hasButton
   nameFamily
   nameUser
   selection
   nameIcon
+  idFM
   countFamily = []
   listCount = []
   listFM = []
-  idFM
+  listFamily = []
   history = false
   subscribe: any
   count = 0
@@ -61,28 +61,29 @@ export class HomePage implements OnInit {
       bg: '#EAFAFA'
     },
 
+    // {
+    //   name: 'SHOPPING',
+    //   thumbImage: 'assets/img/menu/shopping.svg',
+    //   desUrl: '',
+    //   bg: '#EAFAFA'
+    // },
+   
+    // {
+    //   name: 'MEAL PLANNER',
+    //   thumbImage: 'assets/img/menu/meal.svg',
+    //   desUrl: '',
+    //   bg: '#dbf1ed'
+    // },
     {
-      name: 'SHOPPING',
-      thumbImage: 'assets/img/menu/shopping.svg',
-      desUrl: '',
-      bg: '#EAFAFA'
+      name: 'MAP',
+      thumbImage: 'assets/img/menu/locator.svg',
+      desUrl: '/map',
     },
     {
       name: 'EVENT',
       thumbImage: 'assets/img/menu/event.svg',
       desUrl: '/event',
       bg: '#f6f3fa'
-    },
-    {
-      name: 'MEAL PLANNER',
-      thumbImage: 'assets/img/menu/meal.svg',
-      desUrl: '',
-      bg: '#dbf1ed'
-    },
-    {
-      name: 'MAP',
-      thumbImage: 'assets/img/menu/locator.svg',
-      desUrl: '/map',
     },
     {
       name: 'GALLERY',
@@ -99,7 +100,7 @@ export class HomePage implements OnInit {
   queryParam = {
     familyId: '',
     userId: localStorage.getItem('userId'),
-    subType: 'to-do',
+    subType: '',
   }
   constructor(
     private router: Router,
@@ -120,16 +121,8 @@ export class HomePage implements OnInit {
   ngOnInit() {
     this.blockBackBtn()
     this.queryParam.familyId = localStorage.getItem('familyId')
-    this.getDataToDo()
-    this.getDataEvent()
-
-
+   
   }
-  ionViewDidEnter() {
-    this.getInfoUser()
-
-  }
-
   blockBackBtn() {
     this.subscribe = this.platform.backButton.subscribe(() => {
       if (this.router.url === '/home') {
@@ -138,7 +131,7 @@ export class HomePage implements OnInit {
           this.toastService.present('Press again to exit app!');
         }
         else {
-          this.presentAlert();
+          navigator['app'].exitApp()
         }
         setTimeout(() => {
           this.count = 0;
@@ -149,33 +142,37 @@ export class HomePage implements OnInit {
       }
     })
   }
-  async presentAlert() {
-    this.alertPresented = true;
-    const alert = await this.alertController.create({
-      cssClass: 'logout-alert',
-      header: 'Do you want to exit app?',
-      mode: 'ios',
-      buttons: [
-        {
-          text: 'Cancel',
-          handler: () => {
-            this.alertPresented = false;
-            return;
-          }
-        },
-        {
-          text: 'Agree',
-          handler: () => {
-            localStorage.removeItem('isRepeat');
-            navigator['app'].exitApp();
-          }
-        },
-      ]
-    });
-    await alert.present();
-  }
+  // async presentAlert() {
+  //   this.alertPresented = true;
+  //   const alert = await this.alertController.create({
+  //     cssClass: 'logout-alert',
+  //     header: 'Do you want to exit app?',
+  //     mode: 'ios',
+  //     buttons: [
+  //       {
+  //         text: 'Cancel',
+  //         handler: () => {
+  //           this.alertPresented = false;
+  //           return;
+  //         }
+  //       },
+  //       {
+  //         text: 'Agree',
+  //         handler: () => {
+  //           localStorage.removeItem('isRepeat');
+           
+  //         }
+  //       },
+  //     ]
+  //   });
+  //   await alert.present();
+  // }
   ionViewWillEnter() {
     this.loadingService.present()
+    this.getDataToDo()
+    this.getDataEvent()
+    this.getInfoUser()
+
     if(localStorage.getItem('hasFamily')) {
       this.getFamily()
     }else {
@@ -202,16 +199,16 @@ export class HomePage implements OnInit {
           }
         })
       })
-      this.getMember()
-    })
       this.nameFamily = this.listFamily[0]?.name
       this.selection = this.listFamily[0]?._id
-      this.idFM = this.listFamily[0]?.fm
-      localStorage.setItem('idFM', this.idFM)
       localStorage.setItem('nameFamily', this.nameFamily)
       localStorage.setItem('familyId', this.selection)
       localStorage.setItem('hasFamily', 'true')
+      this.idFM = this.listFamily[0]?.fm
+      localStorage.setItem('idFM', this.idFM)
       this.getMember()
+    })
+    
   }
   getFamily() {
     this.nameFamily = localStorage.getItem('nameFamily')
@@ -235,6 +232,8 @@ export class HomePage implements OnInit {
     })
   }
    getDataToDo() {
+     this.queryParam.subType = 'to-do'
+
     this.eventService.getEventFamily(this.queryParam).subscribe(data => {
       this.dataToDo = data.message
       this.dataToDo.sort(function (a, b) {
@@ -297,17 +296,24 @@ export class HomePage implements OnInit {
     this.hasButton = !hasButton;
   }
   savefamilyId(i, hasButton) {
+    this.loadingService.present()
+   
     this.hasButton = !hasButton;
     this.selection = i._id
     localStorage.setItem('familyId', this.selection)
     this.nameFamily = i.name
     localStorage.setItem('nameFamily', this.nameFamily)
-    this.getMember()
+   
     var r = this.listFM.filter(i => {
       return i.familyId == this.selection
     })
     this.idFM = r[0].idFM
     localStorage.setItem('idFM', this.idFM)
+    this.queryParam.familyId = this.selection
+    this.getDataToDo()
+    this.getDataEvent()
+    this.getInfoUser()
+    this.getMember()
   }
   async goToDetail(item) {
 

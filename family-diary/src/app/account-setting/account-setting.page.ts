@@ -17,7 +17,7 @@ export class AccountSettingPage implements OnInit {
   headerCustom = {
     background: '#fff', title: 'MANAGE FAMILY'
   }
-  avatar:any
+  avatar =  'https://imgur.com/Mwr8BC7'
   constructor(
     public modalController: ModalController,
     // private popoverController: PopoverController,
@@ -25,7 +25,6 @@ export class AccountSettingPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    
   }
   ionViewWillEnter() {
     // this.accountService.getAccount().subscribe(data => {

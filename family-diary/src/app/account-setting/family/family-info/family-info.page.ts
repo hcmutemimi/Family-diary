@@ -26,6 +26,7 @@ export class FamilyInfoPage implements OnInit {
   checkIsHost = false
   idHost: ''
   idMy
+  check = false
   constructor(
     private route: ActivatedRoute,
     private familyMemberService: FamilyMemberService,
@@ -54,13 +55,17 @@ export class FamilyInfoPage implements OnInit {
       this.infoFamily = JSON.parse(params['data'])
       this.headerCustom.title = this.infoFamily?.name
       this.idFamily = this.infoFamily?._id
+      if(this.idFamily == localStorage.getItem('familyId')) {
+        this.check = true
+      }
     this.getMember()
     })
   }
   async editProfileFamily() {
     const popover = await this.modal.create({
       component: EditFamilyPage,
-      cssClass: 'modal__Invite',
+      cssClass: 'modal-edit-family',
+      componentProps: { id: this.idFamily, check: this.check }
     })
     await popover.present()
     popover.onDidDismiss().then(() => {

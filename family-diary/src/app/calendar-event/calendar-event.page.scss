@@ -70,7 +70,7 @@ ion-content {
   display: flex;
   font-weight: 700;
   ion-label {
-    width: 13vw;
+    width: 12vw;
     text-align: center;
     color: #fff;
   }
@@ -83,12 +83,17 @@ ion-content {
   display: flex;
   flex-wrap: wrap;
   color: #fff;
-  min-height: 350px;
+  margin-left: 3vw;
+  min-height: 330px;
+  // justify-content: center;
   background: #fd7160;
+}
+.center {
+  display: contents;
 }
 
 .day {
-  width: 13vw;
+  width: 12vw;
   text-align: center;
   font-size: 16px;
   height: 6vh;
@@ -247,6 +252,7 @@ ion-fab {
 
     span {
       margin-right: 44px;
+      color: #828282;
       padding: 3px 8px;
       background-color: #fff;
       border-radius: 4px;

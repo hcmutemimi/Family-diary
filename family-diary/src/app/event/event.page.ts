@@ -17,10 +17,10 @@ export class EventPage implements OnInit {
     background: '#fff', title: 'EVENTS'
   }
   slideOptsEvent = {
-    grabCursor: true,
     centeredSlides: true,
     loop: true,
-    autoplay: true,
+    setInitialSlide: 0,
+    autoplay: true
     // setInitialSlide: 2,
     // speed: 100
   };
@@ -42,6 +42,7 @@ export class EventPage implements OnInit {
   listOrtherFinal = []
   listBirFinal = []
   listAniFinal = []
+  check
   constructor(
     private route: Router,
     private modal: ModalController,
@@ -116,36 +117,52 @@ export class EventPage implements OnInit {
     this.loading.present()
     this.eventService.getEventFamily(this.param).subscribe(data => {
       this.listOrther = data.message
+     
       this.handleDate(this.listOrther)
       this.handle(this.listOrther, 'cutDate', this.listOrtherFinal)
-      this.loading.dismiss()
+      this.listOrtherFinal.sort(function (a, b) {
+        return new Date(b.dateStart).getTime() - new Date(a.dateStart).getTime()
+      })
+      this.paramHasUser.subType = 'birthday'
+      this.eventService.getAllEventByUser(this.paramHasUser).subscribe(data => {
+        this.listBir = data.message
+       
+        this.handleDate(this.listBir)
+        this.handle(this.listBir, 'cutDate', this.listBirFinal)
+        this.listBir.sort(function (a, b) {
+          return new Date(b.dateStart).getTime() - new Date(a.dateStart).getTime()
+        })
+
+        this.paramHasUser.subType = 'anniversaries'
+        this.eventService.getAllEventByUser(this.paramHasUser).subscribe(data => {
+          this.listAni = data.message
+          this.handleDate(this.listAni)
+          this.handle(this.listAni, 'cutDate', this.listAniFinal)
+          this.listAniFinal.sort(function (a, b) {
+            return new Date(b.dateStart).getTime() - new Date(a.dateStart).getTime()
+          })
+          this.loading.dismiss()
+          if(this.listAni.length == 0 && this.listBir.length == 0 && this.listOrther.length ==0) {
+            this.check = true
+          }
+        },
+          (error) => {
+            this.toarst.present(error.message)
+            throw error
+          })
+  
+      },
+        (error) => {
+          this.toarst.present(error.message)
+          throw error
+        })
     },
       (error) => {
         this.toarst.present(error.message)
         throw error
       })
-    this.paramHasUser.subType = 'birthday'
-    this.eventService.getAllEventByUser(this.paramHasUser).subscribe(data => {
-      this.listBir = data.message
-      this.handleDate(this.listBir)
-      this.handle(this.listBir, 'cutDate', this.listBirFinal)
-      this.loading.dismiss()
-    },
-      (error) => {
-        this.toarst.present(error.message)
-        throw error
-      })
-    this.paramHasUser.subType = 'anniversaries'
-    this.eventService.getAllEventByUser(this.paramHasUser).subscribe(data => {
-      this.listAni = data.message
-      this.handleDate(this.listAni)
-      this.handle(this.listAni, 'cutDate', this.listAniFinal)
-      this.loading.dismiss()
-    },
-      (error) => {
-        this.toarst.present(error.message)
-        throw error
-      })
+   
+   
   }
   
   handleDate(list) {

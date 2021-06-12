@@ -9,46 +9,100 @@ ion-slides {
     align-items: baseline;
     overflow: scroll;
     height: 250px;
+
     @media screen and (min-height: 640px) {
       height: 250px;
     }
+
     @media screen and (min-height: 667px) {
       height: 276px;
     }
+
     @media screen and (min-height: 731px) {
       height: 340px;
     }
+
     @media screen and (min-height: 736px) {
       height: 345px;
     }
+
     @media screen and (min-height: 812px) {
       height: 420px;
     }
+
     @media screen and (min-height: 823px) {
       height: 432px;
     }
-   
+
   }
 
   .slide-banner {
     height: 250px;
+
     .text-intro {
       text-align: left;
+      margin-top: 52px;
       margin-left: 20px;
       width: 100%;
       color: #424242;
     }
   }
-  .birthday {
-    background: url("./../../assets/slide/birthday.png") no-repeat ;
-  }
-  .anniversary {
-    background: url("./../../assets/slide/ani.png") no-repeat ;
 
-  }
+  .birthday,
+  .anniversary,
   .orther {
-    background: url("./../../assets/slide/orther.png") no-repeat ;
 
+    .EEEE,
+    .month,
+    .year,
+    .info-bir {
+      position: absolute;
+      right: 10px;
+      color: #828282;
+    }
+
+    .EEEE {
+      top: 0px;
+    }
+
+    .month {
+      top: 30px;
+    }
+
+    .year {
+      top: 60px
+    }
+
+    .info-bir {
+      text-align: right;
+      width: 100%;
+      bottom: 0;
+    }
+  }
+
+  .birthday {
+    background: url("./../../assets/slide/birthday.png") no-repeat;
+
+  }
+
+  .anniversary {
+    background: url("./../../assets/slide/ani.png") no-repeat;
+
+  }
+
+  .orther {
+    background: url("./../../assets/slide/orther.png") no-repeat;
+    .info-orther {
+      text-align: left;
+      width: 100%;
+      margin-left: 10px;
+      position: absolute;
+      bottom: 10px;
+    }
+  }
+
+  .create-event {
+    display: inline-flex;
   }
 
 }
@@ -88,7 +142,9 @@ ion-segment {
     --background-focused: transparent;
     --background-hover: transparent;
     --color: #9b9b9b;
+    font-weight: 550;
     --background: white;
+    font-weight: bold;
     text-align: left;
     max-height: 30px;
     --border-radius: 0;
@@ -109,6 +165,7 @@ ion-segment {
 
 .wrapper-event {
   width: 100%;
+
   // margin-bottom: 53px ;
   .event-time {
     padding-left: 16px;
@@ -158,31 +215,35 @@ ion-segment {
         }
 
       }
+
       .wrapper-content {
         display: block;
         flex: 1;
+
         .event-content {
           font-size: 16px;
           font-family: "Saira", sans-serif !important;
           flex: 1;
           color: #A88FCD;
           font-weight: 550;
-          margin-left: 6vh;
-         
+          // margin-left: 6vh;
+
         }
+
         .list-join {
           display: flex;
           text-align: center;
           align-items: center;
           justify-content: center;
           font-size: 14px;
+
           ion-label {
             font-size: 14px;
-           
+
           }
         }
       }
-      
+
 
       ion-icon {
         font-size: 20px;
@@ -191,4 +252,8 @@ ion-segment {
 
   }
 
+}
+
+.three-dots-2 {
+  flex: 1;
 }

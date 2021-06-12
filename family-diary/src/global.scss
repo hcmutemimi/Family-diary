@@ -57,7 +57,14 @@ html, body {
 .alert-wrapper.sc-ion-alert-md {
   min-width: 270px;
 }
-.modal__Invite {
+.modal-edit-family {
+  --height: 300px;
+  --width: 92%;
+  .modal-wrapper {
+    border-radius: 20px;
+  }
+}
+ .modal__Invite {
   --height: 400px;
   --width: 92%;
   .modal-wrapper {

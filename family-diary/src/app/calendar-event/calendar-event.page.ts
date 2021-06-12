@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
 import { EventService } from '../@app-core/@http-config';
+import { AddEventPage } from '../add-event/add-event.page';
+import { ModalAddTodoPage } from '../modal-add-todo/modal-add-todo.page';
 
 @Component({
   selector: 'app-calendar-event',
@@ -9,7 +12,7 @@ import { EventService } from '../@app-core/@http-config';
 })
 export class CalendarEventPage implements OnInit {
   headerCustom = {
-    background: '#fd7160', title: 'CALENDAR', color: '#fff'
+    background: '#fd7160', title: 'CALENDAR', color: '#fff', back: true
   }
   daysofMonth = []
   nameMonth
@@ -38,7 +41,8 @@ export class CalendarEventPage implements OnInit {
   listData = []
   constructor(
     private eventService: EventService,
-    private router: Router
+    private router: Router,
+    private modal: ModalController
   ) { }
 
   ngOnInit() {
@@ -57,15 +61,46 @@ export class CalendarEventPage implements OnInit {
     this.show = !this.show
   
   }
-  gotoShopping() {
-    this.show = !this.show
+  async gotoListToDo() {
+    const modal = await this.modal.create({
+      component: ModalAddTodoPage,
+      swipeToClose: true,
+      cssClass: 'modal__addToDo',
+      componentProps: { title: 'NEW LIST' }
+    })
+    await modal.present()
+    this.show = false
+    modal.onDidDismiss().then(() => {
+      this.getEvent()
+
+    })
+
   }
-  gotoToDo() {
-    this.show = !this.show
-    // this.router.navigateByUrl('/modal-add-todo')
+  async gotoToDo() {
+    const modal = await this.modal.create({
+      component: ModalAddTodoPage,
+      swipeToClose: true,
+      cssClass: 'modal__addToDo',
+      componentProps: { title: 'NEW TO-DO' }
+    })
+    await modal.present()
+    this.show = false
+    modal.onWillDismiss().then(() => {
+      this.getEvent()
+
+    })
   }
-  gotoEvent() {
+  async gotoEvent() {
     this.show = !this.show
+    const modal = await this.modal.create({
+      component: AddEventPage,
+      swipeToClose: true,
+      cssClass: 'modal__addToDo'
+    })
+    await modal.present()
+    modal.onWillDismiss().then(() => {
+      this.getEvent()
+    })
   }
  getEvent() {
    this.listData = []
@@ -125,22 +160,22 @@ export class CalendarEventPage implements OnInit {
         this.daysofMonth[0]['mr'] = '0vw'
         break
       case 'Mon':
-        this.daysofMonth[0]['mr'] = '13vw'
+        this.daysofMonth[0]['mr'] = '12vw'
         break
       case 'Tue':
-        this.daysofMonth[0]['mr'] = '26vw'
+        this.daysofMonth[0]['mr'] = '24vw'
         break
       case 'Wed':
-        this.daysofMonth[0]['mr'] = '39vw'
+        this.daysofMonth[0]['mr'] = '36vw'
         break
       case 'Thu':
-        this.daysofMonth[0]['mr'] = '52vw'
+        this.daysofMonth[0]['mr'] = '48vw'
         break
       case 'Fri':
-        this.daysofMonth[0]['mr'] = '65vw'
+        this.daysofMonth[0]['mr'] = '60vw'
         break
       case 'Sat':
-        this.daysofMonth[0]['mr'] = '78vw'
+        this.daysofMonth[0]['mr'] = '72vw'
         break
     }
    
