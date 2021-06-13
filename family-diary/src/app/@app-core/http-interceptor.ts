@@ -26,8 +26,7 @@ export class IntercepterService implements HttpInterceptor {
       request = req.clone({
         url: this.prepareUrl(req.url),
         headers: req.headers.set('authorization', 'Bearer ' + localStorage.getItem('authorization')
-         || '').set('Accept', 'multipart/form-data').set('Content-Type','application/json').set('Access-Control-Allow-Origin','https://diaryapp-v1-api.herokuapp.com/')
-
+         || '').set('Accept', 'multipart/form-data')
       });
     }
     return next.handle(request)

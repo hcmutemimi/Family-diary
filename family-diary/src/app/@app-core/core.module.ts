@@ -7,6 +7,7 @@ import { GlobalErrorHandlerService } from './global-error-handler.service'
 import { IntercepterService } from './http-interceptor';
 import { HistoryService } from './@http-config/history';
 import { CameraService } from './utils/camera.service';
+import { PostService } from './@http-config/post';
 @NgModule({
   declarations: [],
   imports: [
@@ -32,7 +33,8 @@ export class CoreModule {
         FamilyMemberService,
         EventService,
         HistoryService,
-        CameraService
+        CameraService,
+        PostService
       ]
     }
   }

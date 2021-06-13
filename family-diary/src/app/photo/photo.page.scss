@@ -1,0 +1,101 @@
+ion-fab {
+    right: 135px;
+  
+    .btn-click {
+      position: absolute;
+      bottom: 16px;
+      right: -105.5px;
+      --ion-color-base: #42B245 !important;
+    }
+  
+    .group {
+      display: flex;
+      align-items: center;
+      margin-bottom: 32px;
+  
+      .shopping {
+        margin-right: 67px;
+      }
+  
+      span {
+        margin-right: 44px;
+        color: #424242;
+        font-weight: 550;
+        padding: 4px 8px;
+        background-color: #fff;
+        border-radius: 4px;
+      }
+    }
+  
+    ion-fab-list {
+      min-width: 187px;
+      position: absolute;
+      right: -118px;
+  
+      .btn-fab {
+        height: 45px;
+        border-radius: 50%;
+        width: 48px;
+        position: absolute;
+        right: 16px;
+        box-shadow: 0px 6px 6px rgb(0 0 0 / 25%);
+      }
+  
+      .btn-event {
+  
+        --ion-color-base:#42B245 !important;
+      }
+  
+      .btn-to-do {
+        --ion-color-base: #42B245 !important;
+      }
+  
+      .btn-shopping {
+        --ion-color-base: #42B245 !important;
+      }
+  
+      ion-fab-button {
+        img {
+          width: 20px;
+        }
+  
+        .img-shopping {
+          background-color: var(--main-color);
+        }
+      }
+  
+    }
+  }
+  ion-content {
+    --padding-top: 80px;
+    .image {
+      margin-bottom: 10px;
+      position: relative;
+      img {
+        width: 100%;
+        // max-height: 400px;
+      }
+      
+        .time {
+          bottom: 0;
+          background-color: #303030;
+          height: 60px;
+          opacity: 0.85;
+          width: 100%;
+          display: flex;
+          align-items: center;
+          position: absolute;
+          .user-upload {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+          }
+          .name-time {
+            margin-left: 10px;
+            color: #fff;
+            display: grid;
+          }
+        }
+     
+    }
+  }

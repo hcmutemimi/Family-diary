@@ -12,7 +12,7 @@ import { ToastService } from '../@app-core/utils';
 })
 export class NewFamilyPage implements OnInit {
   headerCustom = {
-    title: 'CREATE NEW FAMILY', background: '#00B0B2'
+    title: 'CREATE NEW FAMILY', background: '#29cdcf'
   }
   formAddNewFamily: FormGroup
 

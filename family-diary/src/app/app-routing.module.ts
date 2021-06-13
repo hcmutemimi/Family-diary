@@ -104,8 +104,14 @@ const routes: Routes = [
     loadChildren: () => import('./about-us/about-us.module').then( m => m.AboutUsPageModule),
     canActivate: [AuthGuardService],
   },
+  {
+    path: 'photo',
+    loadChildren: () => import('./photo/photo.module').then( m => m.PhotoPageModule),
+    canActivate: [AuthGuardService],
+  },
   { path: '**', redirectTo: 'home'  },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
+  
   
  
 

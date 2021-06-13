@@ -1,0 +1,42 @@
+<app-header [headerCustom]="headerCustom"></app-header>
+
+
+<ion-content>
+    <ion-buttons *ngFor="let item of dataPost" class="image">
+      <img [src] = "item.url" alt="">
+      <!--  [style.background]="getUrl(item)" -->
+        <span class="time" >
+          <img [src] ="item.userId.avatar" alt="" class="user-upload">
+          <span class="name-time">
+            <ion-label>
+              {{item.userId.lName}}
+            </ion-label>
+            <ion-label>
+              {{formatDate(item.mDate)}}
+            </ion-label>
+          </span>
+        </span>
+    </ion-buttons>
+</ion-content>
+<div *ngIf="show" class="back-drop">
+  
+</div> 
+<ion-fab horizontal="end" vertical="bottom" slot="fixed">
+  <ion-fab-button color="dark" class="btn-click"(click)="toggleClick()">
+    <ion-icon md="caret-up" ios="chevron-up-circle-outline"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-list side="top">
+    <div class="group"(click) ="takePhoto()">
+      <span class="shopping">Take photo</span>
+      <ion-fab-button color="light" class="btn-fab btn-to-do">
+        <img src="assets/img/camera.svg" alt="add to-do" />
+      </ion-fab-button>
+    </div>
+    <div class="group" (click) ="openLibrary()">
+      <span class="shopping">Open library</span>
+      <ion-fab-button color="light" class="btn-fab btn-shopping">
+        <img src="assets/img/image.svg" alt="add to-do" />
+      </ion-fab-button>
+    </div>
+  </ion-fab-list>
+</ion-fab>

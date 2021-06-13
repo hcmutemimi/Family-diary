@@ -13,7 +13,6 @@ export class AccountService {
   public getAccount() {
     return this.http.get(`${APICONFIG.ACCOUNT.PROFILE_USER}`).pipe(
       map((result: any) => {
-    
         return result;
       }),
       catchError((errorRes) => { 
@@ -53,8 +52,18 @@ export class AccountService {
   }
   //`${APICONFIG.UPLOAD.GET_URL}`
   //'https://clouinary.com/v1_1/concai/image/upload'
+  // public uploadPhoto(req) {
+  //   return this.http.post(`${APICONFIG.UPLOAD.GET_URL}`, req).pipe(
+  //     map((result) => {
+  //       return result
+  //     }),
+  //     catchError((errorRes: any) => {
+  //       throw errorRes.error;
+  //     })
+  //   )
+  // }
   public uploadPhoto(req) {
-    return this.http.post(`${APICONFIG.UPLOAD.GET_URL}`, req).pipe(
+    return this.http.post('http://image-service.patitek.com/api/v1/images/upload', req).pipe(
       map((result) => {
         return result
       }),
@@ -63,20 +72,16 @@ export class AccountService {
       })
     )
   }
-
-  // public updateAvatar(req) {
-  //   return this.http.put(`${APICONFIG.AUTH.UPDATE_AVATAR}`, req).pipe(
-  //     map((result) => {
-  //       return result
-  //     }),
-  //     catchError((errorRes: any) => {
-  //       throw errorRes.error;
-  //     }),
-  //     catchError((errorRes: any) => {
-  //       throw errorRes.error;
-  //     })
-  //   )
-  // }
+  public updateAvatar(req) {
+    return this.http.put(`${APICONFIG.ACCOUNT.UPDATE_AVATAR}`, req).pipe(
+      map((result) => {
+        return result
+      }),
+      catchError((errorRes: any) => {
+        throw errorRes.error;
+      })
+    )
+  }
   
 
 }

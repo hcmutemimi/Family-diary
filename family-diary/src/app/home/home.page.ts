@@ -13,15 +13,12 @@ import { NewFamilyPage } from '../new-family/new-family.page';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-  avatar = localStorage.getItem('avatar');
   slideOpts = {
     centeredSlides: true,
     loop: true,
     setInitialSlide: 0,
     autoplay: true
   };
-  name = 'Trần Hoài Mi'
-  avatarReplace = 'https://i.imgur.com/edwXSJa.png';
   listFamilyMember = []
   hasButton
   nameFamily
@@ -41,6 +38,7 @@ export class HomePage implements OnInit {
   dataEvent = []
   checkInfo
   hasFamily
+  idUser
   menu = [
     {
       name: 'ACTIVITY',
@@ -88,7 +86,7 @@ export class HomePage implements OnInit {
     {
       name: 'GALLERY',
       thumbImage: 'assets/img/menu/photo.svg',
-      desUrl: 'main/store',
+      desUrl: 'photo',
       bg: '#edfaf1'
     },
     {
@@ -121,6 +119,7 @@ export class HomePage implements OnInit {
   ngOnInit() {
     this.blockBackBtn()
     this.queryParam.familyId = localStorage.getItem('familyId')
+    this.idUser = localStorage.getItem('userId')
    
   }
   blockBackBtn() {
@@ -236,7 +235,7 @@ export class HomePage implements OnInit {
 
     this.eventService.getEventFamily(this.queryParam).subscribe(data => {
       this.dataToDo = data.message
-      this.dataToDo.sort(function (a, b) {
+      this.dataToDo = this.dataToDo.sort(function (a, b) {
         return new Date(b.dateStart).getTime() - new Date(a.dateStart).getTime()
       })
     },
@@ -248,7 +247,7 @@ export class HomePage implements OnInit {
     this.queryParam.subType = 'orther'
     this.eventService.getEventFamily(this.queryParam).subscribe(data => {
       this.dataEvent = data.message
-      this.dataEvent.sort(function (a, b) {
+      this.dataEvent = this.dataEvent.sort(function (a, b) {
         return new Date(b.dateStart).getTime() - new Date(a.dateStart).getTime()
       })
     },
@@ -262,6 +261,11 @@ export class HomePage implements OnInit {
     }
     this.familyMemberService.getListFamily(queryParams).subscribe(data => {
       this.listFamilyMember = data.message
+      this.listFamilyMember.forEach(i =>{
+        if(i.avatar === null) {
+          i.avatar = 'assets/img/avatar.png'
+        }
+      })
       this.getHistoryStatus()
     })
   }
@@ -295,9 +299,23 @@ export class HomePage implements OnInit {
   toggleHasSetting(hasButton) {
     this.hasButton = !hasButton;
   }
+  turnOffSetting() {
+    if(this.hasButton) {
+      this.hasButton = false
+    }
+  }
+  goToFamilyMember(item) {
+    localStorage.setItem('nameFamily',item.name)
+  
+  }
   savefamilyId(i, hasButton) {
     this.loadingService.present()
-   
+    // let data = this.idUser
+    // this.router.navigate(['account-setting/family/family-info'], {
+    //   queryParams: {
+    //     data: JSON.stringify(data)
+    //   }
+    // })
     this.hasButton = !hasButton;
     this.selection = i._id
     localStorage.setItem('familyId', this.selection)

@@ -1,5 +1,5 @@
-<ion-header class="ion-no-border">
-  <ion-buttons class="user-container">
+<ion-header class="ion-no-border" >
+  <ion-buttons class="user-container" (click)="turnOffSetting()">
     <span *ngIf="name">Hi! {{ nameUser }}</span>
     <ion-icon name="settings-outline" (click)="goToSetting()"></ion-icon>
   </ion-buttons>
@@ -25,16 +25,16 @@
       <ion-icon  name="add-circle-outline"></ion-icon>
     </ion-item>
   </ion-list>
-  <ul class="family-member">
+  <ul class="family-member"  (click)="turnOffSetting()">
     <li *ngFor="let i of listFamilyMember">
       <ion-avatar class="family-member--img">
-        <img src="assets/img/avatar.png" alt="{{i?.lName}}" />
+        <img [src] ="i.avatar" alt="{{i?.lName}}" />
       </ion-avatar>
-      <ion-text> {{i?.lName}}</ion-text>
+      <ion-text  [ngClass]="{'user-active': i._id == idUser}" > {{i?.lName}}</ion-text>
     </li>
   </ul>
 </ion-header>
-<ion-content>
+<ion-content  (click)="turnOffSetting()">
   <ion-item-group class="sayhi ion-padding">
     <ion-label>
       Well come<br />

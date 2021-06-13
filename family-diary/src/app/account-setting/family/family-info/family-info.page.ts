@@ -143,7 +143,7 @@ export class FamilyInfoPage implements OnInit {
     this.loadingService.present()
     this.familyMemberService.removeUser(idFamily, userId).subscribe(
       () => {
-        this.toartService.present('Leave successfully !')
+        this.toartService.present('Successfully !')
         this.getMember()
         this.loadingService.dismiss()
       },

@@ -55,7 +55,11 @@ export class AddEventPage implements OnInit {
     this.familyMemberService.getListFamily(queryParams).subscribe(data => {
       this.loadingService.dismiss()
       this.listFamilyMember = data.message
+    
       this.listFamilyMember.forEach((i) => {
+        if (i.avatar === null) {
+          i.avatar = 'assets/img/avatar.png'
+        }
         if (i._id == localStorage.getItem('userId')) {
           i.join = true
           this.userJoin.push({id: i._id, name: i.lName})

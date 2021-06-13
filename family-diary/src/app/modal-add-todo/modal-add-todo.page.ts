@@ -69,6 +69,9 @@ export class ModalAddTodoPage implements OnInit {
       this.listFamilyMember = data.message
       this.loadingService.dismiss()
       this.listFamilyMember.forEach((i) => {
+        if (i.avatar === null) {
+          i.avatar = 'assets/img/avatar.png'
+        }
         if (i._id == localStorage.getItem('userId')) {
           i.join = true
           this.userJoin.push({ id: i._id, name: i.lName })

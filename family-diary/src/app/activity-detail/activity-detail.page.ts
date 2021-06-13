@@ -91,8 +91,11 @@ export class ActivityDetailPage implements OnInit {
       })
       await modal.present()
     }
-    else{
-        this.router.navigateByUrl('event')
+    else if(item.objectName == 'upload') {
+        this.router.navigateByUrl('photo')
+    }else {
+      this.router.navigateByUrl('event')
+
     }
   }
 

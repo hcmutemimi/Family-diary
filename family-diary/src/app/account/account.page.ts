@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router'
 import { AlertController, ModalController, PopoverController } from '@ionic/angular'
 import { AccountService, PATTERN } from './../@app-core/@http-config'
-import {  LoadingService, ToastService } from '../@app-core/utils'
+import { LoadingService, ToastService } from '../@app-core/utils'
 import { ChangepasswordPage } from '../changepassword/changepassword.page'
 import { CameraService } from '../@app-core/utils/camera.service'
 
@@ -13,7 +13,6 @@ import { CameraService } from '../@app-core/utils/camera.service'
   styleUrls: ['./account.page.scss'],
 })
 export class AccountPage implements OnInit {
-  image_avatar: any
   avatar = ''
   headerCustom = { title: 'INFORMATION' }
   activatedInput = false
@@ -57,7 +56,6 @@ export class AccountPage implements OnInit {
   ngDoCheck() {
     this.avatar = localStorage.getItem('avatar')
   }
-
   ionViewWillEnter() {
     this.avatar = localStorage.getItem('avatar')
   }
@@ -110,7 +108,9 @@ export class AccountPage implements OnInit {
     })
     await alertAvatarSetting.present()
   }
-
+  gotoMain() {
+    this.router.navigateByUrl('/home')
+  }
   async openModalPassword() {
     const popover = await this.passwordModal.create({
       component: ChangepasswordPage,

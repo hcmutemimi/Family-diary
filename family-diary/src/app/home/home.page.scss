@@ -77,7 +77,7 @@ ion-header {
 
     li {
       text-align: center;
-
+      margin-right: 3px;
       ion-text {
         line-height: 28px;
       }
@@ -87,6 +87,10 @@ ion-header {
       margin: 0 5px;
       height: 40px;
       width: 40px;
+      
+    }
+    .user-active {
+      color: #42B245;
     }
   }
 }

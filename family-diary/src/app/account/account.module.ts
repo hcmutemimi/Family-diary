@@ -16,7 +16,7 @@ import { HeaderModule } from '../@app-core/@modular/header/header.module';
     ReactiveFormsModule,
     IonicModule,
     AccountPageRoutingModule,
-    HeaderModule,
+    // HeaderModule,
   ],
   declarations: [AccountPage]
 })

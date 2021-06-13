@@ -17,16 +17,16 @@ export class AccountSettingPage implements OnInit {
   headerCustom = {
     background: '#fff', title: 'MANAGE FAMILY'
   }
-  avatar =  'https://imgur.com/Mwr8BC7'
+  avatar
   constructor(
     public modalController: ModalController,
-    // private popoverController: PopoverController,
     private accountService: AccountService
   ) { }
 
   ngOnInit() {
   }
   ionViewWillEnter() {
+    this.avatar = localStorage.getItem('avatar')
     // this.accountService.getAccount().subscribe(data => {
     //     this.avatar = data.u.avatar
     // })
@@ -50,13 +50,4 @@ export class AccountSettingPage implements OnInit {
     })
     await modal.present()
   }
-  // async presentPopover(ev: any) {
-  //   const popover = await this.popoverController.create({
-  //     component: PopupComponent,
-  //     cssClass: 'my-custom-class',
-  //     event: ev,
-  //     translucent: true
-  //   });
-  //   return await popover.present();
-  // }
 }

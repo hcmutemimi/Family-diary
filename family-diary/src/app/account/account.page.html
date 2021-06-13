@@ -1,18 +1,26 @@
-<ion-header>
-  <app-header [headerCustom]="headerCustom"></app-header>
-</ion-header>
+<div class="header ion-page ion-no-border"
+  [style.background]="headerCustom.background">
+  <ion-label class="three-dots-2" [style.color] ="headerCustom.color">{{ headerCustom.title }}</ion-label>
+  <ion-icon name="home" class="active-effect" style="color: #E7E7E7;" (click)="gotoMain()"></ion-icon>
+  <ion-back-button defaultHref=“home” icon="chevron-back-outline" text="" class="back-btn" *ngIf="headerCustom?.back != true"></ion-back-button>
+</div>
 
 <ion-content [ngClass]="{ 'ion-content-activated': activatedInput}">
   <div class="user">
     <div class="user-img-container active-effect" (click)="avatarSetting()">
       <ion-avatar class="user-img main-box-shadow">
-          <img [src] ="avatar" alt="" *ngIf="avatar">
-          <img src="https://i.imgur.com/edwXSJa.png" alt=""*ngIf="!avatar" >
-          <ion-spinner *ngIf="!avatar" class="absolute-center" name="lines"></ion-spinner>
+        <img [src]="avatar" alt="" />
+        <!-- <img src="https://i.imgur.com/edwXSJa.png" alt=""*ngIf="!avatar" > -->
+        <!-- <ion-spinner *ngIf="!avatar" class="absolute-center" name="lines"></ion-spinner> -->
       </ion-avatar>
-        <ion-icon class="icon-edit" name="camera" ></ion-icon>
+      <ion-icon class="icon-edit" name="camera"></ion-icon>
     </div>
-    <ion-label *ngIf="loadedData && !activatedInput" class="edit-btn" (click)="activateInput()">Edit</ion-label>
+    <ion-label
+      *ngIf="loadedData && !activatedInput"
+      class="edit-btn"
+      (click)="activateInput()"
+      >Edit</ion-label
+    >
   </div>
 
   <ion-list class="list">
@@ -21,49 +29,85 @@
     <form [formGroup]="form" (ngSubmit)="updateInfo()">
       <div class="item">
         <ion-label class="item-label">First Name</ion-label>
-        <ion-input class="item-content" maxlength="30" [readonly]="!activatedInput"
-          [ngClass]="{ 'item-content-activated': activatedInput}" formControlName="fName"></ion-input>
+        <ion-input
+          class="item-content"
+          maxlength="30"
+          [readonly]="!activatedInput"
+          [ngClass]="{ 'item-content-activated': activatedInput}"
+          formControlName="fName"
+        ></ion-input>
         <ng-container *ngFor="let validation of validationMessages.fName">
-          <div class="error-message"
-            *ngIf="form.get('fName').hasError(validation.type) && (form.get('fName').dirty || form.get('fName').touched)">
+          <div
+            class="error-message"
+            *ngIf="form.get('fName').hasError(validation.type) && (form.get('fName').dirty || form.get('fName').touched)"
+          >
             {{ validation.message }}
           </div>
         </ng-container>
       </div>
       <div class="item">
         <ion-label class="item-label">Last Name</ion-label>
-        <ion-input class="item-content" maxlength="30" [readonly]="!activatedInput"
-          [ngClass]="{ 'item-content-activated': activatedInput}" formControlName="lName"></ion-input>
+        <ion-input
+          class="item-content"
+          maxlength="30"
+          [readonly]="!activatedInput"
+          [ngClass]="{ 'item-content-activated': activatedInput}"
+          formControlName="lName"
+        ></ion-input>
         <ng-container *ngFor="let validation of validationMessages.lName">
-          <div class="error-message"
-            *ngIf="form.get('lName').hasError(validation.type) && (form.get('lName').dirty || form.get('lName').touched)">
+          <div
+            class="error-message"
+            *ngIf="form.get('lName').hasError(validation.type) && (form.get('lName').dirty || form.get('lName').touched)"
+          >
             {{ validation.message }}
           </div>
         </ng-container>
       </div>
       <div class="item">
         <ion-label class="item-label">Date of birth</ion-label>
-        <ion-datetime class="item-content" [readonly]="!activatedInput" [ngClass]="{ 'item-content-activated': activatedInput}"
-          formControlName="birthday"  min="1900" max="2021"></ion-datetime>
+        <ion-datetime
+          class="item-content"
+          [readonly]="!activatedInput"
+          [ngClass]="{ 'item-content-activated': activatedInput}"
+          formControlName="birthday"
+          min="1900"
+          max="2021"
+        ></ion-datetime>
       </div>
       <div class="item">
         <ion-label class="item-label">Phone number</ion-label>
-        <ion-input autocomplete="off" type="text" class="item-content" [readonly]="!activatedInput"
-          [ngClass]="{ 'item-content-activated': activatedInput}" formControlName="phoneNumber"></ion-input>
+        <ion-input
+          autocomplete="off"
+          type="text"
+          class="item-content"
+          [readonly]="!activatedInput"
+          [ngClass]="{ 'item-content-activated': activatedInput}"
+          formControlName="phoneNumber"
+        ></ion-input>
         <ng-container *ngFor="let validation of validationMessages.phoneNumber">
-          <div class="error-message"
-            *ngIf="form.get('phoneNumber').hasError(validation.type) && (form.get('phoneNumber').dirty || form.get('phoneNumber').touched)">
+          <div
+            class="error-message"
+            *ngIf="form.get('phoneNumber').hasError(validation.type) && (form.get('phoneNumber').dirty || form.get('phoneNumber').touched)"
+          >
             {{ validation.message }}
           </div>
         </ng-container>
       </div>
       <div class="item">
         <ion-label class="item-label">Email</ion-label>
-        <ion-input autocomplete="off" type="text" class="item-content" [readonly]="!activatedInput"
-          [ngClass]="{ 'item-content-activated': activatedInput}" formControlName="email"></ion-input>
+        <ion-input
+          autocomplete="off"
+          type="text"
+          class="item-content"
+          [readonly]="!activatedInput"
+          [ngClass]="{ 'item-content-activated': activatedInput}"
+          formControlName="email"
+        ></ion-input>
         <ng-container *ngFor="let validation of validationMessages.email">
-          <div class="error-message"
-            *ngIf="form.get('email').hasError(validation.type) && (form.get('email').dirty || form.get('email').touched)">
+          <div
+            class="error-message"
+            *ngIf="form.get('email').hasError(validation.type) && (form.get('email').dirty || form.get('email').touched)"
+          >
             {{ validation.message }}
           </div>
         </ng-container>
@@ -80,13 +124,24 @@
         </ng-container>
       </div> -->
     </form>
-    <ion-label *ngIf="!activatedInput" class="change__password" (click)="openModalPassword()">
-     Change password
+    <ion-label
+      *ngIf="!activatedInput"
+      class="change__password"
+      (click)="openModalPassword()"
+    >
+      Change password
     </ion-label>
   </ion-list>
   <ion-buttons class="footer" *ngIf="activatedInput">
-    <ion-button class="btn btn-cancel" (click)="deactivateInput()">Cancle</ion-button>
-    <ion-button class="btn btn-update-disabled" [ngClass]="{'btn-update': !canUpdate()}" (click)="updateInfo()"
-      [disabled]="canUpdate()">Update</ion-button>
+    <ion-button class="btn btn-cancel" (click)="deactivateInput()"
+      >Cancle</ion-button
+    >
+    <ion-button
+      class="btn btn-update-disabled"
+      [ngClass]="{'btn-update': !canUpdate()}"
+      (click)="updateInfo()"
+      [disabled]="canUpdate()"
+      >Update</ion-button
+    >
   </ion-buttons>
 </ion-content>

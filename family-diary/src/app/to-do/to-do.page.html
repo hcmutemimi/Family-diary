@@ -24,7 +24,7 @@
   <ul class="family-member">
     <li *ngFor="let item of listFamilyMember"  (click)="chooseUser(item)">
       <ion-avatar class="family-member--img">
-        <img src="assets/img/avatar.png" alt="{{item.lName}}" />
+        <img [src]="item.avatar" alt="{{item.lName}}" />
       </ion-avatar>
       <ion-text> {{item.lName}}</ion-text>
       <img

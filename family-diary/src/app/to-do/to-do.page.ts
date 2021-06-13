@@ -59,21 +59,21 @@ export class ToDoPage implements OnInit {
       this.listData = this.listToDo
       this.loadingService.dismiss()
     },
-    (error) =>{
-      throw error
-    })
+      (error) => {
+        throw error
+      })
 
   }
- 
+
   getDataListToDo() {
     this.param.subType = 'list-to-do'
     this.eventService.getAllEventByUser(this.param).subscribe(data => {
       this.listListToDo = data.message
       this.loadingService.dismiss()
     },
-    (error) =>{
-      throw error
-    })
+      (error) => {
+        throw error
+      })
   }
   changeTabs(boolean) {
     this.tabToDo = boolean
@@ -102,6 +102,9 @@ export class ToDoPage implements OnInit {
       this.listFamilyMember = data.message
       this.loadingService.dismiss()
       this.listFamilyMember.forEach((i) => {
+        if (i.avatar === null) {
+          i.avatar = 'assets/img/avatar.png'
+        }
         if (i._id == localStorage.getItem('userId')) {
           i.join = true
         } else {
@@ -123,11 +126,11 @@ export class ToDoPage implements OnInit {
       component: ToDoDetailPage,
       swipeToClose: true,
       cssClass: 'modal__addToDo',
-      componentProps: { title: 'Detail To Do', id: item._id  }
+      componentProps: { title: 'Detail To Do', id: item._id }
     })
     await modal.present()
     this.show = false
-    modal.onDidDismiss().then(() =>{
+    modal.onDidDismiss().then(() => {
       this.getMembers()
       this.getDataToDo()
       this.getDataListToDo()
@@ -189,7 +192,7 @@ export class ToDoPage implements OnInit {
       });
       if (this.tabToDo) {
         this.getDataToDo()
-      }else {
+      } else {
         this.getDataListToDo()
       }
     }

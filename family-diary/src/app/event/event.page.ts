@@ -120,7 +120,7 @@ export class EventPage implements OnInit {
      
       this.handleDate(this.listOrther)
       this.handle(this.listOrther, 'cutDate', this.listOrtherFinal)
-      this.listOrtherFinal.sort(function (a, b) {
+      this.listOrtherFinal = this.listOrtherFinal.sort(function (a, b) {
         return new Date(b.dateStart).getTime() - new Date(a.dateStart).getTime()
       })
       this.paramHasUser.subType = 'birthday'
@@ -129,7 +129,7 @@ export class EventPage implements OnInit {
        
         this.handleDate(this.listBir)
         this.handle(this.listBir, 'cutDate', this.listBirFinal)
-        this.listBir.sort(function (a, b) {
+        this.listBir = this.listBir.sort(function (a, b) {
           return new Date(b.dateStart).getTime() - new Date(a.dateStart).getTime()
         })
 
@@ -138,7 +138,7 @@ export class EventPage implements OnInit {
           this.listAni = data.message
           this.handleDate(this.listAni)
           this.handle(this.listAni, 'cutDate', this.listAniFinal)
-          this.listAniFinal.sort(function (a, b) {
+          this.listAniFinal = this.listAniFinal.sort(function (a, b) {
             return new Date(b.dateStart).getTime() - new Date(a.dateStart).getTime()
           })
           this.loading.dismiss()

@@ -25,7 +25,7 @@ export const APICONFIG =  {
   ACCOUNT: {
     PROFILE_USER: `/user`,
     UPDATE_PROFILE: `/user/update_info`,
-    
+    UPDATE_AVATAR: `user/update_avatar`,
     UPDATE_PASS: `/user/update_password`,
     GETDETAIL: (id) => `/app/users/${id}`,
     EDIT: (id) => `/app/users/${id}`,
@@ -57,6 +57,10 @@ export const APICONFIG =  {
     GET_BY_ID: (id) => `/event/${id}`,
     UPDATE: (id)=>`/event/update/${id}`
 
+  },
+  POST: {
+    GET: `/upload`,
+    SAVE: `/upload/save-image`
   },
   HISTORY: {
     GET: `/history`
