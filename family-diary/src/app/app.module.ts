@@ -1,3 +1,4 @@
+import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -12,6 +13,7 @@ import { AppComponent } from './app.component';
 import { AuthGuardService } from './@app-core/auth-guard.service';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 // import { FCM } from '@ionic-native/fcm';
 // import { FCM } from "cordova-plugin-fcm-with-dependecy-updated/ionic/ngx";
 @NgModule({
@@ -31,6 +33,8 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
     Camera,
     SplashScreen,
     StatusBar,
+    Geolocation,
+    NativeGeocoder
     // FCM,
     //   { 
     //     provide: RouteReuseStrategy, 
