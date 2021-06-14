@@ -15,9 +15,10 @@
         </ion-buttons>
           <ion-label *ngFor = "let item of daysofMonth" class="day"
           [style.margin-left]="item.day == '01'? item.mr:'0vw'"
-          [ngClass] ="{'to-day': item.today == today }"
+         
           >
-          {{item.day}}
+          <span  [ngClass] ="{'to-day': item.today == today }"> {{item.day}}</span>
+         
           <span class="active" *ngIf="item.check"></span>
         </ion-label>
       </ion-buttons>

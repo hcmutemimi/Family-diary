@@ -232,7 +232,6 @@ export class HomePage implements OnInit {
   }
    getDataToDo() {
      this.queryParam.subType = 'to-do'
-
     this.eventService.getEventFamily(this.queryParam).subscribe(data => {
       this.dataToDo = data.message
       this.dataToDo = this.dataToDo.sort(function (a, b) {

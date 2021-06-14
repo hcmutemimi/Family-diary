@@ -118,12 +118,13 @@ export class CalendarEventPage implements OnInit {
  }
   prevMonth() {
     this.daysofMonth = []
-    this.nameMonth = this.nameMonth - 1
-    this.currentMonth = this.currentMonth - 1
     if (this.currentMonth == 0) {
       this.currentMonth = 11
       this.nameMonth = 12
       this.year = this.year - 1
+    }else {
+      this.nameMonth = this.nameMonth - 1
+      this.currentMonth = this.currentMonth - 1
     }
     this.getDaysInMonthUTC(this.currentMonth, this.year)
     this.paramMonth = (parseInt(this.nameMonth)) < 10 ? `0${this.nameMonth}`: this.nameMonth
@@ -132,12 +133,13 @@ export class CalendarEventPage implements OnInit {
   }
   nextMonth() {
     this.daysofMonth = []
-    this.nameMonth = this.nameMonth + 1
-    this.currentMonth = this.currentMonth + 1
-    if (this.currentMonth == 12) {
+    if (this.currentMonth == 11) {
       this.currentMonth = 0
       this.nameMonth = 1
       this.year = this.year + 1
+    }else {
+      this.nameMonth = this.nameMonth + 1
+      this.currentMonth = this.currentMonth + 1
     }
     this.getDaysInMonthUTC(this.currentMonth, this.year)
     this.paramMonth = (parseInt(this.nameMonth)) < 10 ? `0${this.nameMonth}`: this.nameMonth

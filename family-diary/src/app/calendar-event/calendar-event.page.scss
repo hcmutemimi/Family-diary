@@ -96,19 +96,25 @@ ion-content {
   width: 12vw;
   text-align: center;
   font-size: 16px;
-  height: 6vh;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
   border-radius: 50%;
+  .to-day {
+    color: red;
+    background-color: #fff;
+    font-size: 17px !important;
+    width: 42px;
+    height: 40px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
 }
-.to-day {
-  color: red;
-  font-size: 19px;
-  background-color: #fff;
- 
-}
+
 
 .active{
   content: "";
