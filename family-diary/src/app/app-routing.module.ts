@@ -110,7 +110,11 @@ const routes: Routes = [
     canActivate: [AuthGuardService],
   },
   { path: '**', redirectTo: 'home'  },
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },  {
+    path: 'maps',
+    loadChildren: () => import('./@app-core/@modular/maps/maps.module').then( m => m.MapsPageModule)
+  },
+
   
   
  
