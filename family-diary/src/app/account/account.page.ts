@@ -55,9 +55,15 @@ export class AccountPage implements OnInit {
   }
   ngDoCheck() {
     this.avatar = localStorage.getItem('avatar')
+    if(this.avatar == 'null') {
+      this.avatar = 'assets/img/avatar.png'
+    }
   }
   ionViewWillEnter() {
     this.avatar = localStorage.getItem('avatar')
+    if(this.avatar == 'null') {
+      this.avatar = 'assets/img/avatar.png'
+    }
   }
 
   initForm() {

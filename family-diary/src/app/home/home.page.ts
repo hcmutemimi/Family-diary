@@ -293,7 +293,7 @@ export class HomePage implements OnInit {
       ) {
         this.checkInfo = true
       }
-    })
+    })  
   }
   toggleHasSetting(hasButton) {
     this.hasButton = !hasButton;

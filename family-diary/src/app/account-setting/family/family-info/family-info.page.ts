@@ -89,6 +89,9 @@ export class FamilyInfoPage implements OnInit {
     }
     this.familyMemberService.getListFamily(queryParams).subscribe(data => {
       this.listFamilyMember = data.message
+      this.listFamilyMember.map(i => {
+          return i.avatar == null? i.avatar = 'assets/img/avatar.png': i.avatar
+      });
       this.checkHost()
     })
   }

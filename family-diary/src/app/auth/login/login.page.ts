@@ -170,19 +170,6 @@ export class LoginPage implements OnInit {
       localStorage.setItem('userId', data.user._id)
       localStorage.setItem('email', data.user.email)
       localStorage.setItem('avatar', data.user.avatar)
-      if(data.user.lName === null || 
-        data.user.fName === null ||
-        data.user.birthday === null ||
-        data.user.name === null ||
-        data.user.email === null ||
-        data.user.phoneNumber === null ||
-        data.user.birthday === null ||
-        data.user.avatar === null ||
-        data.user.lat === null ||
-        data.user.long === null
-         ) {
-      }
-   
     })
   }
 
