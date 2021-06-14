@@ -1,3 +1,4 @@
+import { GeolocationService } from 'src/app/@app-core/utils';
 import { ErrorHandler, ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AccountService, API_URL, AuthService, EventService, FamilyMemberService, FamilyService, StorageService } from './@http-config';
@@ -34,7 +35,8 @@ export class CoreModule {
         EventService,
         HistoryService,
         CameraService,
-        PostService
+        PostService,
+        GeolocationService
       ]
     }
   }

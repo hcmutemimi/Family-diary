@@ -178,3 +178,24 @@ html, body {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+.google-map-modal {
+  --height: 90%;
+
+  sc-ion-modal-ios {
+    display: none;
+  }
+
+  .modal-wrapper {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+
+    .ion-page {
+      justify-content: flex-start;
+    }
+  }
+}

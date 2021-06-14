@@ -1,3 +1,4 @@
+import { GeolocationService } from 'src/app/@app-core/utils';
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { AccountService, FamilyService, PATTERN } from '../../@app-core/@http-config'
@@ -66,7 +67,8 @@ export class LoginPage implements OnInit {
     private accountService: AccountService,
     private loadingService: LoadingService,
     private modalService: ModalService,
-    private familyService: FamilyService
+    private familyService: FamilyService,
+    private geolocationService: GeolocationService
   ) { }
   ngOnInit() {
     this.initForm()
@@ -235,5 +237,8 @@ export class LoginPage implements OnInit {
         this.markFormGroupTouched(control)
       }
     })
+  }
+  test() {
+    this.geolocationService.openModalGoogleMap()
   }
 }
