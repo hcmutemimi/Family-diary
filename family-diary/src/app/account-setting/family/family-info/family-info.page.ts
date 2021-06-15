@@ -53,8 +53,10 @@ export class FamilyInfoPage implements OnInit {
   getData() {
     this.route.queryParams.subscribe(params => {
       this.infoFamily = JSON.parse(params['data'])
+      console.log(this.infoFamily)
       this.headerCustom.title = this.infoFamily?.name
       this.idFamily = this.infoFamily?._id
+      console.log(this.idFamily,"===")
       if(this.idFamily == localStorage.getItem('familyId')) {
         this.check = true
       }
@@ -69,15 +71,13 @@ export class FamilyInfoPage implements OnInit {
     })
     await popover.present()
     popover.onDidDismiss().then(() => {
-      this.getMember()
-    })
-    popover.onDidDismiss().then(() => {
+      this.getData()
       this.getInfo()
     })
   }
   getInfo() {
     let id = {
-      familyId: localStorage.getItem('familyId')
+      familyId: this.idFamily
     }
     this.familyService.getById(id).subscribe(data =>{
       this.headerCustom.title = data.message.name

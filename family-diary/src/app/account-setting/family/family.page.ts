@@ -32,6 +32,7 @@ export class FamilyPage implements OnInit {
   async getData() {
    this.familyService.getListFamily().subscribe(
      (result) =>{
+       console.log(result)
       this.listFamily = result.message.family
       this.listCount = result.message.counts
       this.listFamily.forEach(e => {
@@ -48,7 +49,6 @@ export class FamilyPage implements OnInit {
     })
   }
   goToDetail(item) {
-    localStorage.setItem('nameFamily',item.name)
     let data = item
     this.router.navigate(['account-setting/family/family-info'], {
       queryParams: {

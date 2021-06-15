@@ -27,7 +27,8 @@ export class GeolocationService {
 
   centerService: google.maps.LatLngLiteral = { lat: parseFloat(localStorage.getItem('lat')), lng: parseFloat(localStorage.getItem('lng')) };
 
-  constructor(public geolocation: Geolocation,
+  constructor(
+    public geolocation: Geolocation,
     public nativeGeocoder: NativeGeocoder,
     public loadingService: LoadingService,
     public PlatForm: Platform,

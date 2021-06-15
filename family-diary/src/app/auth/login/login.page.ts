@@ -1,4 +1,3 @@
-import { GeolocationService } from 'src/app/@app-core/utils';
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { AccountService, FamilyService, PATTERN } from '../../@app-core/@http-config'
@@ -68,7 +67,6 @@ export class LoginPage implements OnInit {
     private loadingService: LoadingService,
     private modalService: ModalService,
     private familyService: FamilyService,
-    private geolocationService: GeolocationService
   ) { }
   ngOnInit() {
     this.initForm()
@@ -146,17 +144,6 @@ export class LoginPage implements OnInit {
         })
     }
   }
-  setLocalStore() {
-    // this.accountService.getAccounts().subscribe(result => {
-    //   localStorage.setItem('email',result.app_user.email) 
-    //   if(result.app_user.avatar == null) {
-    //     localStorage.setItem('avatar', "https://i.imgur.com/edwXSJa.png")
-    //   }
-    //   else {
-    //     localStorage.setItem('avatar', result.app_user.avatar)
-    //   }
-    // })
-  }
   getDataFamily() {
     this.familyService.getListFamily().subscribe(data => {
       localStorage.setItem('familyId', data.message.family[0]._id)
@@ -224,8 +211,5 @@ export class LoginPage implements OnInit {
         this.markFormGroupTouched(control)
       }
     })
-  }
-  test() {
-    this.geolocationService.openModalGoogleMap()
   }
 }

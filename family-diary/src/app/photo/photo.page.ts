@@ -33,10 +33,15 @@ export class PhotoPage implements OnInit {
     }
     this.imageService.getImage(param).subscribe(data =>{
       this.dataPost = data.message
+      console.log(this.dataPost)
       this.dataPost = this.dataPost.sort(function (a, b) {
         return new Date(b.mDate).getTime() - new Date(a.mDate).getTime()
       })
-
+      this.dataPost.forEach(i => {
+        if(i.userId.avatar == null) {
+          i.userId.avatar = 'assets/img/avatar.png'
+        }
+      });
     })
   }
   toggleClick() {

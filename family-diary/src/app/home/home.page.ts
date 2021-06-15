@@ -111,8 +111,8 @@ export class HomePage implements OnInit {
     private toastService: ToastService,
     private navController: NavController,
     private alertController: AlertController,
-    private eventService: EventService
-    // private geolocationService: GeolocationService,
+    private eventService: EventService,
+    private geolocationService: GeolocationService,
 
 
   ) { }
@@ -335,7 +335,7 @@ export class HomePage implements OnInit {
   async goToDetail(item) {
 
     if (item.desUrl == '/map') {
-      // this.geolocationService.openModalGoogleMap();
+      this.geolocationService.openModalGoogleMap();
 
       // const modal = await this.modal.create({
       //   component: ActivityPage,

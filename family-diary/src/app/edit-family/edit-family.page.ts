@@ -45,6 +45,7 @@ export class EditFamilyPage implements OnInit {
     }
     this.family.updateFamily(this.id, name).subscribe(data =>{
       if(this.check == true) {
+        console.log(1)
         localStorage.setItem('nameFamily', this.formSubmit.get('name').value)
       }
       this.modal.dismiss()
