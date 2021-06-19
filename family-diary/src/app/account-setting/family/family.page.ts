@@ -32,7 +32,6 @@ export class FamilyPage implements OnInit {
   async getData() {
    this.familyService.getListFamily().subscribe(
      (result) =>{
-       console.log(result)
       this.listFamily = result.message.family
       this.listCount = result.message.counts
       this.listFamily.forEach(e => {

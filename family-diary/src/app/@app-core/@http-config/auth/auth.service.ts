@@ -40,8 +40,8 @@ export class AuthService {
       }
       ))
   }
-  public activeAccount(email, req) {
-    return this.http.put(`${APICONFIG.AUTH.ACTIVE_ACCOUNT}?${requestQuery(email)}`, req).pipe(
+  public activeAccount(req) {
+    return this.http.post(`${APICONFIG.AUTH.ACTIVE_ACCOUNT}`, req).pipe(
       map((result) => {
         return result
       }),

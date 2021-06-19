@@ -12,7 +12,7 @@ export class PostService {
   ) { }
 
   public uploadPhoto(req) {
-    return this.http.post('http://image-service.patitek.com/api/v1/images/upload', req).pipe(
+    return this.http.post(`${APICONFIG.UPLOAD.GET_URL}`, req).pipe(
       map((result) => {
         return result
       }),

@@ -11,7 +11,7 @@ export const APICONFIG =  {
   AUTH: {
     SIGNIN: '/auth/signin',
     SIGNUP: `/auth/signup`,
-    ACTIVE_ACCOUNT: `/auth/active/`,
+    ACTIVE_ACCOUNT: `/auth/active`,
     TYPE_OF_USER: `/auth/users/profile`,
     SEND_CODE: `/auth/reset-password/send-code`,
     CHECK_CODE_RESET: `/auth/reset-password/check-code`,

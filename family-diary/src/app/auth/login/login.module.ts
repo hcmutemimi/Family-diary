@@ -14,7 +14,6 @@ import { AuthService } from 'src/app/@app-core/@http-config/auth';
     CommonModule,
     FormsModule,
     IonicModule,
-    
     ReactiveFormsModule,
     LoginPageRoutingModule
   ],

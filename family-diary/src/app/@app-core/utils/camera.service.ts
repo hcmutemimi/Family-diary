@@ -31,10 +31,16 @@ export class CameraService {
                 var dataUri = "data:image/jpeg;base64," + dataUrl;
                 var image = this.dataURItoBlob(dataUri);
                 let formData = new FormData;
-                formData.append('files[]', image);
+                // formData.append('files[]', image);
+                // API upload get url from cloudinary
+                formData.append('photo', image);
+
                 this.accountService.uploadPhoto(formData).subscribe((data) => {
-                    localStorage.setItem('avatar', data['data'][0])
-                    this.accountService.updateAvatar({ avatar: data['data'][0] }).subscribe(data => {
+                    //localStorage.setItem('avatar', data['data'][0])
+                    //API upload get url from cloudinary
+                    localStorage.setItem('avatar', data['message'])
+
+                    this.accountService.updateAvatar({ avatar: data['message'] }).subscribe(data => {
                         this.loadingService.dismiss();
                         this.accountService.getAccount().subscribe();
                         this.toastService.present('Updated successfully !');
@@ -43,7 +49,6 @@ export class CameraService {
                 })
             } 
         }).catch((err) => {
-            console.error(err)
             this.loadingService.dismiss();
         })
     }
@@ -61,11 +66,11 @@ export class CameraService {
                 var dataUri = "data:image/jpeg;base64," + dataUrl;
                 var image = this.dataURItoBlob(dataUri);
                 let formData = new FormData;
-                formData.append('files[]', image)
+                formData.append('photo', image)
                 this.postService.uploadPhoto(formData).subscribe((data) => {
                     let param = {
                         familyId: familyId,
-                        url: data['data'][0]
+                        url: data['message']
                     }
                     this.postService.saveImage(param).subscribe(data => {
                         this.loadingService.dismiss()
@@ -96,11 +101,11 @@ export class CameraService {
                 var dataUri = "data:image/jpeg;base64," + dataUrl;
                 var image = this.dataURItoBlob(dataUri);
                 let formData = new FormData;
-                formData.append('files[]', image)
+                formData.append('photo', image)
                 this.postService.uploadPhoto(formData).subscribe((data) => {
                     let param = {
                         familyId: familyId,
-                        url: data['data'][0]
+                        url: data['message']
                     }
                     this.postService.saveImage(param).subscribe(data => {
                         this.loadingService.dismiss()
@@ -130,10 +135,10 @@ export class CameraService {
                 var dataUri = "data:image/jpeg;base64," + dataUrl;
                 var image = this.dataURItoBlob(dataUri);
                 let formData = new FormData;
-                formData.append('files[]', image);
+                formData.append('photo', image);
                 this.accountService.uploadPhoto(formData).subscribe((data) => {
-                    localStorage.setItem('avatar', data['data'][0])
-                    this.accountService.updateAvatar({ avatar: data['data'][0] }).subscribe(data => {
+                    localStorage.setItem('avatar', data['message'])
+                    this.accountService.updateAvatar({ avatar: data['message'] }).subscribe(data => {
                         this.loadingService.dismiss();
                         this.toastService.present('Updated sucessfully!');
                         this.accountService.getAccount().subscribe();

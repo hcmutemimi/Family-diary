@@ -53,10 +53,8 @@ export class FamilyInfoPage implements OnInit {
   getData() {
     this.route.queryParams.subscribe(params => {
       this.infoFamily = JSON.parse(params['data'])
-      console.log(this.infoFamily)
       this.headerCustom.title = this.infoFamily?.name
       this.idFamily = this.infoFamily?._id
-      console.log(this.idFamily,"===")
       if(this.idFamily == localStorage.getItem('familyId')) {
         this.check = true
       }
@@ -96,27 +94,24 @@ export class FamilyInfoPage implements OnInit {
     })
   }
   checkHost() {
-    this.listFamilyMember.forEach(element => {
       var param = {
-        userId: '',
+        userId: localStorage.getItem('userId'),
         familyId: localStorage.getItem('familyId')
       }
-      param.userId = element._id
       this.familyService.checkHost(param).subscribe(
         (data) => {
-          this.loadingService.dismiss()
-          if (data.message != null) {
-            if (element._id == data.message.userId) {
-              this.idHost = element._id
-              this.checkIsHost = true
-            }
+          if(data.message != null) {
+            this.loadingService.dismiss()
+            this.idHost = data.message.userId
+            this.checkIsHost = true
+          } else {
+            this.checkIsHost = false
           }
         },
         (error) => {
           throw error
         }
       )
-    })
 
   }
   async remove(item) {

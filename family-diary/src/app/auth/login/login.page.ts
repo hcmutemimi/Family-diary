@@ -106,6 +106,11 @@ export class LoginPage implements OnInit {
 
   changedSegment(event) {
     this.segmentValue = event.target.value
+    if(this.segmentValue == 'login') {
+      this.formSignUp.reset()
+    }else {
+      this.formLogin.reset()
+    }
   }
   showPassword() {
     this.showpass = !this.showpass
@@ -166,17 +171,17 @@ export class LoginPage implements OnInit {
     this.loadingService.present()
     if (!this.canSubmitSignUp()) {
       this.markFormGroupTouched(this.formSignUp)
+      this.toastService.present('Please check again!')
     } else if (!this.checkMatchConfirmedPassword()) {
       this.toastService.present('Password not match.')
     } else {
       this.authService.signup(this.formSignUp.value).subscribe((data: any) => {
         this.loadingService.dismiss()
         this.modalService.presentModal(ConfirmMailPage, this.formSignUp.value.email)
-        this.formSignUp.reset()
+        // this.formSignUp.reset()
       },
         (error) => {
           this.loadingService.dismiss()
-
           this.toastService.present(error.message)
         }
       )

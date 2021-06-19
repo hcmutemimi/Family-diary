@@ -1,10 +1,8 @@
-import { createUrlResolverWithoutPackagePrefix } from '@angular/compiler';
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController, ModalController, NavController, Platform } from '@ionic/angular';
+import { ModalController, NavController, Platform } from '@ionic/angular';
 import { AccountService, EventService, FamilyMemberService, FamilyService } from '../@app-core/@http-config';
-import { LoadingService, ToastService } from '../@app-core/utils';
-import { GeolocationService } from '../@app-core/utils/geolocation.service';
+import { GeolocationService, LoadingService, ToastService } from '../@app-core/utils';
 import { NewFamilyPage } from '../new-family/new-family.page';
 
 @Component({
@@ -110,7 +108,6 @@ export class HomePage implements OnInit {
     private platform: Platform,
     private toastService: ToastService,
     private navController: NavController,
-    private alertController: AlertController,
     private eventService: EventService,
     private geolocationService: GeolocationService,
 
@@ -261,7 +258,7 @@ export class HomePage implements OnInit {
     this.familyMemberService.getListFamily(queryParams).subscribe(data => {
       this.listFamilyMember = data.message
       this.listFamilyMember.forEach(i =>{
-        if(i.avatar === null) {
+        if(i.avatar == null) {
           i.avatar = 'assets/img/avatar.png'
         }
       })

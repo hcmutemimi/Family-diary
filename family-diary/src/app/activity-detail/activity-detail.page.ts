@@ -62,7 +62,10 @@ export class ActivityDetailPage implements OnInit {
       }else if(item.objectName == 'list-to-do') {
         item['colorCode'] = '#00B0B2'
         item['img'] = 'assets/img/list-to-do.svg'
-      }else {
+      }else if(item.objectName == 'upload') {
+        item['colorCode'] = '#42B245'
+        item['img'] = 'assets/img/camera-green.svg'
+      } else {
         item['colorCode'] = '#FD7160'
         item['img'] = 'assets/img/menu/event.svg'
       }

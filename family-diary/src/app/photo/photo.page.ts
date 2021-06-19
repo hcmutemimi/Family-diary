@@ -10,7 +10,7 @@ import * as moment from 'moment';
 })
 export class PhotoPage implements OnInit {
   headerCustom = {
-    background: '#474747', title: 'SHARING PHOTOS ^_^', color: '#E7E7E7', back: true
+    background: '#474747', title: 'SHARING PHOTOS ^_^', color: '#E7E7E7'
   }
   show = false
   familyId
@@ -21,6 +21,9 @@ export class PhotoPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    
+  }
+  ionViewWillEnter() {
     this.getData()
     this.familyId = localStorage.getItem('familyId')
   }
@@ -33,7 +36,6 @@ export class PhotoPage implements OnInit {
     }
     this.imageService.getImage(param).subscribe(data =>{
       this.dataPost = data.message
-      console.log(this.dataPost)
       this.dataPost = this.dataPost.sort(function (a, b) {
         return new Date(b.mDate).getTime() - new Date(a.mDate).getTime()
       })

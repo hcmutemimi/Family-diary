@@ -9,12 +9,14 @@ import { IntercepterService } from './http-interceptor';
 import { HistoryService } from './@http-config/history';
 import { CameraService } from './utils/camera.service';
 import { PostService } from './@http-config/post';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
+    FormsModule,
     HttpClientModule, 
-
+    ReactiveFormsModule
   ],
 })
 export class CoreModule {

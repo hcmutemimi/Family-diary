@@ -23,7 +23,6 @@ export class MapsPage implements OnInit {
   constructor(
     public platform: Platform,
     private GeolocationService: GeolocationService,
-    private geolocationService: GeolocationService,
   ) { }
 
   ngOnInit() {
@@ -83,10 +82,10 @@ export class MapsPage implements OnInit {
 
   addMarkersToMap(markers) {
     for (let marker of markers) {
-      let distance: any = this.geolocationService.distanceFromUserToPoint(this.center.lat, this.center.lng, marker.location.lat, marker.location.long);
+      let distance: any = this.GeolocationService.distanceFromUserToPoint(this.center.lat, this.center.lng, marker.location.lat, marker.location.long);
       let tempUnit = ' km';
       if (distance < 1) {
-        distance = this.geolocationService.distanceFromUserToPointMet(this.center.lat, this.center.lng, marker.location.lat, marker.location.long).toFixed();
+        distance = this.GeolocationService.distanceFromUserToPointMet(this.center.lat, this.center.lng, marker.location.lat, marker.location.long).toFixed();
         tempUnit = ' m';
       }
       distance = distance + tempUnit;

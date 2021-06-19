@@ -92,6 +92,7 @@ export class AccountPage implements OnInit {
           text: "Choose from libray",
           handler: () => {
             this.cameraService.getAvatarUpload()
+          
           }
         },
         {

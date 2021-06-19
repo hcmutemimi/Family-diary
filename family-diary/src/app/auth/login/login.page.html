@@ -174,7 +174,7 @@
           <ng-container>
             <div
               class="error-message"
-              *ngIf="formSignUp.get('password').value.length > 0 && formSignUp.get('password').value.length < 6 && (formSignUp.get('password').dirty || formSignUp.get('password').touched)"
+              *ngIf="formSignUp.get('password').value?.length > 0 && formSignUp.get('password').value?.length < 6 && (formSignUp.get('password').dirty || formSignUp.get('password').touched)"
             >
               {{ validationSignUp.password[1].message }}
             </div>

@@ -15,7 +15,7 @@ export class AccountSettingPage implements OnInit {
   isOpeningModal = false;
   name = localStorage.getItem('name') || ''
   headerCustom = {
-    background: '#fff', title: 'MANAGE FAMILY'
+    background: '#fff', title: 'SETTING'
   }
   avatar
   constructor(
