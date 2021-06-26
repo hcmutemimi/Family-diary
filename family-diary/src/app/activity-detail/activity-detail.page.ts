@@ -90,7 +90,7 @@ export class ActivityDetailPage implements OnInit {
         component: ToDoDetailPage,
         swipeToClose: true,
         cssClass: 'modal__addToDo',
-        componentProps: { title: 'Detail To Do', id: item.objectId  }
+        componentProps: { title: 'DETAIL TO DO', id: item.objectId  }
       })
       await modal.present()
     }

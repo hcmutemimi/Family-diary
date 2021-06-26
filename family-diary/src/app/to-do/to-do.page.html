@@ -43,21 +43,19 @@
         <span class="due"> DUE: {{item.dateEnd | date:'EEE, MMMM d, y, h:mm a'}}</span><br />
         For <span *ngFor="let i of item.join">, {{i.name}} </span>
       </ion-buttons>
-      <i class="fas fa-star"*ngIf="item.importance"></i>
+      <i class="fas fa-star" *ngIf="item.importance"></i>
 
     </div>
   </ion-list>
   <ion-list *ngIf= "!tabToDo">
-    <div class="item" *ngFor="let item of listListToDo"(click)="gotoDetail(item)" >
-      <!-- <i class="fas fa-list-alt" class="img-list"></i> -->
+    <div class="item" *ngFor="let item of listListToDo"(click)="gotoDetailList(item)" >
       <img src="assets/img/list.svg" alt="add event" class="img-list" />
       <ion-buttons>
         <ion-label class="title">{{item.name}} </ion-label>
         <span class="due">DUE: {{item.dateEnd | date:'EEE, MMMM d, y, h:mm a'}}</span><br />
         For <span *ngFor="let i of item.join">, {{i.name}} </span>
       </ion-buttons>
-      <i class="fas fa-star"*ngIf="item.importance"></i>
-
+      <i class="fas fa-star" *ngIf="item.importance"></i>
     </div>
   </ion-list>
 

@@ -9,15 +9,16 @@
         <i class="fas fa-plus-circle" (click)="addItem()"></i>
       </div>
       <div *ngFor="let item of listToDo">
-        <ion-item class="list-item" lines="none">
+        <ion-buttons class="list-item" lines="none">
+          <ion-checkbox (ionChange) = "changeStatus(item)" checked ="{{item.check}}"></ion-checkbox>
           <ion-label> {{item.name}} </ion-label>
           <i class="fas fa-minus-circle" (click)="removeItem(item)"></i>
-        </ion-item>
+        </ion-buttons>
 
       </div>
       <div class="footer" >
         <ion-button (click)="submitEvent()" class="btn-submit"
-          >DONE<i class="fas fa-chevron-right"></i
+          >{{text}}<i class="fas fa-chevron-right"></i
         ></ion-button>
       </div>
     </form>

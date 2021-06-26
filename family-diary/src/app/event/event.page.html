@@ -68,7 +68,7 @@
         <ion-label class="event-time"
           >{{item[0].cutDate |date :'MMMM, Y'}}</ion-label
         >
-        <ion-item-group class="group-event" *ngFor="let i of item">
+        <ion-item-group class="group-event" *ngFor="let i of item" (click)="gotoDetailBA(i)">
           <div class="event">
             <ion-label class="event-date">
               <span class="day"
@@ -87,7 +87,7 @@
         <ion-label class="event-time"
           >{{item[0].cutDate |date :'MMMM, Y'}}</ion-label
         >
-        <ion-item-group class="group-event" *ngFor="let i of item">
+        <ion-item-group class="group-event" *ngFor="let i of item"(click)="gotoDetailBA(i)">
           <div class="event">
             <ion-label class="event-date">
               <span class="day"
@@ -106,7 +106,7 @@
         <ion-label class="event-time"
           >{{item[0].cutDate |date :'MMMM, Y'}}</ion-label
         >
-        <ion-item-group class="group-event" *ngFor="let i of item">
+        <ion-item-group class="group-event" *ngFor="let i of item" (click)="gotoDetail(i)">
           <div class="event">
             <ion-label class="event-date">
               <span class="day"

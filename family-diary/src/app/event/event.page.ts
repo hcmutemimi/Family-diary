@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IonSlides, ModalController } from '@ionic/angular';
 import { EventService } from '../@app-core/@http-config';
 import { DAY } from '../@app-core/@http-config/messages';
@@ -21,18 +21,16 @@ export class EventPage implements OnInit {
     loop: true,
     setInitialSlide: 0,
     autoplay: true
-    // setInitialSlide: 2,
-    // speed: 100
   };
   valueTag = 'birthday'
   param = {
     subType: '',
-    familyId: localStorage.getItem('familyId')
+    familyId: ''
   }
   paramHasUser = {
     subType: '',
-    userId: localStorage.getItem('userId'),
-    familyId: localStorage.getItem('familyId')
+    userId: '',
+    familyId: ''
   }
   currentIndex = 0
   listDay = DAY
@@ -48,27 +46,58 @@ export class EventPage implements OnInit {
     private modal: ModalController,
     private loading: LoadingService,
     private eventService: EventService,
-    private toarst: ToastService
+    private toarst: ToastService,
+    private router: Router
 
   ) { }
 
   ngOnInit() {
+  
   }
   ionViewWillEnter() {
+    this.paramHasUser.userId = localStorage.getItem('userId')
+    this.param.familyId =  localStorage.getItem('familyId')
+    this.paramHasUser.familyId =  localStorage.getItem('familyId')
     this.getData()
   }
 
-  async openAddEvent() {
+  async openAddEvent(data) {
     const modal = await this.modal.create({
       component: AddEventPage,
       swipeToClose: true,
-      cssClass: 'modal__addToDo'
+      cssClass: 'modal__addToDo',
+      componentProps: { for: 'add' }
     })
     await modal.present()
     modal.onWillDismiss().then(() => {
       this.getData()
     })
   }
+  async gotoDetail(item) {
+    const modal = await this.modal.create({
+      component: AddEventPage,
+      swipeToClose: true,
+      cssClass: 'modal__addToDo',
+      componentProps: { for: 'detail', data: item }
+    })
+    await modal.present()
+    modal.onWillDismiss().then(() => {
+      this.getData()
+    })
+  }
+  async gotoDetailBA(item) {
+    const modal = await this.modal.create({
+      component: AddEventPage,
+      swipeToClose: true,
+      cssClass: 'modal__addToDo',
+      componentProps: { for: 'detail', data: item, type: 'birthday-ani' }
+    })
+    await modal.present()
+    modal.onWillDismiss().then(() => {
+      this.getData()
+    })
+  }
+
   reset() {
     this.listOrtherFinal = []
     this.listBirFinal = []
@@ -108,25 +137,23 @@ export class EventPage implements OnInit {
       }
     })
   }
-  addEvent() {
-    this.route.navigateByUrl('add-event')
-  }
+
   getData() {
     this.reset()
     this.param.subType = 'orther'
     this.loading.present()
+      console.log(this.param)
     this.eventService.getEventFamily(this.param).subscribe(data => {
       this.listOrther = data.message
-     
       this.handleDate(this.listOrther)
       this.handle(this.listOrther, 'cutDate', this.listOrtherFinal)
       this.listOrtherFinal = this.listOrtherFinal.sort(function (a, b) {
         return new Date(b.dateStart).getTime() - new Date(a.dateStart).getTime()
       })
       this.paramHasUser.subType = 'birthday'
-      this.eventService.getAllEventByUser(this.paramHasUser).subscribe(data => {
+      this.eventService.getEventCreateByUser(this.paramHasUser).subscribe(data => {
         this.listBir = data.message
-       
+
         this.handleDate(this.listBir)
         this.handle(this.listBir, 'cutDate', this.listBirFinal)
         this.listBir = this.listBir.sort(function (a, b) {
@@ -134,7 +161,8 @@ export class EventPage implements OnInit {
         })
 
         this.paramHasUser.subType = 'anniversaries'
-        this.eventService.getAllEventByUser(this.paramHasUser).subscribe(data => {
+        this.eventService.getEventCreateByUser(this.paramHasUser).subscribe(data => {
+
           this.listAni = data.message
           this.handleDate(this.listAni)
           this.handle(this.listAni, 'cutDate', this.listAniFinal)
@@ -142,7 +170,7 @@ export class EventPage implements OnInit {
             return new Date(b.dateStart).getTime() - new Date(a.dateStart).getTime()
           })
           this.loading.dismiss()
-          if(this.listAni.length == 0 && this.listBir.length == 0 && this.listOrther.length ==0) {
+          if (this.listAni?.length == 0 && this.listBir?.length == 0 && this.listOrther?.length == 0) {
             this.check = true
           }
         },
@@ -150,7 +178,7 @@ export class EventPage implements OnInit {
             this.toarst.present(error.message)
             throw error
           })
-  
+
       },
         (error) => {
           this.toarst.present(error.message)
@@ -161,10 +189,10 @@ export class EventPage implements OnInit {
         this.toarst.present(error.message)
         throw error
       })
-   
-   
+
+
   }
-  
+
   handleDate(list) {
     list.forEach(item => {
       item['cutDate'] = item.dateStart.slice(0, 7)

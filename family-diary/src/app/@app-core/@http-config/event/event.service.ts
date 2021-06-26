@@ -26,6 +26,14 @@ export class EventService {
       catchError((errorRes) => { 
         throw errorRes.error; }));
   }
+  public updateMetaDataEvent(id, request) {
+    return this.http.post(`${APICONFIG.EVENT.UPDATE_META_DATA(id)}`, request).pipe(
+      map((result: any) => {
+        return result;
+      }),
+      catchError((errorRes) => { 
+        throw errorRes.error; }));
+  }
   public getEventStatus(params) {
     return this.http.get(`${APICONFIG.EVENT.GET_BY_STATUS}?${(requestQuery(params))}`).pipe(
       map((result: any) => {
@@ -36,6 +44,14 @@ export class EventService {
   }
   public getAllEventByUser(params) {
     return this.http.get(`${APICONFIG.EVENT.GET_ALL_BY_USER}?${(requestQuery(params))}`).pipe(
+      map((result: any) => {
+        return result;
+      }),
+      catchError((errorRes) => { 
+        throw errorRes.error; }));
+  }
+  public getEventCreateByUser(params) {
+    return this.http.get(`${APICONFIG.EVENT.GET_EVENT_USER_CREATE}?${(requestQuery(params))}`).pipe(
       map((result: any) => {
         return result;
       }),

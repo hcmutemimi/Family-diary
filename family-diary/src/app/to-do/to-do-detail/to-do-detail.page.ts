@@ -46,11 +46,11 @@ export class ToDoDetailPage implements OnInit {
     this.laodingService.present()
     this.initForm()
     this.headerCustom.title = this.title
+    this.getData()
+
   }
   ionViewWillEnter() {
-    this.checkHost()
-    this.getData()
-    this.getMembers()
+
   }
 
   initForm() {
@@ -80,46 +80,11 @@ export class ToDoDetailPage implements OnInit {
         this.formEditToDo.get('note').setValue(this.dataReceive?.note)
         this.formEditToDo.get('importance').setValue(this.dataReceive?.importance)
         this.userJoin = this.dataReceive.join
+        this.getMembers()
         if (this.formEditToDo.get('importance').value) {
-          this.imgName = 'fas fa-star'
+          this.imgName = 'assets/img/star-active.svg'
         } else {
-          this.imgName = 'far fa-star'
-        }},
-        (error) => {
-          throw error
-        }
-    )
-  }
-  getMembers() {
-    let queryParams = {
-      familyId: localStorage.getItem('familyId')
-    }
-    this.familyMemberService.getListFamily(queryParams).subscribe(data => {
-      this.listFamilyMember = data.message
-      this.listFamilyMember.forEach((item) => {
-        let check = false
-        this.userJoin.forEach(i => {
-          if (item._id == i.id) {
-            item.join = true
-            check = true
-          }
-        })
-        if (!check) {
-          item.join = false
-        }
-      })
-    })
-  }
-  checkHost() {
-    let param = {
-      userId: localStorage.getItem('userId'),
-      familyId: localStorage.getItem('familyId')
-    }
-    this.familyService.checkHost(param).subscribe(
-      (data) => {
-        this.idHost = data.message.userId
-        if (this.idHost == localStorage.getItem('userId')) {
-          this.checkIsHost = true
+          this.imgName = 'assets/img/star-b.svg'
         }
       },
       (error) => {
@@ -127,30 +92,52 @@ export class ToDoDetailPage implements OnInit {
       }
     )
   }
-  toggleChooseUser(user) {
-    if (user._id !== this.idHost) {
-      if (user.join) {
-        this.userJoin.forEach((element, index) => {
-          if (element.id == user._id) {
-            this.userJoin.splice(index, 1)
+  getMembers() {
+    let queryParams = {
+      familyId: localStorage.getItem('familyId')
+    }
+
+    this.familyMemberService.getListFamily(queryParams).subscribe(data => {
+      this.listFamilyMember = data.message
+      this.listFamilyMember.forEach (i =>{
+        i.join = false
+      })
+      this.listFamilyMember.forEach((i) => {
+        if (i.avatar === null) {
+          i.avatar = 'assets/img/avatar.png'
+        }
+        this.userJoin.forEach(item => {
+          if (i._id == item.id) {
+            i.join = true
           }
         })
-        user.join = false
-      }
-      else {
-        if (!this.userJoin.includes(user._id)) {
-          this.userJoin.push({ id: user._id, name: user.lName })
+
+      })
+    })
+  }
+
+  toggleChooseUser(user) {
+    if (user.join) {
+      this.userJoin.forEach((element, index) => {
+        if (element.id == user._id) {
+          this.userJoin.splice(index, 1)
         }
-        user.join = true
+      })
+      user.join = false
+    }
+    else {
+      if (!this.userJoin.includes(user._id)) {
+        this.userJoin.push({ id: user._id, name: user.lName })
       }
+      user.join = true
     }
   }
   toggleImportance() {
     if (this.formEditToDo.get('importance').value) {
-      this.imgName = 'fas fa-star'
+      this.imgName = 'assets/img/star-b.svg'
       this.formEditToDo.get('importance').setValue(false)
     } else {
-      this.imgName = 'far fa-star'
+      this.imgName = 'assets/img/star-active.svg'
       this.formEditToDo.get('importance').setValue(true)
     }
   }
@@ -164,7 +151,7 @@ export class ToDoDetailPage implements OnInit {
       location: '',
       dateStart: this.formEditToDo.get('dateStart').value,
       dateEnd: this.formEditToDo.get('dateEnd').value,
-      importance: this.importance,
+      importance: this.formEditToDo.get('importance').value,
       familyId: localStorage.getItem('familyId'),
       typeEvent: "to-do",
       subType: "to-do",
@@ -172,26 +159,22 @@ export class ToDoDetailPage implements OnInit {
       join: this.userJoin,
       notiAlert: this.formEditToDo.get('notiAlert').value
     }
-    // if (this.title == 'NEW TO-DO') {
-    this.param.typeEvent = "to-do"
-    this.param.subType = "to-do",
-      this.eventService.update(this.id, this.param).subscribe(data => {
-        this.toarstService.present('Updated successfully!')
-        this.router.navigateByUrl('/to-do')
-      },
-        (error) => {
-          throw error
-        })
-    // }
-    //  else {
-    //   this.param.typeEvent = "list-to-do"
-    //   this.param.subType = "list-to-do",
-    //     this.router.navigate(['/list-item'], {
-    //       queryParams: {
-    //         data: JSON.stringify(this.param)
-    //       }
-    //     })
-    // }
+    if (this.title == 'DETAIL TO-DO') {
+      this.param.typeEvent = "to-do"
+      this.param.subType = "to-do"
+
+    }
+    else if (this.title == 'UPDATE LIST') {
+      this.param.typeEvent = "list-to-do"
+      this.param.subType = "list-to-do"
+    }
+    this.eventService.update(this.id, this.param).subscribe(data => {
+      this.toarstService.present('Updated successfully!')
+      this.router.navigateByUrl('/to-do')
+    },
+      (error) => {
+        throw error
+      })
     this.modal.dismiss()
   }
   deleteEvent() {

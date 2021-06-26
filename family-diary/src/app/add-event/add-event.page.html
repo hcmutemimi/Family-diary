@@ -14,9 +14,9 @@
         formControlName="location"
         placeholder="Enter location"
       />
-      <ion-item>
+      <ion-item *ngIf="!hiddenType">
         <ion-label>TYPE</ion-label>
-        <ion-select value="birthday" (ionChange)="selectSubType($event)">
+        <ion-select formControlName="subType"  (ionChange)="selectSubType($event)">
           <ion-select-option value="birthday">Birthday</ion-select-option>
           <ion-select-option value="anniversaries"
             >Anniversaries</ion-select-option
@@ -53,11 +53,11 @@
       </div>
       <ion-item lines ="none">
         <ion-label>MARK AS IMPORTANT</ion-label>
-        <i class="{{name}}"(click)="toggleImg()"></i>
+        <i class="{{imgName}}"(click)="toggleImg()"></i>
       </ion-item>
       <ion-item>
       <ion-label >ALL-DAY </ion-label>
-      <ion-toggle color="primary"(ionChange)="changeTime($event)"></ion-toggle>
+      <ion-toggle color="primary"(ionChange)="changeTime($event)" checked ="labelDateEnd"></ion-toggle>
     </ion-item>
       <ion-item>
         <ion-label>STARTS: </ion-label>
@@ -67,7 +67,6 @@
         <ion-label>ENDS: </ion-label>
         <ion-input [disabled] ="labelDateEnd">
           <input  type="datetime-local" formControlName="dateEnd" class="endDate" />
-
         </ion-input>
 
       </ion-item>
@@ -101,7 +100,7 @@
       />
       <div class="footer">
         <ion-button (click)="submitEvent()" class="btn-submit"
-        >Create<i class="fas fa-chevron-right"></i
+        >{{textBtn}}<i class="fas fa-chevron-right"></i
       ></ion-button>
       </div>
      

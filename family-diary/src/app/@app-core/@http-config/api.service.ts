@@ -52,7 +52,9 @@ export const APICONFIG =  {
     GET_ALL_BY_USER: `/event/event-all`,
     GET_BY_MONTH: `/event/event-by-month`,
     GET_EVENT_FAMILY: `/event/event-family`,
+    GET_EVENT_USER_CREATE: `/event/event-user-create`,
     UPDATE_STATUS: (id) => `/event/update-status-event/${id}`,
+    UPDATE_META_DATA: (id) => `/event/update-metadata-event/${id}`,
     DELETE: (id) => `/event/${id}`,
     GET_BY_ID: (id) => `/event/${id}`,
     UPDATE: (id)=>`/event/update/${id}`

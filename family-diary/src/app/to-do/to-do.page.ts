@@ -37,7 +37,6 @@ export class ToDoPage implements OnInit {
     private router: Router,
     private modal: ModalController,
     private eventService: EventService,
-    private toarstService: ToastService,
     private loadingService: LoadingService,
     private alertCtrl: AlertController
 
@@ -57,6 +56,14 @@ export class ToDoPage implements OnInit {
     this.eventService.getAllEventByUser(this.param).subscribe(data => {
       this.listToDo = data.message
       this.listData = this.listToDo
+      console.log(this.listData)
+      this.listData.forEach(i =>{
+        if(i.importance) {
+        i.img = 'fas fa-star'
+      } else {
+        i.img = 'far fa-star'
+      }
+      })
       this.loadingService.dismiss()
     },
       (error) => {
@@ -117,16 +124,11 @@ export class ToDoPage implements OnInit {
     this.router.navigateByUrl('/home')
   }
   async gotoDetail(item) {
-    // this.router.navigate(['/to-do/to-do-detail'],{
-    //   queryParams: {
-    //     data: JSON.stringify(item._id)
-    //   }
-    // })
     const modal = await this.modal.create({
       component: ToDoDetailPage,
       swipeToClose: true,
       cssClass: 'modal__addToDo',
-      componentProps: { title: 'Detail To Do', id: item._id }
+      componentProps: { title: 'DETAIL TO DO', id: item._id }
     })
     await modal.present()
     this.show = false
@@ -134,6 +136,13 @@ export class ToDoPage implements OnInit {
       this.getMembers()
       this.getDataToDo()
       this.getDataListToDo()
+    })
+  }
+  gotoDetailList (item) {
+    this.router.navigate(['/list-item'], {
+      queryParams: {
+        data: JSON.stringify({ list: item, for: "detail"})
+      }
     })
   }
   async addList() {

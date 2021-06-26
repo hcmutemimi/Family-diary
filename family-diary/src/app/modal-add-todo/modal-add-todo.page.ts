@@ -146,8 +146,9 @@ export class ModalAddTodoPage implements OnInit {
           this.toarstService.present('Create new to-do successfully!')
           this.router.navigateByUrl('/to-do')
         },
-          (error) => {
-            throw error
+          () => {
+            this.loadingService.dismiss()
+           this.toarstService.present('Please check again!') 
           })
     } else {
       this.modal.dismiss()
@@ -155,7 +156,7 @@ export class ModalAddTodoPage implements OnInit {
       this.param.subType = "list-to-do",
         this.router.navigate(['/list-item'], {
           queryParams: {
-            data: JSON.stringify(this.param)
+            data: JSON.stringify({paramAdd: this.param, for: "add"})
           }
         })
     }
