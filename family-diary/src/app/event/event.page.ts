@@ -142,7 +142,6 @@ export class EventPage implements OnInit {
     this.reset()
     this.param.subType = 'orther'
     this.loading.present()
-      console.log(this.param)
     this.eventService.getEventFamily(this.param).subscribe(data => {
       this.listOrther = data.message
       this.handleDate(this.listOrther)

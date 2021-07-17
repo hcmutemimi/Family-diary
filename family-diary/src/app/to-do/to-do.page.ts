@@ -56,7 +56,6 @@ export class ToDoPage implements OnInit {
     this.eventService.getAllEventByUser(this.param).subscribe(data => {
       this.listToDo = data.message
       this.listData = this.listToDo
-      console.log(this.listData)
       this.listData.forEach(i =>{
         if(i.importance) {
         i.img = 'fas fa-star'

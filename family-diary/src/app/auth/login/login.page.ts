@@ -16,6 +16,8 @@ export class LoginPage implements OnInit {
   public showpass = false;
   public name = 'eye-outline';
   // public status = 'login';
+  loadingLogin = false
+  loadingSignup = false
 
   country_codes: any
   segmentValue = 'login'
@@ -106,9 +108,9 @@ export class LoginPage implements OnInit {
 
   changedSegment(event) {
     this.segmentValue = event.target.value
-    if(this.segmentValue == 'login') {
+    if (this.segmentValue == 'login') {
       this.formSignUp.reset()
-    }else {
+    } else {
       this.formLogin.reset()
     }
   }
@@ -131,20 +133,17 @@ export class LoginPage implements OnInit {
     return this.formSignUp.valid
   }
   submitLogin() {
-    this.loadingService.present()
     if (!this.canSubmitLogin()) {
       this.markFormGroupTouched(this.formLogin)
-      this.loadingService.dismiss()
     } else {
+      this.loadingLogin = true
       this.authService.signin(this.formLogin.value).subscribe(() => {
         this.getInfoUser()
         this.getDataFamily()
-        this.loadingService.dismiss()
       },
         (error) => {
+          this.loadingLogin = false
           this.toastService.present(error.message)
-          this.loadingService.dismiss()
-
           throw error
         })
     }
@@ -154,9 +153,9 @@ export class LoginPage implements OnInit {
       localStorage.setItem('familyId', data.message.family[0]._id)
       this.router.navigate(['home'])
     },
-    (error) =>{
-      throw error
-    })
+      (error) => {
+        throw error
+      })
   }
   getInfoUser() {
     this.accountService.getAccount().subscribe((data: any) => {
@@ -168,20 +167,21 @@ export class LoginPage implements OnInit {
   }
 
   submitSignUp() {
-    this.loadingService.present()
+
     if (!this.canSubmitSignUp()) {
       this.markFormGroupTouched(this.formSignUp)
       this.toastService.present('Please check again!')
     } else if (!this.checkMatchConfirmedPassword()) {
       this.toastService.present('Password not match.')
     } else {
+      this.loadingSignup = true
       this.authService.signup(this.formSignUp.value).subscribe((data: any) => {
-        this.loadingService.dismiss()
+        this.loadingSignup = false
         this.modalService.presentModal(ConfirmMailPage, this.formSignUp.value.email)
         // this.formSignUp.reset()
       },
         (error) => {
-          this.loadingService.dismiss()
+          this.loadingSignup = false
           this.toastService.present(error.message)
         }
       )

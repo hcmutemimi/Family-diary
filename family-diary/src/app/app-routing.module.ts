@@ -119,19 +119,6 @@ const routes: Routes = [
     path: 'maps',
     loadChildren: () => import('./@app-core/@modular/maps/maps.module').then( m => m.MapsPageModule)
   },
-
-  
-  
- 
-
-
-  
- 
- 
-
-  
- 
- 
   
 ];
 @NgModule({

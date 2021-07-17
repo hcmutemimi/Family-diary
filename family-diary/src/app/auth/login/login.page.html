@@ -69,6 +69,8 @@
           <ion-icon name="chevron-forward-outline" class="ion__next">
           </ion-icon>
         </ion-button>
+        <ion-spinner name="lines" *ngIf = "loadingLogin"></ion-spinner>
+
       </div>
     </div>
 
@@ -195,6 +197,7 @@
           <ion-icon name="chevron-forward-outline" class="ion__next">
           </ion-icon>
         </ion-button>
+        <ion-spinner name="lines" *ngIf = "loadingSignup"></ion-spinner>
       </div>
     </div>
   </div>

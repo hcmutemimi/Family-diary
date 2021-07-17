@@ -95,7 +95,8 @@ export class CalendarEventPage implements OnInit {
     const modal = await this.modal.create({
       component: AddEventPage,
       swipeToClose: true,
-      cssClass: 'modal__addToDo'
+      cssClass: 'modal__addToDo',
+      componentProps: { for: 'add' }
     })
     await modal.present()
     modal.onWillDismiss().then(() => {

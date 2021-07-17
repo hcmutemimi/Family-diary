@@ -136,10 +136,10 @@ export class HomePage implements OnInit {
       else {
         this.navController.back();
       }
+    
     })
   }
   // async presentAlert() {
-  //   this.alertPresented = true;
   //   const alert = await this.alertController.create({
   //     cssClass: 'logout-alert',
   //     header: 'Do you want to exit app?',

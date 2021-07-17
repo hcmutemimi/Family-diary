@@ -10,6 +10,7 @@ ion-content {
   
   .margin-bottom {
     margin-bottom: 20px;
+  
   }
   
   .label {
@@ -41,13 +42,21 @@ ion-content {
     font-size: 13px;
     margin: 6px;
   }
-  
+  .ion-text-right {
+    position: relative;
+  }
   .submit-btn {
     color: var(--main-color);
     --background: #dcf7f8;
     --border-radius: 18px;
     width: 45px;
     height: 45px;
+  }
+  ion-spinner {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 10px;
   }
   
   .body {
